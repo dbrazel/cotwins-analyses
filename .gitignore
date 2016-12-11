@@ -32,4 +32,8 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Environment variable files
 *.env
+
+# Data directory
+data/
