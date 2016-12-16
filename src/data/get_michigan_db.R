@@ -5,6 +5,8 @@ library(readr)
 library(RMySQL)
 library(dplyr)
 
+# Get the environment variables and use them to establish connections to the
+# two Michigan databases, one for user data and one for app data
 env_var_names <- c("USER_DATABASE_USER",
              "USER_DATABASE_PW",
              "USER_DATABASE_IP",
@@ -20,6 +22,9 @@ user_con <- dbConnect(MySQL(), user = env_vars[[1]], password = env_vars[[2]],
                       host = env_vars[[3]], dbname = env_vars[[4]])
 app_con <- dbConnect(MySQL(), user = env_vars[[5]], password = env_vars[[6]],
                      host = env_vars[[7]], dbname = env_vars[[8]])
+
+# Ensure that we will close the DB connections even if an error occurs
+# add = TRUE is necessary to have multiple on.exit statements
 on.exit(dbDisconnect(user_con))
 on.exit(dbDisconnect(app_con), add = TRUE)
 
@@ -38,12 +43,14 @@ user_tables <- c("google_location",
 
 today <- format(Sys.Date(), "_%m_%d_%y")
 
+# Get all records in each table and write them out to RDS format
 for(tabl in user_tables) {
   query <- dbSendQuery(user_con, paste0("SELECT * FROM ", tabl, ";"))
   df <- tbl_df(dbFetch(query, n = -1))
   write_rds(df, file.path("data", "raw", paste0("Michigan_DB_", tabl, today, ".rds")))
 }
 
+# Get only the columns we need from the app DB because there is sensitive data there
 query <- dbSendQuery(app_con, "SELECT id, creation_date, co_twin_id, 
                      alternate_id, colorado_id, app_type FROM users;")
 df <- tbl_df(dbFetch(query, n = -1))
