@@ -17,7 +17,7 @@ def get_sha256_colorado_id(colorado_id):
 paper = pd.read_csv(os.path.join("data", "raw",
                                  "Robin_paper-entry_12-6-16.csv"))
 users = pd.read_csv(os.path.join("data", "raw",
-                                 "Michigan_DB_users_12_12_16.csv"))
+                                 "Michigan_DB_users_02_01_17.csv"))
 
 # Create hashed versions of the twin 1 and twin 2 IDs
 paper["T1_Hashed"] = paper.T1.map(
