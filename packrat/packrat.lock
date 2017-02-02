@@ -23,6 +23,12 @@ Source: CRAN
 Version: 1.1-2
 Hash: c0d56cd15034f395874c870141870c25
 
+Package: RMySQL
+Source: CRAN
+Version: 0.10.9
+Hash: b8bcdfdc9acae319991297c75ffad5d8
+Requires: DBI
+
 Package: Rcpp
 Source: CRAN
 Version: 0.12.8
