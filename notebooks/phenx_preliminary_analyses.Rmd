@@ -9,62 +9,77 @@ library(ggplot2)
 library(readr)
 library(dplyr)
 library(broom)
+library(forcats)
 
+# The 'labelled' class columns need to be converted to standard data types
 phenx <- read_rds('../data/raw/Robin_PhenX_12-6-16.rds')
+phenx$id <- as.character(phenx$id)
 ever_drinkers <- phenx %>% filter(PHXQ0001 == 1)
 drinkers <- phenx %>% filter(PHXQ0002 == 1)
 
 twin_info <- read_rds('../data/raw/Robin_paper-entry_12-6-16.rds')
 
+twin_info$ID1 <- as.character(twin_info$ID1)
+twin_info$Test_AgeYears <- as.numeric(twin_info$Test_AgeYears)
+
+# Give sex more useful levels
+twin_info$Sex1 <- fct_recode(as.factor(twin_info$Sex1),
+                             'Male' = '1',
+                             'Female' = '2')
+
+# Join the data frames on SVID
+joined <- left_join(phenx, twin_info, by = c('id' = 'ID1'))
+
+# A function to format floats
 comma <- function(x) format(x, digits = 2, nsmall = 2, big.mark = ",")
 ```
 
 
-In the initial in-person COTWINS assessments, twins were asked standardized questions about substance use, derived from the [PhenX Toolkit](https://www.phenxtoolkit.org/index.php?pageLink=browse.conceptualgroups&id=3354&breadcrumbs=3354). The goal of this notebook is to do some preliminary descriptive analyses and QC on these data. The file I was sent by Robin only contains questions on alcohol, so that's what I'll examine here.
+In the initial in-person COTWINS assessments, twins were asked standardized questions about substance use, derived from the [PhenX Toolkit](https://www.phenxtoolkit.org/index.php?pageLink=browse.conceptualgroups&id=3354&breadcrumbs=3354). The goal of this notebook is to do some preliminary descriptive analyses and QC on these data.
 
-Out of `r nrow(phenx)` twins, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol. `r nrow(drinkers)` admit to having had more than five drinks. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers we'll want to eliminate:
+# Alcohol
 
-```{r Age of drinking initiation}
-ever_drinkers %>%
-  ggplot() + geom_histogram(aes(x = PHXQ0003), binwidth = 1) +
-  xlab('Age of Drinking Initiation')
+Out of `r nrow(phenx)` twins, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol. `r nrow(drinkers)` admit to having had more than five drinks. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers:
+
+```{r Age of drinking initiation, warning=FALSE}
+joined %>%
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0003, fill = Sex1), binwidth = 1) +
+  labs(fill = 'Sex', x = 'Age of Drinking Intiation')
 ```
 
 And the age at which participants began drinking once a month or more:
 
 ```{r Age of regular drinking}
-ever_drinkers %>%
+joined %>%
   filter(PHXQ0004 != 0) %>%
-  ggplot() + geom_histogram(aes(x = PHXQ0004), binwidth = 1) +
-  xlab('Age of Regular Drinking')
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0004, fill = Sex1), binwidth = 1) +
+  labs(fill = 'Sex', x = 'Age of Regular Drinking')
 ```
 We observe that the mean age of ever drinkers is 16.08 and that of never drinkers is 15.26. Summaries of other questions follow.
 
 During the past 30 days, on how many days did you have one or more drinks?
 
 ```{r Days in past month, warning=FALSE}
-ever_drinkers %>%
-  ggplot() + geom_histogram(aes(x = PHXQ0005), binwidth = 1) + 
-  xlab('Days of Drinking')
+joined %>%
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0005, fill = Sex1), binwidth = 1) + 
+  labs(fill = 'Sex', x = 'Days of Drinking')
 ```
 
 How does the number of days of drinking vary with age?
 
 ```{r Days in past month x age, warning=FALSE}
-ever_drinkers$id <- as.character(ever_drinkers$id)
-twin_info$ID1 <- as.character(twin_info$ID1)
-twin_info$Test_AgeYears <- as.numeric(twin_info$Test_AgeYears)
-
-left_join(ever_drinkers, twin_info, by = c('id' = 'ID1')) %>%
-  ggplot(aes(x = Test_AgeYears, y = PHXQ0005)) + geom_jitter() +
-  xlab('Age in Years') +
-  ylab('Days of Drinking')
+joined %>%
+  ggplot(aes(x = Test_AgeYears, y = PHXQ0005, color = Sex1)) + 
+  geom_jitter() +
+  labs(color = 'Sex', x = 'Age in Years', y = 'Drinks per Session')
 ```
 
 If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking.
 
 ```{r Days of drinking model}
-joined <- left_join(ever_drinkers, twin_info, by = c('id' = 'ID1'))
 glance(lm(PHXQ0005 ~ Test_AgeYears, data = joined))
 ```
 
@@ -72,19 +87,19 @@ glance(lm(PHXQ0005 ~ Test_AgeYears, data = joined))
 During the past 30 days, when you drank, how many drinks did you have?
 
 ```{r Drinks per session, warning=FALSE}
-ever_drinkers %>%
-  ggplot() + geom_histogram(aes(x = PHXQ0009), binwidth = 1) + 
-  xlab('Drinks per Session') +
+joined %>%
+  ggplot() + geom_histogram(aes(x = PHXQ0009, fill = Sex1), binwidth = 1) +
+  labs(fill = 'Sex', x = 'Drinks per Session') +
   scale_x_continuous(breaks = seq(1, 12))
 ```
 
 How does the number of drinks per session vary with age?
 
 ```{r Drinks per session x age, warning=FALSE}
-left_join(ever_drinkers, twin_info, by = c('id' = 'ID1')) %>%
-  ggplot(aes(x = Test_AgeYears, y = PHXQ0009)) + geom_jitter() +
-  xlab('Age in Years') +
-  ylab('Drinks per Session')
+joined %>%
+  ggplot(aes(x = Test_AgeYears, y = PHXQ0009, color = Sex1)) + 
+  geom_jitter() +
+  labs(color = 'Sex', x = 'Age in Years', y = 'Drinks per Session')
 ```
 
 If we fit a linear model, we can see that age in years is not significantly correlated with number of drinks per session.
