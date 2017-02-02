@@ -8,6 +8,7 @@ date: 2017-01-31
 library(ggplot2)
 library(readr)
 library(dplyr)
+library(broom)
 
 phenx <- read_rds('../data/raw/Robin_PhenX_12-6-16.rds')
 ever_drinkers <- phenx %>% filter(PHXQ0001 == 1)
@@ -60,6 +61,14 @@ left_join(ever_drinkers, twin_info, by = c('id' = 'ID1')) %>%
   ylab('Days of Drinking')
 ```
 
+If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking.
+
+```{r Days of drinking model}
+joined <- left_join(ever_drinkers, twin_info, by = c('id' = 'ID1'))
+glance(lm(PHXQ0005 ~ Test_AgeYears, data = joined))
+```
+
+
 During the past 30 days, when you drank, how many drinks did you have?
 
 ```{r Drinks per session, warning=FALSE}
@@ -77,3 +86,10 @@ left_join(ever_drinkers, twin_info, by = c('id' = 'ID1')) %>%
   xlab('Age in Years') +
   ylab('Drinks per Session')
 ```
+
+If we fit a linear model, we can see that age in years is not significantly correlated with number of drinks per session.
+
+```{r Drinks per session model}
+glance(lm(PHXQ0009 ~ Test_AgeYears, data = joined))
+```
+
