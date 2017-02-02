@@ -5,6 +5,7 @@ library(readr)
 library(RMySQL)
 library(dplyr)
 
+# Get env vars
 env_var_names <- c("USER_DATABASE_USER",
              "USER_DATABASE_PW",
              "USER_DATABASE_IP",
@@ -16,6 +17,8 @@ env_var_names <- c("USER_DATABASE_USER",
 
 env_vars <- Sys.getenv(env_var_names)
 
+# Connect to the databases and set the connections to disconnect, in case
+# script is terminated prematurely
 user_con <- dbConnect(MySQL(), user = env_vars[[1]], password = env_vars[[2]],
                       host = env_vars[[3]], dbname = env_vars[[4]])
 app_con <- dbConnect(MySQL(), user = env_vars[[5]], password = env_vars[[6]],
@@ -23,6 +26,8 @@ app_con <- dbConnect(MySQL(), user = env_vars[[5]], password = env_vars[[6]],
 on.exit(dbDisconnect(user_con))
 on.exit(dbDisconnect(app_con), add = TRUE)
 
+# Get all rows and columns from the desired tables and write them to RDS files
+# with the date in the file name
 user_tables <- c("google_location", 
                  "surveyentries",
                  "sys_account_switch_log",
@@ -44,7 +49,12 @@ for(tabl in user_tables) {
   write_rds(df, file.path("data", "raw", paste0("Michigan_DB_", tabl, today, ".rds")))
 }
 
+# Get only the needed columns from the users table
 query <- dbSendQuery(app_con, "SELECT id, creation_date, co_twin_id, 
                      alternate_id, colorado_id, app_type FROM users;")
 df <- tbl_df(dbFetch(query, n = -1))
 write_rds(df, file.path("data", "raw", paste0("Michigan_DB_users", today, ".rds")))
+
+# Close the DB connections
+dbDisconnect(user_con)
+dbDisconnect(app_con)
