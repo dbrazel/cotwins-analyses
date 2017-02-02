@@ -1,0 +1,830 @@
+NID  submitdate  lastpage  startlanguage  startdate  datestamp  id  PHXTESTER Tester ID
+PHXQ0001 In your entire life, have you had at least 1 drink of any kind of alcohol, not counting small tastes or sips? A drink is 1 12oz bottle of beer, 1 4oz glass of non-fortified wine, or 1 mixed drink with 1oz of liquor.
+PHXQ0002 In your entire life, have you had more than 5 drinks? A drink is 1 12oz bottle of beer, 1 4oz glass of non-fortified wine, or 1 mixed drink with 1oz of liquor.
+PHXQ0003 About how old were you when you first started drinking, not counting small tastes or sips of alcohol?
+PHXQ0004 About how old were you when you first started drinking once a month or more? (enter 0 if never drank alcohol regularly)
+PHXQ0005 During the past 30 days, on how many days did you drink one or more drinks of an alcoholic beverage?
+PHXQ0006 How old were you the last time you used alcohol?
+PHXQ0007 When you stopped using alcohol, did you ever have a period when you started using again (a relapse)?
+PHXQ0008 Has this happened more than once?
+PHXQ0009 On the days that you drank during the past 30 days, how many drinks did you usually have each day?
+PHXQ0010 On the days you drank in the past 30 days, for how much of the day were you typically feeling the effects of the alcohol?
+PHXQ0011_1 [morning] On the days you drank in the past 30 days, during which part(s) of the day were you typically feeling the effects of the alcohol? [Please check all that apply]
+PHXQ0011_2 [afternoon] On the days you drank in the past 30 days, during which part(s) of the day were you typically feeling the effects of the alcohol? [Please check all that apply]
+PHXQ0011_3 [evening] On the days you drank in the past 30 days, during which part(s) of the day were you typically feeling the effects of the alcohol? [Please check all that apply]
+PHXQ0011_4 [nighttime] On the days you drank in the past 30 days, during which part(s) of the day were you typically feeling the effects of the alcohol? [Please check all that apply]
+PHXQ0011_999 [would rather not answer] On the days you drank in the past 30 days, during which part(s) of the day were you typically feeling the effects of the alcohol? [Please check all that apply]
+PHXQ0013 Find that your usual number of drinks had much less effect on you than it once did?
+PHXQ0014 Did this happen in the last 12 months?
+PHXQ0015 Find that you had to drink much more than you once did to get the effect you wanted?
+PHXQ0016 Did this happen in the last 12 months?
+PHXQ0017 Drink as much as a fifth of liquor in one day, that would be about 20 drinks, or 3 bottles of wine, or as much as 3 six-packs of beer in a single day?
+PHXQ0018 Did this happen in the last 12 months?
+PHXQ0019 Increase your drinking because the amount you used to drink didnâ€™t give you the same effect anymore?
+PHXQ0020 Did this happen in the last 12 months?
+PHXQ0021 More than once want to stop or cut down on your drinking?
+PHXQ0022 Did this happen in the last 12 months?
+PHXQ0023 More than once TRY to stop or cut down on your drinking but found you couldnâ€™t do it?
+PHXQ0024 Did this happen in the last 12 months?
+PHXQ0025 Have a period when you ended up drinking more than you meant to?
+PHXQ0026 Did this happen in the last 12 months?
+PHXQ0027 Have a period when you kept on drinking for longer than you had intended to?
+PHXQ0028 Did this happen in the last 12 months?
+PHXQ0029 Experience alcohol craving, or a strong desire or urge to use alcohol?
+PHXQ0030 Did this happen in the last 12 months?
+PHXQ0031 Did you EVERâ€¦ Have trouble falling asleep or staying asleep (when the effects of alcohol were wearing off)?
+PHXQ0032 Did this happen in the last 12 months?
+PHXQ0033 Find yourself shaking (when the effects of alcohol were wearing off)?
+PHXQ0034 Did this happen in the last 12 months?
+PHXQ0035 Feel anxious or nervous (when the effects of alcohol were wearing off)?
+PHXQ0036 Did this happen in the last 12 months?
+PHXQ0037 Feel sick to your stomach or vomit (when the effects of alcohol were wearing off)?
+PHXQ0038 Did this happen in the last 12 months?
+PHXQ0039 Feel more restless than is usual for you (when the effects of alcohol were wearing off)?
+PHXQ0040 Did this happen in the last 12 months?
+PHXQ0041 Find yourself sweating or your heart beating fast (when the effects of alcohol were wearing off)?
+PHXQ0042 Did this happen in the last 12 months?
+PHXQ0043 See, feel, or hear things that werenâ€™t really there (when the effects of alcohol were wearing off)?
+PHXQ0044 Did this happen in the last 12 months?
+PHXQ0045 Have fits or seizures (when the effects of alcohol were wearing off)?
+PHXQ0046 Did this happen in the last 12 months?
+PHXQ0047 Have very bad headaches (when the effects of alcohol were wearing off)?
+PHXQ0048 Did this happen in the last 12 months?
+PHXQ0049 Were any of these bad aftereffects uncomfortable or upsetting to you or did they cause problems in your lifeâ€”like at work or school or with family or friends?
+PHXQ0050 In your ENTIRE LIFE, did you EVERâ€¦(PAUSE) Â  Take a drink or use any drug or medicine, other than aspirin, Advil or Tylenol, to GET OVER any of the bad aftereffects of drinking?
+PHXQ0051 Did this happen in the last 12 months?
+PHXQ0052 Take a drink or use any drug or medicine, other than aspirin, Advil or Tylenol, to KEEP FROM having any of these bad aftereffects of drinking?
+PHXQ0053 Did this happen in the last 12 months?
+PHXQ0054 Have a period when you spent a lot of time drinking?
+PHXQ0055 Did this happen in the last 12 months?
+PHXQ0056 Have a period when you spent a lot of time being sick or getting over the bad after effects of drinking?
+PHXQ0057 Did this happen in the last 12 months?
+PHXQ0058 Give up or cut down on activities that were important to you in order to drinkâ€” like work, school, or associating with friends or relatives?
+PHXQ0059 Did this happen in the last 12 months?
+PHXQ0060 Give up or cut down on activities that you were interested in or that gave you pleasure in order to drink?
+PHXQ0061 Did this happen in the last 12 months?
+PHXQ0062 Continue to drink even though you knew it was making you feel depressed, uninterested in things, or suspicious or distrustful of other people?
+PHXQ0063 Did this happen in the last 12 months?
+PHXQ0064 Continue to drink even though you knew it was causing you a health problem or making a health problem worse?
+PHXQ0065 Did this happen in the last 12 months?
+PHXQ0066 Continue to drink even though you had experienced a prior blackout, that is, awakened the next day not being able to remember some of the things you did while drinking or after drinking?
+PHXQ0067 Did this happen in the last 12 months?
+PHXQ0068 Have a period when your drinking or being sick from drinking often interfered with taking care of your home or family?
+PHXQ0069 Did this happen in the last 12 months?
+PHXQ0070 Have job or school troubles because of your drinking or being sick from drinking - like missing too much work, not doing your work well, being demoted or losing a job, or being suspended, expelled, or dropping out of school?
+PHXQ0071 Did this happen in the last 12 months?
+PHXQ0072 More than once drive a car or other vehicle WHILE you were drinking?
+PHXQ0073 Did this happen in the last 12 months?
+PHXQ0074 More than once ride in a car or other vehicle as a passenger WHILE the driver was drinking?
+PHXQ0075 Did this happen in the last 12 months?
+PHXQ0076 More than once drive a car, motorcycle, truck, boat, or other vehicle after having too much to drink?
+PHXQ0077 Did this happen in the last 12 months?
+PHXQ0078 Get into situations while drinking or after drinking that increased your chances of getting hurtâ€”like swimming, using machinery, or walking in a dangerous area or around heavy traffic?
+PHXQ0079 Did this happen in the last 12 months?
+PHXQ0080 Continue to drink even though you knew it was causing you trouble with your family or friends?
+PHXQ0081 Did this happen in the last 12 months?
+PHXQ0082 Get into physical fights while drinking or right after drinking?
+PHXQ0083 Did this happen in the last 12 months?
+PHXQ0084 Get arrested, held at a police station, or have any other legal problems because of your drinking?
+PHXQ0085 Did this happen in the last 12 months?
+PHXQ0086 Find that you could drink much LESS than you once did to get the effect you wanted?
+PHXQ0087 Did this happen in the last 12 months?
+PHXQ0088 Ride in a car as a passenger while you were drinking?
+PHXQ0089 Did this happen in the last 12 months?
+PHXQ0090 Have you smoked at least 100 cigarettes in your entire life?(Note to interviewer: 100 CIGARETTES = APPROXIMATELY 5 PACKS)
+PHXQ0091 Do you now smoke cigarettes every day, some days, or not at all?
+PHXQ0092 Have you EVER smoked cigarettes EVERY DAY for at least 6 months?
+PHXQ0093 How old were you when you first started smoking cigarettes every day? (enter 0 if don't know/refuse to answer)
+PHXQ0094 How old were you when you first started smoking cigarettes FAIRLY REGULARLY? (enter 0 if don't know/refuse to answer/never smoked regularly)
+PHXQ0095 How old were you the last time you used tobacco?
+PHXQ0096 When you stopped using tobacco, did you ever have a period when you started using again (a relapse)?
+PHXQ0097 Has this happened more than once?
+PHXQ0098 On the average, about how many cigarettes do you now smoke each day? (enter 0 if don't know/ refused)
+PHXQ0099 On how many of the past 30 days did you smoke cigarettes? (enter 0 for don't know/refused)
+PHXQ0100 On the average, on those {Q0099.shown} days, how many cigarettes did you usually smoke each day? (enter 0 if don't know/ refused) Â 
+PHXQ0101 Have you EVER smoked cigarettes EVERY DAY for at least 6 months?
+PHXQ0102 When you last smoked every day, on average how many cigarettes did you smoke each day? (enter 0 if don't know/ refused)
+PHXQ0103 When you last smoked fairly regularly, on average how many cigarettes did you smoke each day?
+PHXQ0104 How soon after you wake up do you smoke your first cigarette?
+PHXQ0105 Do you find it difficult to refrain from smoking in places where it is forbidden for example in church, at the library, at the movie theater, etc.?
+PHXQ0106 Which cigarette would you hate most to give up?
+PHXQ0107 Do you smoke more frequently during the first hours after waking than during the rest of the day?
+PHXQ0108 Do you smoke if you are so ill that you are in bed most of the day?
+PHXQ0109 Have you ever used other forms of tobacco (cigars, pipes, chew, snuff, other) more than 5 times in your life?
+PHXQ0110_1 [Cigars] What kinds of tobacco have you used more than 5 times?
+PHXQ0110_2 [E-Cigarettes] What kinds of tobacco have you used more than 5 times?
+PHXQ0110_3 [Chewing Tobacco] What kinds of tobacco have you used more than 5 times?
+PHXQ0110_4 [Pipe] What kinds of tobacco have you used more than 5 times?
+PHXQ0110_5 [Snuff] What kinds of tobacco have you used more than 5 times?
+PHXQ0110_other [Other] What kinds of tobacco have you used more than 5 times?
+PHXQ0111 Which type of tobacco have you used most often?
+PHXQ0111_other [Other] Which type of tobacco have you used most often? X129 
+PHXQ0113 More than once want to cut down on your tobacco use?
+PHXQ0114 Did this happen in the last 12 months?
+PHXQ0115 Give up or cut down on activities that you were interested in or that gave you pleasure because tobacco use was not permitted at the activity?
+PHXQ0116 Did this happen in the last 12 months?
+PHXQ0117 Give up or cut down on activities that were important to you â€” like associating with friends or relatives or attending social activities â€” because tobacco use was not permitted at the activity?
+PHXQ0118 Did this happen in the last 12 months?
+PHXQ0119 Continue to use tobacco even though you knew it was causing you a health problem or making a health problem worse?
+PHXQ0120 Did this happen in the last 12 months?
+PHXQ0121 Find yourself (chain smoking/using one pinch or plug of snuff or chewing tobacco right after another)?
+PHXQ0122 Did this happen in the last 12 months?
+PHXQ0123 More than once try to stop or cut down on your tobacco use but found you couldnâ€™t do it?
+PHXQ0124 Did this happen in the last 12 months?
+PHXQ0125 Experience tobacco craving, or a strong desire or urge to use tobacco?
+PHXQ0126 Did this happen in the last 12 months?
+PHXQ0127 Many people experience problems on occasions when they stop or cut down on their tobacco use. Â  After stopping or cutting down on your tobacco use, did you EVERâ€¦ Â  Feel depressed?
+PHXQ0128 Did this happen in the last 12 months?
+PHXQ0129 Have difficulty falling asleep or staying asleep (after stopping or cutting down on tobacco)?
+PHXQ0130 Did this happen in the last 12 months?
+PHXQ0131 Have difficulty concentrating (after stopping or cutting down on tobacco)?
+PHXQ0132 Did this happen in the last 12 months?
+PHXQ0133 Eat more than usual or gain weight (after stopping or cutting down on tobacco)?
+PHXQ0134 Did this happen in the last 12 months?
+PHXQ0135 Become easily irritated, angry, or frustrated (after stopping or cutting down on tobacco)?
+PHXQ0136 Did this happen in the last 12 months?
+PHXQ0137 Feel anxious or nervous (after stopping or cutting down on tobacco)?
+PHXQ0138 Did this happen in the last 12 months?
+PHXQ0139 Feel your heart beating more slowly than usual (after stopping or cutting down on tobacco)?
+PHXQ0140 Did this happen in the last 12 months?
+PHXQ0141 Feel more restless than usual (after stopping or cutting down on tobacco)?
+PHXQ0142 Did this happen in the last 12 months?
+PHXQ0143 Were any of these experiences very uncomfortable or upsetting to you or did they cause problems in your life like at work or school or with family or friends?
+PHXQ0144 Did you use tobacco in the last 12 months to keep from having any of these experiences?
+PHXQ0145 In your ENTIRE LIFE, did you EVERâ€¦ Â  Wake up in the middle of the night to use tobacco?
+PHXQ0146 Did this happen in the last 12 months?
+PHXQ0147 Often use tobacco just after getting up or shortly after getting up in the morning?
+PHXQ0148 Did this happen in the last 12 months?
+PHXQ0149 Find yourself using tobacco JUST AFTER being in a situation where tobacco use was not permitted â€” like after being on a plane, at a meeting, or shopping at the mall?
+PHXQ0150 Did this happen in the last 12 months?
+PHXQ0151 Find that you had to use much more tobacco than you once did to get the effect you wanted?
+PHXQ0152 Did this happen in the last 12 months?
+PHXQ0153 Increase your use of tobacco by at least 50 percent?
+PHXQ0154 Did this happen in the last 12 months?
+PHXQ0155 Have a period when you often used tobacco more than you intended to?
+PHXQ0156 Did this happen in the last 12 months?
+PHXQ0157 Continue to use tobacco even though it made you nervous, jittery, anxious, or depressed?
+PHXQ0158 Did this happen in the last 12 months?
+PHXQ0159_SED [Sedatives, for example, sleeping pills, barbiturates, SeconalÂ®, Quaaludes, or Chloral Hydrate] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_SEDcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_TRAN [Tranquilizers or anti-anxiety drugs, for example, ValiumÂ®, LibriumÂ®, muscle relaxants, or Zanax] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_TRANcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_PAIN [Painkillers, for example, Codeine, DarvonÂ®, PercodanÂ®, OxycontinÂ®, DilaudidÂ®, DemerolÂ®, CelebrexÂ®or VioxxÂ®- ] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_PAINcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_STIM [Stimulants, for example, PreludinÂ®, BenzedrineÂ®, MethedrineÂ®, RitalinÂ®, uppers, speed, meth, crystal (meth), or ice ] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_STIMcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_MAR [Marijuana, hash, THC, or grass (please specify medical or recreational marijuana or both)] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_MARcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_COC [Cocaine or crack ] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_COCcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_HAL [Hallucinogens, for example, Ecstasy/MDMA, LSD, mescaline, psilocybin, PCP, angel dust, or peyote ] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_HALcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_SOL [Inhalants or solvents, for example, amyl nitrite, nitrous oxide, glue, toluene or gasoline ] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_SOLcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_HER [Heroin] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_HERcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_OTH [Any OTHER medicines, or drugs, or substances, for example, methadone, ElavilÂ®, steroids, ThorazineÂ® or HaldolÂ®?
+PHXQ0159_OTHcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_NONE [NO DRUGS] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_NONEcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_WRNA [Would Rather Not Answer] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0159_WRNAcomment [Comment] Have you EVER used any of these medicines or drugs? (specify drug(s) in field to the right):
+PHXQ0160_SED [Sedatives, for example, sleeping pills, barbiturates, SeconalÂ®, Quaaludes, or Chloral Hydrate] Have you used any of these drugs more than 5 times?
+PHXQ0160_TRAN [Tranquilizers or anti-anxiety drugs, for example, ValiumÂ®, LibriumÂ®, muscle relaxants, or Zanax] Have you used any of these drugs more than 5 times?
+PHXQ0160_PAIN [Painkillers, for example, Codeine, DarvonÂ®, PercodanÂ®, OxycontinÂ®, DilaudidÂ®, DemerolÂ®, CelebrexÂ®or VioxxÂ®- ] Have you used any of these drugs more than 5 times?
+PHXQ0160_STIM [Stimulants, for example, PreludinÂ®, BenzedrineÂ®, MethedrineÂ®, RitalinÂ®, uppers, or speed ] Have you used any of these drugs more than 5 times?
+PHXQ0160_MAR [Marijuana, hash, THC, or grass ] Have you used any of these drugs more than 5 times?
+PHXQ0160_COC [Cocaine or crack ] Have you used any of these drugs more than 5 times?
+PHXQ0160_HAL [Hallucinogens, for example, Ecstasy/MDMA, LSD, mescaline, psilocybin, PCP, angel dust, or peyote ] Have you used any of these drugs more than 5 times?
+PHXQ0160_SOL [Inhalants or solvents, for example, amyl nitrite, nitrous oxide, glue, toluene or gasoline ] Have you used any of these drugs more than 5 times?
+PHXQ0160_HER [Heroin] Have you used any of these drugs more than 5 times?
+PHXQ0160_OTH [Any OTHER medicines, or drugs, or substances, for example, methadone, ElavilÂ®, steroids, ThorazineÂ® or HaldolÂ®? - (SELECT MOST FREQUENTLY USED OTHER DRUG)] Have you used any of these drugs more than 5 times?
+PHXQ0160_NO [None] Have you used any of these drugs more than 5 times?
+PHXQ0160_WRNA2 [Would Rather Not Answer] Have you used any of these drugs more than 5 times?
+PHXQ0161_SED [Sedatives, for example, sleeping pills, barbiturates, SeconalÂ®, Quaaludes, or Chloral Hydrate] Which drugs have you used in the past 12 months?
+PHXQ0161_TRAN [Tranquilizers or anti-anxiety drugs, for example, ValiumÂ®, LibriumÂ®, muscle relaxants, or Zanax] Which drugs have you used in the past 12 months?
+PHXQ0161_PAIN [Painkillers, for example, Codeine, DarvonÂ®, PercodanÂ®, OxycontinÂ®, DilaudidÂ®, DemerolÂ®, CelebrexÂ®or VioxxÂ®- ] Which drugs have you used in the past 12 months?
+PHXQ0161_STIM [Stimulants, for example, PreludinÂ®, BenzedrineÂ®, MethedrineÂ®, RitalinÂ®, uppers, or speed ] Which drugs have you used in the past 12 months?
+PHXQ0161_MAR [Marijuana, hash, THC, or grass ] Which drugs have you used in the past 12 months?
+PHXQ0161_COC [Cocaine or crack ] Which drugs have you used in the past 12 months?
+PHXQ0161_HAL [Hallucinogens, for example, Ecstasy/MDMA, LSD, mescaline, psilocybin, PCP, angel dust, or peyote ] Which drugs have you used in the past 12 months?
+PHXQ0161_SOL [Inhalants or solvents, for example, amyl nitrite, nitrous oxide, glue, toluene or gasoline ] Which drugs have you used in the past 12 months?
+PHXQ0161_HER [Heroin] Which drugs have you used in the past 12 months?
+PHXQ0161_OTH [Any OTHER medicines, or drugs, or substances, for example, methadone, ElavilÂ®, steroids, ThorazineÂ® or HaldolÂ®? - (SELECT MOST FREQUENTLY USED OTHER DRUG)] Which drugs have you used in the past 12 months?
+PHXQ0161_NO3 [No Drugs in past 12 months] Which drugs have you used in the past 12 months?
+PHXQ0161_WRNA3 [Would Rather Not Answer] Which drugs have you used in the past 12 months?
+PHXQ0162 How old were you when you FIRST used sedatives?
+PHXQ0163 How old were you when you FIRST started using Sedatives once a month or more? Â  Enter 0 if never used regularly
+PHXQ0164 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use any sedatives? Â  DATEFILL is 30 days prior to this interview
+PHXQ0165 How old were you the last time you used sedatives?
+PHXQ0166 When you stopped using sedatives, did you ever have a period when you started using again (a relapse)?
+PHXQ0167 Has this happened more than once?
+PHXQ0168 How old were you when you FIRST used tranquilizers?
+PHXQ0169 How old were you when you FIRST started using Tranquilizers once a month or more? Â  Enter 0 if never used regularly
+PHXQ0170 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use tranquilizers or anti-anxiety drugs? Â  DATEFILL is 30 days prior to this interview
+PHXQ0171 How old were you the last time you used tranquilizers?
+PHXQ0172 When you stopped using tranquilizers, did you ever have a period when you started using again (a relapse)?
+PHXQ0173 Has this happened more than once?
+PHXQ0174 How old were you when you FIRST used painkillers?
+PHXQ0175 How old were you when you FIRST started using Painkillers once a month or more? Â  Enter 0 if never used regularly
+PHXQ0176 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use painkillers? Â  DATEFILL is 30 days prior to this interview
+PHXQ0177 How old were you the last time you used painkillers?
+PHXQ0178 When you stopped using painkillers, did you ever have a period when you started using again (a relapse)?
+PHXQ0179 Has this happened more than once?
+PHXQ0180 How old were you when you FIRST used stimulants?
+PHXQ0181 How old were you when you FIRST started using Stimulants once a month or more? Â  Enter 0 if never used regularly
+PHXQ0182 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use stimulants? Â  DATEFILL is 30 days prior to this interview
+PHXQ0183 How old were you the last time you used stimulants?
+PHXQ0184 When you stopped using stimulants, did you ever have a period when you started using again (a relapse)?
+PHXQ0185 Has this happened more than once?
+PHXQ0186 How old were you when you FIRST used marijuana?
+PHXQ0187 How old were you when you FIRST started using Marijuana once a month or more? Â  Enter 0 if never used regularly
+PHXQ0188 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use marijuana or hashish? Â  DATEFILL is 30 days prior to this interview
+PHXQ0189 During the past 30 days how did you obtain marijuana most often?
+PHXQ0189_other [Other]  During the past 30 days how did you obtain marijuana most often?
+PHXQ0190 How old were you the last time you used marijuana?
+PHXQ0191 When you stopped using marijuana, did you ever have a period when you started using again (a relapse)?
+PHXQ0192 Has this happened more than once?
+PHXQ0193 How old were you when you FIRST used cocaine or crack?
+PHXQ0194 How old were you when you FIRST started using Cocaine or Crack once a month or more? Â  Enter 0 if never used regularly
+PHXQ0195 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use cocaine or crack? Â  DATEFILL is 30 days prior to this interview
+PHXQ0196 How old were you the last time you used cocaine?
+PHXQ0197 When you stopped using cocaine, did you ever have a period when you started using again (a relapse)?
+PHXQ0198 Has this happened more than once?
+PHXQ0199 How old were you when you FIRST used hallucinogens?
+PHXQ0200 How old were you when you FIRST started using Hallucinogens once a month or more? Â  Enter 0 if never used regularly
+PHXQ0201 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use any hallucinogens? Â  DATEFILL is 30 days prior to this interview
+PHXQ0202 How old were you the last time you used hallucinogens?
+PHXQ0203 When you stopped using hallucinogens, did you ever have a period when you started using again (a relapse)?
+PHXQ0204 Has this happened more than once?
+PHXQ0205 How old were you when you FIRST used inhalents/solvents?
+PHXQ0206 How old were you when you FIRST started using Inhalents/Solvents once a month or more? Â  Enter 0 if never used regularly
+PHXQ0207 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use any inhalant for kicks or to get high? Â  DATEFILL is 30 days prior to this interview
+PHXQ0208 How old were you the last time you used inhalants?
+PHXQ0209 When you stopped using inhalants, did you ever have a period when you started using again (a relapse)?
+PHXQ0210 Has this happened more than once?
+PHXQ0211 How old were you when you FIRST used heroin?
+PHXQ0212 How old were you when you FIRST started using Heroin once a month or more? Â  Enter 0 if never used regularly
+PHXQ0213 Think specifically about the past 30 days, from [DATEFILL**] up to and including today. During the past 30 days, on how many days did you use any heroin? Â  DATEFILL is 30 days prior to this interview
+PHXQ0214 How old were you the last time you used heroin?
+PHXQ0215 When you stopped using heroin, did you ever have a period when you started using again (a relapse)?
+PHXQ0216 Has this happened more than once?
+PHXQ0217 How old were you when you FIRST used other drugs? (first drug on list)
+PHXQ0218 How old were you when you FIRST started using Other Drugs once a month or more? Â  Enter 0 if never used regularly
+PHXQ0219 During the past 30 days, on how many days did you use any other medicines or drugs or substances?
+PHXQ0220 How old were you the last time you used other drug?
+PHXQ0221 When you stopped using other drug, did you ever have a period when you started using again (a relapse)?
+PHXQ0222 Has this happened more than once?
+PHXQ0223 On the days you used a medicine or drug in the past 30 days, for how much of the day were you typically feeling the effects of that substance?
+PHXQ0224_1 [morning]  On the days you used a medicine or drug in the past 30 days, during which part(s) of the day were you typically feeling the effects of that substance? [Please check all that apply]   Â Â Â 
+PHXQ0224_2 [afternoon]  On the days you used a medicine or drug in the past 30 days, during which part(s) of the day were you typically feeling the effects of that substance? [Please check all that apply]   Â Â Â 
+PHXQ0224_3 [evening]  On the days you used a medicine or drug in the past 30 days, during which part(s) of the day were you typically feeling the effects of that substance? [Please check all that apply]   Â Â Â 
+PHXQ0224_4 [nighttime]  On the days you used a medicine or drug in the past 30 days, during which part(s) of the day were you typically feeling the effects of that substance? [Please check all that apply]   Â Â Â 
+PHXQ0224_999 [would rather not answer]  On the days you used a medicine or drug in the past 30 days, during which part(s) of the day were you typically feeling the effects of that substance? [Please check all that apply]   Â Â Â 
+PHXQ0226 Have arguments with your spouse, boyfriend/girlfriend, family, or friends as a result of your medicine or drug use?
+PHXQ0227 Did this happen in the last 12 months?
+PHXQ0228_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0228_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0229 Get into physical fights while under the influence of a medicine or drug?
+PHXQ0230 Did this happen in the last 12 months?
+PHXQ0231_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0231_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0232 Continue to use a medicine or drug even though you knew it was causing you trouble with your family and friends?
+PHXQ0233 Did this happen in the last 12 months?
+PHXQ0234_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0234_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0235 Have job or school troubles as a result of your medicine or drug useâ€”like missing too much work, not doing your work well, being demoted or losing a job, or being suspended, expelled or dropping out of school?
+PHXQ0236 Did this happen in the last 12 months?
+PHXQ0237_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0237_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0238 Have a period when your medicine or drug use or your being sick from your medicine or drug use often interfered with taking care of your home or family?
+PHXQ0239 Did this happen in the last 12 months?
+PHXQ0240_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0240_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0241 Accidentally injure yourself while under the influence of a medicine or drug, for example, have a bad fall or cut yourself badly, get hurt in a traffic accident or anything like that?
+PHXQ0242 Did this happen in the last 12 months?
+PHXQ0243_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0243_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0244 More than once drive a car, motorcycle, truck, boat, or other vehicle when you were under the influence of a medicine or drug?
+PHXQ0245 Did this happen in the last 12 months?
+PHXQ0246_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0246_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0247 Find yourself under the influence of a medicine or drug or feeling its aftereffects in situations that increased your chances of getting hurtâ€” like swimming, using machinery, or walking in a dangerous area or around heavy traffic?
+PHXQ0248 Did this happen in the last 12 months?
+PHXQ0249_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0249_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0250 Get arrested, get held at a police station or have any other legal problems because of your medicine or drug use?
+PHXQ0251 Did this happen in the last 12 months?
+PHXQ0252_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0252_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0254 More than once want to stop or cut down on using any of these medicines or drugs?
+PHXQ0255 Did this happen in the last 12 months?
+PHXQ0256_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0256_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0257 More than once try to stop or cut down on using any of these medicines or drugs but found you couldnâ€™t do it?
+PHXQ0258 Did this happen in the last 12 months?
+PHXQ0259_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0259_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0260 Often use a medicine or drug in larger amounts or for a much longer period than you meant to?
+PHXQ0261 Did this happen in the last 12 months?
+PHXQ0262_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0262_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0263 Have a period when you spent a lot of time using a medicine or drug or getting over its bad aftereffects?
+PHXQ0264 Did this happen in the last 12 months?
+PHXQ0265_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0265_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0266 Have a period when you spent a lot of time making sure you always had enough of a medicine or drug available?
+PHXQ0267 Did this happen in the last 12 months?
+PHXQ0268_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0268_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0269 Experience drug craving, or a strong desire or urge to use a drug?
+PHXQ0270 Did this happen in the last 12 months?
+PHXQ0271_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0271_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0272 Did you ever have any of the following bad after effects when the effects of a medicine or drug were wearing off? For example, did you EVER: Sleep more than usual?
+PHXQ0273 Did this happen in the last 12 months?
+PHXQ0274_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0274_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0275 Feel weak or tired (when the effects of a medicine or drug were wearing off)?
+PHXQ0276 Did this happen in the last 12 months?
+PHXQ0277_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0277_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0278 Feel depressed (when the effects of a drug or medicine were wearing off)?
+PHXQ0279 Did this happen in the last 12 months?
+PHXQ0280_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0280_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0281 Find yourself sweating or your heart beating fast (when the effects of a medicine or drug were wearing off)?
+PHXQ0282 Did this happen in the last 12 months?
+PHXQ0283_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0283_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0284 Have nausea, vomiting or a stomach ache (when the effects of a drug or medicine were wearing off)?
+PHXQ0285 Did this happen in the last 12 months?
+PHXQ0286_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0286_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0287 Yawn a lot (when the effects of a medicine or drug were wearing off)?
+PHXQ0288 Did this happen in the last 12 months?
+PHXQ0289_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0289_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0290 Have runny eyes or a runny nose (when the effects of a drug or medicine were wearing off)?
+PHXQ0291 Did this happen in the last 12 months?
+PHXQ0292_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0292_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0293 Eat more than usual or gain weight (when the effects of a medicine or drug were wearing off)?
+PHXQ0294 Did this happen in the last 12 months?
+PHXQ0295_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0295_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0296 Feel anxious or nervous (when the effects of a drug or medicine were wearing off)?
+PHXQ0297 Did this happen in the last 12 months?
+PHXQ0298_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0298_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0299 Have muscle aches or cramps or diarrhea (when the effects of a medicine or drug were wearing off)?
+PHXQ0300 Did this happen in the last 12 months?
+PHXQ0301_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0301_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0302 Have a fever (when the effects of a drug or medicine were wearing off)?
+PHXQ0303 Did this happen in the last 12 months?
+PHXQ0304_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0304_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0305 Became so restless you fidgeted, paced or couldnâ€™t sit still (when the effects of a medicine or drug were wearing off)?
+PHXQ0306 Did this happen in the last 12 months?
+PHXQ0307_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0307_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0308 Move or talk much more slowly than usual (when the effects of a drug or medicine were wearing off)?
+PHXQ0309 Did this happen in the last 12 months?
+PHXQ0310_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0310_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0311 Find yourself sweating, your pupils dilating or your hair standing up (when the effects of a medicine or drug were wearing off)?
+PHXQ0312 Did this happen in the last 12 months?
+PHXQ0313_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0313_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0314 Have unpleasant dreams that often seemed real (when the effects of a drug or medicine were wearing off)?
+PHXQ0315 Did this happen in the last 12 months?
+PHXQ0316_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0316_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0317 See, feel or hear things that werenâ€™t really there (when the effects of a medicine or drug were wearing off)?
+PHXQ0318 Did this happen in the last 12 months?
+PHXQ0319_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0319_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0320 Find yourself shaking (when the effects of a drug or medicine were wearing off)?
+PHXQ0321 Did this happen in the last 12 months?
+PHXQ0322_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0322_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0323 Have trouble falling asleep or staying asleep (when the effects of a medicine or drug were wearing off)?
+PHXQ0324 Did this happen in the last 12 months?
+PHXQ0325_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0325_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0326 Have fits or seizures (when the effects of a drug or medicine were wearing off)?
+PHXQ0327 Did this happen in the last 12 months?
+PHXQ0328_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0328_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0329 Have very bad headaches (when the effects of a medicine or drug were wearing off)?
+PHXQ0330 Did this happen in the last 12 months?
+PHXQ0331_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0331_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0332 In your ENTIRE LIFE, did you EVER take more of the same or a similar medicine or drug to get over or avoid any of these bad aftereffects?
+PHXQ0333 Did this happen in the last 12 months?
+PHXQ0334_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0334_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0335 Find that your usual amount of a medicine or drug had much less effect on you than it once did?
+PHXQ0336 Did this happen in the last 12 months?
+PHXQ0337_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0337_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0338 Find that you had to use much more of a medicine or drug than you once did to get the effect you wanted?
+PHXQ0339 Did this happen in the last 12 months?
+PHXQ0340_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0340_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0341 Give up or cut down on activities that were important to you in order to use a medicine or drugâ€”like work, school, or associating with friends or relatives?
+PHXQ0342 Did this happen in the last 12 months?
+PHXQ0343_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0343_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0344 Give up or cut down on activities that you were interested in or that gave you pleasure in order to use a medicine or drug?
+PHXQ0345 Did this happen in the last 12 months?
+PHXQ0346_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0346_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0347 Continue to use a medicine or drug even though it was making you feel depressed, uninterested in things, or suspicious or distrustful of other people?
+PHXQ0348 Did this happen in the last 12 months?
+PHXQ0349_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0349_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0350 Continue to use a medicine or drug even though you knew it was causing you a health problem or making a health problem worse?
+PHXQ0351 Did this happen in the last 12 months?
+PHXQ0352_SED [Sedatives] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_TRAN [Tranquilizers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_PAIN [Painkillers] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_STIM [Stimulants] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_MAR [Marijuana/Hashish] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_COC [Cocaine/Crack] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_HAL [Hallucinogens] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_SOL [Inhalents/Solvents] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_HER [Heroin] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_OTH [Other Drugs] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0352_DK [Don't Know] During the last 12 months, which medicines or drugs did this happen with?
+PHXQ0353 Tester Comments if applicable id1 
