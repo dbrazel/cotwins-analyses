@@ -74,7 +74,7 @@ How does the number of days of drinking vary with age?
 joined %>%
   ggplot(aes(x = Test_AgeYears, y = PHXQ0005, color = Sex1)) + 
   geom_jitter() +
-  labs(color = 'Sex', x = 'Age in Years', y = 'Drinks per Session')
+  labs(color = 'Sex', x = 'Age in Years', y = 'Days of Drinking')
 ```
 
 If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking.
