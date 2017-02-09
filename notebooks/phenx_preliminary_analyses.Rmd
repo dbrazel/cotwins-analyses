@@ -107,7 +107,7 @@ joined %>%
   labs(color = 'Sex', x = 'Age in Years', y = 'Days of Drinking')
 ```
 
-If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking if we include drinkers who did not drink in the past month as zeroes.
+If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking when we include drinkers who did not drink in the past month as zeroes.
 
 ```{r Days of drinking model}
 glance(lm(PHXQ0005 ~ Age, data = joined))
