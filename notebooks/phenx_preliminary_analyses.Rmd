@@ -17,10 +17,21 @@ phenx$id <- as.character(phenx$id)
 ever_drinkers <- phenx %>% filter(PHXQ0001 == 1)
 drinkers <- phenx %>% filter(PHXQ0002 == 1)
 
+# Set non-drinkers who have had at least one drink to zero instead of missing
+# on Days of Drinking (PHXQ0005) and on Drinks per Session (PHXQ0009)
+phenx$PHXQ0005[is.na(phenx$PHXQ0005) & !is.na(phenx$PHXQ0003)] = 0
+phenx$PHXQ0009[is.na(phenx$PHXQ0009) & !is.na(phenx$PHXQ0003)] = 0
+
 twin_info <- read_rds('../data/raw/Robin_paper-entry_12-6-16.rds')
 
 twin_info$ID1 <- as.character(twin_info$ID1)
 twin_info$Test_AgeYears <- as.numeric(twin_info$Test_AgeYears)
+twin_info$Test_AgeMonths <- as.numeric(twin_info$Test_AgeMonths)
+twin_info$Test_AgeDays <- as.numeric(twin_info$Test_AgeDays)
+
+# Calculate a single age variable
+twin_info$Age <- twin_info$Test_AgeYears + (twin_info$Test_AgeMonths / 12) + 
+  (twin_info$Test_AgeDays / 365)
 
 # Give sex more useful levels
 twin_info$Sex1 <- fct_recode(as.factor(twin_info$Sex1),
@@ -37,15 +48,34 @@ comma <- function(x) format(x, digits = 2, nsmall = 2, big.mark = ",")
 
 In the initial in-person COTWINS assessments, twins were asked standardized questions about substance use, derived from the [PhenX Toolkit](https://www.phenxtoolkit.org/index.php?pageLink=browse.conceptualgroups&id=3354&breadcrumbs=3354). The goal of this notebook is to do some preliminary descriptive analyses and QC on these data.
 
+The age distribution of the twins is:
+
+```{r}
+joined %>%
+  ggplot() +
+  geom_histogram(aes(x = Age, fill = Sex1), binwidth = 0.5) +
+  labs(fill = 'Sex', x = 'Age in Years')
+```
+
+Oddly, nine twins have missing values for their ages in months or days at test:
+
+```{r}
+twin_info %>%
+  filter(is.na(Age)) %>%
+  select(Test_Year:Test_AgeDays, Age) %>%
+  knitr::kable()
+```
+
+
 # Alcohol
 
-Out of `r nrow(phenx)` twins, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol. `r nrow(drinkers)` admit to having had more than five drinks. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers:
+Out of `r nrow(phenx)` twins, `r joined %>% filter(Sex1 == 'Male') %>% nrow()` male and `r joined %>% filter(Sex1 == 'Female') %>% nrow()` female, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol. `r nrow(drinkers)` admit to having had more than five drinks. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers:
 
 ```{r Age of drinking initiation, warning=FALSE}
 joined %>%
   ggplot() + 
   geom_histogram(aes(x = PHXQ0003, fill = Sex1), binwidth = 1) +
-  labs(fill = 'Sex', x = 'Age of Drinking Intiation')
+  labs(fill = 'Sex', x = 'Age of Drinking Initiation')
 ```
 
 And the age at which participants began drinking once a month or more:
@@ -72,15 +102,15 @@ How does the number of days of drinking vary with age?
 
 ```{r Days in past month x age, warning=FALSE}
 joined %>%
-  ggplot(aes(x = Test_AgeYears, y = PHXQ0005, color = Sex1)) + 
+  ggplot(aes(x = Age, y = PHXQ0005, color = Sex1)) + 
   geom_jitter() +
   labs(color = 'Sex', x = 'Age in Years', y = 'Days of Drinking')
 ```
 
-If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking.
+If we fit a linear model, we can see that age in years is not significantly correlated with days of drinking if we include drinkers who did not drink in the past month as zeroes.
 
 ```{r Days of drinking model}
-glance(lm(PHXQ0005 ~ Test_AgeYears, data = joined))
+glance(lm(PHXQ0005 ~ Age, data = joined))
 ```
 
 
@@ -97,14 +127,17 @@ How does the number of drinks per session vary with age?
 
 ```{r Drinks per session x age, warning=FALSE}
 joined %>%
-  ggplot(aes(x = Test_AgeYears, y = PHXQ0009, color = Sex1)) + 
+  ggplot(aes(x = Age, y = PHXQ0009, color = Sex1)) + 
   geom_jitter() +
   labs(color = 'Sex', x = 'Age in Years', y = 'Drinks per Session')
 ```
 
-If we fit a linear model, we can see that age in years is not significantly correlated with number of drinks per session.
+If we fit a linear model, we can see that age in years is significantly correlated with number of drinks per session if we include drinkers who did not drink in the past month as zeroes.
 
 ```{r Drinks per session model}
-glance(lm(PHXQ0009 ~ Test_AgeYears, data = joined))
+glance(lm(PHXQ0009 ~ Age, data = joined))
 ```
+
+# Tobacco
+
 
