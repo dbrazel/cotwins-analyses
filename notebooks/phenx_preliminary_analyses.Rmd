@@ -69,7 +69,7 @@ twin_info %>%
 
 # Alcohol
 
-Out of `r nrow(phenx)` twins, `r joined %>% filter(Sex1 == 'Male') %>% nrow()` male and `r joined %>% filter(Sex1 == 'Female') %>% nrow()` female, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol. `r nrow(drinkers)` admit to having had more than five drinks. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers:
+Out of `r nrow(phenx)` twins, `r joined %>% filter(Sex1 == 'Male') %>% nrow()` male and `r joined %>% filter(Sex1 == 'Female') %>% nrow()` female, `r nrow(ever_drinkers)` admit to having at least one drink of alcohol and `r nrow(drinkers)` admit to having had more than five drinks of whom `r joined %>% filter(PHXQ0001 == 1, Sex1 == 'Male') %>% nrow()` and `r joined %>% filter(PHXQ0002 == 1, Sex1 == 'Male') %>% nrow()` are male, respectively. The mean age of drinking initiation was `r comma(mean(ever_drinkers$PHXQ0003))`, with this distribution, which shows some obvious outliers:
 
 ```{r Age of drinking initiation, warning=FALSE}
 joined %>%
@@ -140,4 +140,37 @@ glance(lm(PHXQ0009 ~ Age, data = joined))
 
 # Tobacco
 
+`r joined %>% filter(PHXQ0090 == 1) %>% nrow()` twins have smoked at least 100 cigarettes.
+
+# Marijuana
+
+`r joined %>% filter(PHXQ0159_MAR == 'Y') %>% nrow()` twins admit to having used marijuana. `r joined %>% filter(PHXQ0160_MAR == 'Y') %>% nrow()` twins admit to having used marijuana more than five times. The mean age of first use is `r comma(mean(joined$PHXQ0186, na.rm = T))`. The mean age at which twins began using marijuana once a month or more is `r comma(mean(joined$PHXQ0187[joined$PHXQ0187 != 0], na.rm = T))`.
+
+```{r}
+joined %>%
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0186, fill = Sex1), binwidth = 1) +
+  labs(x = 'Age of First Use', fill = 'Sex')
+```
+
+```{r}
+joined %>%
+  filter(PHXQ0187 != 0) %>%
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0187, fill = Sex1), binwidth = 1) +
+  labs(x = 'Age of Regular Use', fill = 'Sex')
+```
+
+```{r}
+joined %>%
+  ggplot() + 
+  geom_histogram(aes(x = PHXQ0188, fill = Sex1), binwidth = 1) +
+  labs(x = 'Days of Use', fill = 'Sex', title = 'Days of Use in the Past 30 Days')
+```
+
+Some sources of marijuana mentioned by participants:
+
+```{r}
+unique(joined$PHXQ0189_other)
+```
 
