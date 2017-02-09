@@ -33,3 +33,7 @@ data/processed
 packrat/lib*/
 # Temp files
 *~
+# Sublime Text files
+*sublime*
+#macOS attribute files
+*DS_Store*
