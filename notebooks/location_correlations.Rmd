@@ -1,0 +1,38 @@
+---
+title: "Rough Twin Location Correlation Analyses"
+output: html_notebook
+date: 2017-03-01
+---
+
+
+```{r setup}
+library(readr)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+
+twin_info <- read_rds('../data/raw/Robin_paper-entry_12-6-16.rds')
+locations <- read_rds('../data/raw/Michigan_DB_user_location_02_01_17.rds')
+id_mapping <- read_csv('../data/processed/id_mapping.csv', col_types = 
+                         cols(
+                           T1 = col_character(),
+                           T2 = col_character(),
+                           T1_alternate_id = col_character(),
+                           T2_alternate_id = col_character(),
+                           bestzygos = col_character()
+                         ))
+```
+
+```{r}
+locations  <- na.omit(locations)
+locations <- unique(locations)
+locations <- mutate(locations, creation_date = ymd_hms(creation_date), sample_time = ymd_hms(sample_time))
+```
+
+```{r}
+locations %>% filter(accuracy < 5000) %>% ggplot(aes(x = accuracy)) + geom_histogram(binwidth = 50)
+```
+```{r}
+locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2016-06-09'), sample_time < ymd('2017-02-01'))
+```
+
