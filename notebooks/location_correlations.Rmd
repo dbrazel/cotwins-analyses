@@ -1,9 +1,9 @@
 ---
-title: "Rough Twin Location Correlation Analyses"
+title: "Rough Twin Location Distance Analyses"
 output: html_notebook
 date: 2017-03-01
 ---
-
+A hacky initial approach to looking at twin GPS distances by twin status.
 
 ```{r setup}
 library(readr)
@@ -24,9 +24,11 @@ id_mapping <- read_csv('../data/processed/id_mapping.csv', col_types =
 ```
 
 ```{r}
-locations  <- na.omit(locations)
-locations <- unique(locations)
-locations <- mutate(locations, creation_date = ymd_hms(creation_date), sample_time = ymd_hms(sample_time))
+locations <- locations %>%
+  select(creation_date:sample_timezone) %>%
+  na.omit() %>%
+  unique() %>%
+  mutate(creation_date = ymd_hms(creation_date), sample_time = ymd_hms(sample_time))
 ```
 
 ```{r}
@@ -34,5 +36,19 @@ locations %>% filter(accuracy < 5000) %>% ggplot(aes(x = accuracy)) + geom_histo
 ```
 ```{r}
 locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2016-06-09'), sample_time < ymd('2017-02-01'))
+time_grid <- seq(ymd_hms('2016-06-10 12:03:15'), ymd_hms('2017-01-31 23:59:56'), ymd_hms('2016-06-02 04:00:00') - ymd_hms('2016-06-02 03:50:00'))
+grid <- expand.grid(time_grid, unique(locations$user_id), stringsAsFactors = F, KEEP.OUT.ATTRS = F)
+grid <- tibble(Time = grid$Var1, ID = grid$Var2)
+
+time_window <- function(row, locations) {
+  # Given a time and user ID, get a location for the five minute window on each side
+  subset <- locations %>% filter(user_id == row[[2]], sample_time < row[[1]] + minutes(5), sample_time > row[[1]] - minutes(5))
+  if (dim(subset)[1] == 0) {
+    return(c(NA, NA))
+  }
+  c(mean(subset$latitude), mean(subset$longitude))
+}
+
+
 ```
 
