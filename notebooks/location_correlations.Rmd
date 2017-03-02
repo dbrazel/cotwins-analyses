@@ -49,6 +49,14 @@ time_window <- function(row, locations) {
   c(mean(subset$latitude), mean(subset$longitude))
 }
 
+lat <- rep(NA, dim(grid)[1])
+long <- rep(NA, dim(grid)[1])
 
+for (x in seq(1, dim(grid)[1])) {
+  results <- time_window(grid[x,], locations)
+  lat[x] <- results[1]
+  long[x] <- results[2]
+  print(x)
+}
 ```
 
