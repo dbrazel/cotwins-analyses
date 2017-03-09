@@ -74,7 +74,7 @@ for (twin_pair in seq(to = nrow(twin_info), by = 2)) {
   results <- expand.grid(DateTime = time_grid, Colorado_ID = twin_info$Colorado_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
   results[, c('latitude', 'longitude')] <- NA
   
-  for (row in nrow(results)) {
+  for (row in seq(to = nrow(results))) {
     subset <- filter(pair_locs, user_id == results[row, 2], sample_time < results[row, 1] + minutes(5), sample_time > results[row, 1] - minutes(5))
     if (nrow(subset) == 0) {
       next()
