@@ -34,29 +34,57 @@ locations <- locations %>%
 ```{r}
 locations %>% filter(accuracy < 5000) %>% ggplot(aes(x = accuracy)) + geom_histogram(binwidth = 50)
 ```
-```{r}
-locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2016-06-09'), sample_time < ymd('2017-02-01'))
-time_grid <- seq(ymd_hms('2016-06-10 12:03:15'), ymd_hms('2017-01-31 23:59:56'), ymd_hms('2016-06-02 04:00:00') - ymd_hms('2016-06-02 03:50:00'))
-grid <- expand.grid(time_grid, unique(locations$user_id), stringsAsFactors = F, KEEP.OUT.ATTRS = F)
-grid <- tibble(Time = grid$Var1, ID = grid$Var2)
 
-time_window <- function(row, locations) {
-  # Given a time and user ID, get a location for the five minute window on each side
-  subset <- locations %>% filter(user_id == row[[2]], sample_time < row[[1]] + minutes(5), sample_time > row[[1]] - minutes(5))
-  if (dim(subset)[1] == 0) {
-    return(c(NA, NA))
-  }
-  c(mean(subset$latitude), mean(subset$longitude))
+
+```{r}
+id_mapping <- bind_rows(tibble(SVID = id_mapping$T1, Colorado_ID = id_mapping$T1_alternate_id), tibble(SVID = id_mapping$T2, Colorado_ID = id_mapping$T2_alternate_id))
+
+twin_info <- left_join(twin_info, id_mapping, by = c('ID1' = 'SVID'))
+```
+
+```{r}
+# Get the average location points per day for each twin
+density <- rep(NA, nrow(twin_info))
+for (twin in seq(to = nrow(twin_info))) {
+  twin_locs <- filter(locations, user_id == twin_info$Colorado_ID[twin])
+  if (nrow(twin_locs) == 0) {next()}
+  density[twin] <- nrow(twin_locs) / as.numeric(max(twin_locs$sample_time) - min(twin_locs$sample_time))
 }
 
-lat <- rep(NA, dim(grid)[1])
-long <- rep(NA, dim(grid)[1])
+density %>% tibble() %>% ggplot(aes(x = density)) + geom_density()
+```
 
-for (x in seq(1, dim(grid)[1])) {
-  results <- time_window(grid[x,], locations)
-  lat[x] <- results[1]
-  long[x] <- results[2]
-  if (x %% 1000 == 0) {print(x)}
+```{r}
+# Get overlap of location data for each twin pair
+```
+
+
+```{r}
+std_locs <- tibble(DateTime = as.POSIXct(character()),
+                  Colorado_ID = character(),
+                  latitude = numeric(),
+                  longitude = numeric())
+
+for (twin_pair in seq(to = nrow(twin_info), by = 2)) {
+  pair_locs <- filter(locations, user_id %in% twin_info$Colorado_ID[twin_pair:(twin_pair + 1)])
+  if (nrow(pair_locs) == 0) {
+    next()
+  }
+  time_grid <- seq(min(pair_locs$sample_time), max(pair_locs$sample_time), 60*10)
+  results <- expand.grid(DateTime = time_grid, Colorado_ID = twin_info$Colorado_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
+  results[, c('latitude', 'longitude')] <- NA
+  
+  for (row in nrow(results)) {
+    subset <- filter(pair_locs, user_id == results[row, 2], sample_time < results[row, 1] + minutes(5), sample_time > results[row, 1] - minutes(5))
+    if (nrow(subset) == 0) {
+      next()
+    }
+    else {
+      results[row, 3] <- mean(subset$latitude, na.rm = T)
+      results[row, 4] <- mean(subset$longitude, na.rm = T)
+    }
+  }
+  std_locs <- bind_rows(std_locs, results)
 }
 ```
 
