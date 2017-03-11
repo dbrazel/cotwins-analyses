@@ -10,6 +10,7 @@ library(readr)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(geosphere)
 
 twin_info <- read_rds('../data/raw/Robin_paper-entry_12-6-16.rds')
 locations <- read_rds('../data/raw/Michigan_DB_user_location_02_01_17.rds')
@@ -54,12 +55,9 @@ for (twin in seq(to = nrow(twin_info))) {
 density %>% tibble() %>% ggplot(aes(x = density)) + geom_density()
 ```
 
-```{r}
-# Get overlap of location data for each twin pair
-```
-
 
 ```{r}
+# Standardize locations for each twin pair to a ten minute grid
 std_locs <- tibble(DateTime = as.POSIXct(character()),
                   Colorado_ID = character(),
                   latitude = numeric(),
@@ -86,5 +84,28 @@ for (twin_pair in seq(to = nrow(twin_info), by = 2)) {
   }
   std_locs <- bind_rows(std_locs, results)
 }
+```
+
+
+```{r}
+# Get the mean distance for each twin pair
+tp_dists <- tibble(tp_id = character(),
+                   zygosity = character(),
+                   mean_dist = numeric())
+
+std_locs <- std_locs[complete.cases(std_locs), ]
+for (twin_pair in seq(to = nrow(twin_info), by = 2)) {
+  t1_locs <- filter(std_locs, Colorado_ID == twin_info$Colorado_ID[twin_pair])
+  t2_locs <- filter(std_locs, Colorado_ID == twin_info$Colorado_ID[(twin_pair + 1)])
+  t1_locs <- filter(t1_locs, DateTime %in% t2_locs$DateTime)
+  t2_locs <- filter(t2_locs, DateTime %in% t1_locs$DateTime)
+  if (nrow(t1_locs) == 0) {next()}
+  t_dist <- distCosine(t1_locs[, c('longitude', 'latitude')], t2_locs[, c('longitude', 'latitude')])
+  tp_dists[nrow(tp_dists) + 1, ] <- list(twin_info$Colorado_ID[twin_pair], twin_info$bestzygos[twin_pair], mean(t_dist))
+}
+```
+
+```{r}
+ggplot(tp_dists, aes(x = mean_dist, fill = zygosity)) + geom_density(alpha = 0.5)
 ```
 
