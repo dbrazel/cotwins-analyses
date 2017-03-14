@@ -33,7 +33,11 @@ locations <- locations %>%
 ```
 
 ```{r}
-locations %>% filter(accuracy < 5000) %>% ggplot(aes(x = accuracy)) + geom_histogram(binwidth = 50)
+locations %>% filter(sample_time > ymd('2015-01-01'), sample_time < ymd('2017-02-02')) %>% ggplot(aes(x = sample_time)) + geom_histogram()
+```
+
+```{r}
+locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2015-01-01'), sample_time < ymd('2017-02-02'))
 ```
 
 
