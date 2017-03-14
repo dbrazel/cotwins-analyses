@@ -1,17 +1,12 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
-RVersion: 3.3.3
+RVersion: 3.3.2
 Repos: CRAN=https://cran.rstudio.com/
 
 Package: BH
 Source: CRAN
 Version: 1.62.0-1
 Hash: 14dfb3e8ffe20996118306ff4de1fab2
-
-Package: DBI
-Source: CRAN
-Version: 0.5-1
-Hash: 375869004db963f9915f2b8a49b4a718
 
 Package: Formula
 Source: CRAN
@@ -34,12 +29,6 @@ Package: RColorBrewer
 Source: CRAN
 Version: 1.1-2
 Hash: c0d56cd15034f395874c870141870c25
-
-Package: RMySQL
-Source: CRAN
-Version: 0.10.9
-Hash: b8bcdfdc9acae319991297c75ffad5d8
-Requires: DBI
 
 Package: Rcpp
 Source: CRAN
