@@ -1,6 +1,6 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
-RVersion: 3.3.2
+RVersion: 3.3.3
 Repos: CRAN=https://cran.rstudio.com/
 
 Package: BH
@@ -104,6 +104,13 @@ Source: CRAN
 Version: 1.10.4
 Hash: 2c7c47ccb40d01c7b214c8eff818108d
 
+Package: devtools
+Source: CRAN
+Version: 1.12.0
+Hash: bbad95109ae75cbb14099281cda43af2
+Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
+    withr
+
 Package: dichromat
 Source: CRAN
 Version: 2.0-0
@@ -111,8 +118,8 @@ Hash: 08eed0c80510af29bb15f840ccfe37ce
 
 Package: digest
 Source: CRAN
-Version: 0.6.10
-Hash: 87165608ca8aeb0958835c3c5b52b6b7
+Version: 0.6.12
+Hash: e53fb8c58673df868183697e39a6a4d6
 
 Package: dplyr
 Source: CRAN
@@ -143,11 +150,26 @@ Version: 1.5-5
 Hash: 6772bef0f3f3aaa58b475479c03ff596
 Requires: sp
 
+Package: ggTimeSeries
+Source: github
+Version: 0.1
+Hash: b568e7abebcc62917b8cf6616f381cde
+Requires: data.table, ggplot2
+GithubRepo: ggTimeSeries
+GithubUsername: Ather-Energy
+GithubRef: master
+GithubSha1: ca9639d449ace35aac0506772a740c258caf93df
+
 Package: ggplot2
 Source: CRAN
-Version: 2.2.0
-Hash: 78c14285e0c114542d051a09bd552472
+Version: 2.2.1
+Hash: 46e5cb78836848aa44655e577433f54b
 Requires: digest, gtable, lazyeval, plyr, reshape2, scales, tibble
+
+Package: git2r
+Source: CRAN
+Version: 0.18.0
+Hash: 9dfaafbcca68be29b89ef7783dc1dac0
 
 Package: gridExtra
 Source: CRAN
@@ -251,6 +273,12 @@ Version: 0.7.7
 Hash: fea2343a1119d61b0cc5c0a950d103a3
 Requires: mime
 
+Package: memoise
+Source: CRAN
+Version: 1.0.0
+Hash: 56e7087c3559eb7ba72a9afb349bf896
+Requires: digest
+
 Package: mime
 Source: CRAN
 Version: 0.5
@@ -343,6 +371,11 @@ Version: 1.2
 Hash: fdcac51a7f47decd60556ceefc3c26b1
 Requires: backports
 
+Package: rstudioapi
+Source: CRAN
+Version: 0.6
+Hash: fd256f8bfb9a64cc35f98b0decb1a79f
+
 Package: rvest
 Source: CRAN
 Version: 0.3.2
@@ -407,6 +440,16 @@ Source: CRAN
 Version: 0.3.4
 Hash: c98cc0ee11a389f397c38ddb3762880c
 Requires: ggplot2, gridExtra
+
+Package: whisker
+Source: CRAN
+Version: 0.3-2
+Hash: 803d662762e532705c2c066a82d066e7
+
+Package: withr
+Source: CRAN
+Version: 1.0.2
+Hash: 774eb7be9087cdc24b53b74e5359cfac
 
 Package: xml2
 Source: CRAN
