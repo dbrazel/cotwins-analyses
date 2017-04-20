@@ -37,3 +37,14 @@ merged = merged.rename(columns={"alternate_id": "T2_alternate_id"})
 merged = merged[["T1", "T2", "T1_alternate_id",
                 "T2_alternate_id", "bestzygos"]]
 merged.to_csv(os.path.join("data", "processed", "id_mapping.csv"), index=False)
+
+# Make a version of the id mapping with each twin on a line
+merged1 = merged[["T1", "T1_alternate_id", "bestzygos"]]
+merged2 = merged[["T2", "T2_alternate_id", "bestzygos"]]
+
+merged1 = merged1.rename(columns={"T1": "SVID", "T1_alternate_id": "alternate_id"})
+merged2 = merged2.rename(columns={"T2": "SVID", "T2_alternate_id": "alternate_id"})
+
+merged = merged1.append(merged2, ignore_index = True)
+
+merged.to_csv(os.path.join("data", "processed", "id_mapping_long.csv"), index=False)
