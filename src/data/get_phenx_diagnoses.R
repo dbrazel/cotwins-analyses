@@ -92,10 +92,6 @@ results$year_alc_depend_count <- rowSums(tibble(year_alc_tolerance, year_alc_qui
 	year_alc_withdrawal, year_alc_time, year_alc_giveup, year_alc_problems), na.rm = T)
 results$year_alc_depend <- results$year_alc_depend_count >= 3
 
-# Current cigarette dependence
-
-
-
 # Tobacco dependence symptoms
 life_tob_tolerance <- (phenx$PHXQ0151 == 1) | (phenx$PHXQ0153 == 1)
 year_tob_tolerance <- life_tob_tolerance & ((phenx$PHXQ0152 == 1) | (phenx$PHXQ0154 == 1))
@@ -135,6 +131,64 @@ results$life_tob_depend <- results$life_tob_depend_count >= 3
 results$year_tob_depend_count <- rowSums(tibble(year_tob_tolerance, year_tob_withdrawal, year_tob_intend, year_tob_quit,
 	year_tob_giveup, year_tob_time, year_tob_problems), na.rm = T)
 results$year_tob_depend <- results$year_tob_depend_count >= 3
+
+# Add cigarette and alcohol quantity frequency, lifetime use, initiation, and age of initiation
+results$alc_lifetime_use <- phenx$PHXQ0001 == 1
+results$alc_initiation <- phenx$PHXQ0002 == 1
+results$alc_age_first_use <- phenx$PHXQ0003
+# 0 indicates never used regularly
+phenx$PHXQ0004[phenx$PHXQ0004 == 0] <- NaN
+results$alc_age_regular_use <- phenx$PHXQ0004
+results$alc_freq_days_in_month <- phenx$PHXQ0005
+results$alc_quantity_per_day <- phenx$PHXQ0009
+
+results$cig_initiation <- phenx$PHXQ0090 == 1
+results$cig_age_regular_use <- phenx$PHXQ0094
+results$cig_freq_days_in_month <- phenx$PHXQ0099
+results$cig_quantity_per_day <- phenx$PHXQ0100
+
+# Marijuana
+results$mar_lifetime_use <- phenx$PHXQ0159_MAR == 'Y'
+results$mar_initation <- phenx$PHXQ0160_MAR == 'Y'
+results$mar_age_first_use <- phenx$PHXQ0186
+# 0 indicates never used regularly
+phenx$PHXQ0187[phenx$PHXQ0187 == 0] <- NaN
+results$mar_age_regular_use <- phenx$PHXQ0187
+results$mar_freq_days_in_month <- phenx$PHXQ0188
+
+# Marijuana 12-month abuse diagnosis and symptom count
+year_mar_continue <- (phenx$PHXQ0228_MAR == 'Y') | (phenx$PHXQ0231_MAR == 'Y') | (phenx$PHXQ0234_MAR == 'Y')
+year_mar_failure <- (phenx$PHXQ0237_MAR == 'Y') | (phenx$PHXQ0240_MAR == 'Y')
+year_mar_hazard <- (phenx$PHXQ0243_MAR == 'Y') | (phenx$PHXQ0246_MAR == 'Y') | (phenx$PHXQ0249_MAR == 'Y')
+year_mar_legal <- (phenx$PHXQ0252_MAR == 'Y')
+
+results$year_mar_abuse_count <- rowSums(tibble(year_mar_continue, year_mar_failure, 
+                                               year_mar_hazard, year_mar_legal), na.rm = T)
+results$year_mar_abuse <- results$year_mar_abuse_count >= 1
+
+# Marijuana 12-month dependence diagnosis and symptom count
+year_mar_quit <- (phenx$PHXQ0256_MAR == 'Y') | (phenx$PHXQ0259_MAR == 'Y')
+year_mar_intend <- (phenx$PHXQ0262_MAR == 'Y')
+year_mar_time <- (phenx$PHXQ0265_MAR == 'Y') | (phenx$PHXQ0268_MAR == 'Y')
+year_mar_tolerance <- (phenx$PHXQ0337_MAR == 'Y') | (phenx$PHXQ0340_MAR == 'Y')
+year_mar_giveup <- (phenx$PHXQ0343_MAR == 'Y') | (phenx$PHXQ0346_MAR == 'Y')
+year_mar_problems <- (phenx$PHXQ0349_MAR == 'Y') | (phenx$PHXQ0352_MAR == 'Y')
+
+results$year_mar_dependence_count <- rowSums(tibble(year_mar_quit, year_mar_intend, 
+                                                    year_mar_time, year_mar_tolerance, 
+                                                    year_mar_giveup, year_mar_problems), na.rm = T)
+results$year_mar_dependence <- results$year_mar_dependence_count >= 3
+
+# Other drugs
+results$sedatives_lifetime_use <- phenx$PHXQ0159_SED == 'Y'
+results$tranquilizers_lifetime_use <- phenx$PHXQ0159_TRAN == 'Y'
+results$painkillers_lifetime_use <- phenx$PHXQ0159_PAIN == 'Y'
+results$stimulants_lifetime_use <- phenx$PHXQ0159_STIM == 'Y'
+results$cocaine_lifetime_use <- phenx$PHXQ0159_COC == 'Y'
+results$hallucinogens_lifetime_use <- phenx$PHXQ0159_HAL == 'Y'
+results$inhalants_lifetime_use <- phenx$PHXQ0159_SOL == 'Y'
+results$heroin_lifetime_use <- phenx$PHXQ0159_HER == 'Y'
+results$other_lifetime_use <- phenx$PHXQ0159_OTH == 'Y'
 
 # Write out the results
 write_rds(results, 'data/processed/PhenX_diagnoses.rds')
