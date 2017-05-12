@@ -149,7 +149,7 @@ results$cig_quantity_per_day <- phenx$PHXQ0100
 
 # Marijuana
 results$mar_lifetime_use <- phenx$PHXQ0159_MAR == 'Y'
-results$mar_initation <- phenx$PHXQ0160_MAR == 'Y'
+results$mar_initiation <- phenx$PHXQ0160_MAR == 'Y'
 results$mar_age_first_use <- phenx$PHXQ0186
 # 0 indicates never used regularly
 phenx$PHXQ0187[phenx$PHXQ0187 == 0] <- NaN
@@ -174,10 +174,10 @@ year_mar_tolerance <- (phenx$PHXQ0337_MAR == 'Y') | (phenx$PHXQ0340_MAR == 'Y')
 year_mar_giveup <- (phenx$PHXQ0343_MAR == 'Y') | (phenx$PHXQ0346_MAR == 'Y')
 year_mar_problems <- (phenx$PHXQ0349_MAR == 'Y') | (phenx$PHXQ0352_MAR == 'Y')
 
-results$year_mar_dependence_count <- rowSums(tibble(year_mar_quit, year_mar_intend, 
+results$year_mar_depend_count <- rowSums(tibble(year_mar_quit, year_mar_intend, 
                                                     year_mar_time, year_mar_tolerance, 
                                                     year_mar_giveup, year_mar_problems), na.rm = T)
-results$year_mar_dependence <- results$year_mar_dependence_count >= 3
+results$year_mar_depend <- results$year_mar_depend_count >= 3
 
 # Other drugs
 results$sedatives_lifetime_use <- phenx$PHXQ0159_SED == 'Y'
