@@ -189,6 +189,8 @@ results$hallucinogens_lifetime_use <- phenx$PHXQ0159_HAL == 'Y'
 results$inhalants_lifetime_use <- phenx$PHXQ0159_SOL == 'Y'
 results$heroin_lifetime_use <- phenx$PHXQ0159_HER == 'Y'
 results$other_lifetime_use <- phenx$PHXQ0159_OTH == 'Y'
+results$total_other_drugs_lifetime_use <- results %>% select(sedatives_lifetime_use:other_lifetime_use) %>%
+  rowSums(na.rm = T)
 
 # Write out the results
 write_rds(results, 'data/processed/PhenX_diagnoses.rds')
