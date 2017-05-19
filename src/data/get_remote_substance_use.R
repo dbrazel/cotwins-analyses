@@ -47,3 +47,5 @@ colnames(checkin) <- c('user_id', 'date_to_present', 'date_completed',
                        'prescribed_excess_which_stimulant', 'prescribed_excess_which_pain_killers',
                        'prescribed_excess_which_depressants', 'prescribed_excess_which_decline', 
                        'prescribed_excess_which_other')
+
+checkin$any_substance_use <- checkin$any_substance_use == 'Yes'
