@@ -101,6 +101,6 @@ checkin$ecig_quantity_puffs <- plyr::mapvalues(checkin$ecig_quantity_puffs,
 checkin$ecig_liquid_concentration <- plyr::mapvalues(checkin$ecig_liquid_concentration, 
                                                      c("nicotine free (0)", "1-10 mg/ml", "31 or higher", "11-20 mg/ml", 
                                                        "21-30 mg/ml", "I don't know"), 
-                                               c(0, 5.5, 31, 15.5, 25.5, ), warn_missing = T) %>% as.numeric()
+                                               c(0, 5.5, 31, 15.5, 25.5), warn_missing = T) %>% as.numeric()
 
 
