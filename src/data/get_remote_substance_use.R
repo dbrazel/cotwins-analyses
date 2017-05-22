@@ -355,3 +355,6 @@ checkin$other_drug_freq_days_per_week <-
     c(7, 6, 4, 5, 2, 3, 1),
     warn_missing = T
   ) %>% as.numeric()
+
+write_rds(checkin, 'data/processed/remote_substance_use.rds')
+write_csv(checkin, 'data/processed/remote_substance_use.csv')
