@@ -6,6 +6,7 @@
 
 library(readr)
 library(dplyr)
+library(lubridate)
 
 checkin <- read_csv(
   'data/raw/Michigan_LS_checking_in_1_22_17.csv',
@@ -30,7 +31,11 @@ checkin <-
   left_join(checkin, surveys, by = c('Token' = 'ls_token')) %>%
   filter(!is.na(date_completed)) %>%
   filter(`First name` %in% twin_ids$alternate_id) %>%
-  select(user_id, date_to_present, date_completed, 6:63, ls_token = Token)
+  select(user_id, date_to_present, date_completed, 6:63, ls_token = Token) %>%
+  mutate(
+    date_to_present = ymd_hms(date_to_present),
+    date_completed = ymd_hms(date_completed)
+  )
 
 
 # Rename the columns to be easier to work with
