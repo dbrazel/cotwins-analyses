@@ -25,7 +25,7 @@ checkin <-
   left_join(checkin, surveys, by = c('Token' = 'ls_token')) %>%
   filter(!is.na(date_completed)) %>%
   filter(`First name` %in% twin_ids$alternate_id) %>%
-  select(user_id, date_to_present, date_completed, 6:63)
+  select(user_id, date_to_present, date_completed, 6:63, ls_token = Token)
 
 
 # Rename the columns to be easier to work with
@@ -91,7 +91,8 @@ colnames(checkin) <-
     'prescribed_excess_which_pain_killers',
     'prescribed_excess_which_depressants',
     'prescribed_excess_which_decline',
-    'prescribed_excess_which_other'
+    'prescribed_excess_which_other',
+    'ls_token'
   )
 
 # Convert "Yes"/"No" columns to boolean
