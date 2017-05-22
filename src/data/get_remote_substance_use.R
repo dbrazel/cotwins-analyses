@@ -220,3 +220,70 @@ checkin$ecig_liquid_concentration <-
     c(0, 5.5, 31, 15.5, 25.5),
     warn_missing = T
   ) %>% as.numeric()
+
+checkin$other_tob_freq_days_per_week <-
+  plyr::mapvalues(
+    checkin$other_tob_freq_days_per_week,
+    c(
+      'Seven days',
+      'Six days',
+      'Four days',
+      'Five days',
+      'Two days',
+      'Three days',
+      'One day'
+    ),
+    c(7, 6, 4, 5, 2, 3, 1),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$alc_freq_days_per_week <-
+  plyr::mapvalues(
+    checkin$alc_freq_days_per_week,
+    c(
+      'Seven days',
+      'Six days',
+      'Four days',
+      'Five days',
+      'Two days',
+      'Three days',
+      'One day'
+    ),
+    c(7, 6, 4, 5, 2, 3, 1),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$alc_quantity_drinks_per_day <-
+  plyr::mapvalues(
+    checkin$alc_quantity_drinks_per_day,
+    c(
+      "Usually 2 drinks",
+      "Usually 1 drink",
+      "Usually only part of a drink",
+      "Usually 6 drinks (such as a 6-pack of beer or 6 shots of liquor)",
+      "Usually 10 drinks",
+      "Usually 5 drinks",
+      "Usually 3 drinks",
+      "Usually 4 drinks",
+      "Usually 7 drinks",
+      "Usually 15 drinks",
+      "Usually 8 drinks",
+      "Usually 13 drinks",
+      "Usually 9 drinks",
+      "Usually 11 drinks",
+      "Usually 12 drinks (a 12-pack of beer or 12 glasses of wine)",
+      "Usually 20 drinks"
+    ),
+    c(2, 1, 0.5, 6, 10, 5, 3, 4, 7, 15, 8, 13, 9, 11, 12, 20),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$alc_quantity_drinks_yesterday <-
+  plyr::mapvalues(
+    checkin$alc_quantity_drinks_yesterday,
+    c("None", "Only part of a drink", "2 drinks", "1 drink", 
+      "10 drinks", "5 drinks", "3 drinks", "7 drinks", "6 drinks (a 6-pack of beer or 6 shots of liquor)", 
+      "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks"),
+    c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9),
+    warn_missing = T
+  ) %>% as.numeric()
