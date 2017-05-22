@@ -9,7 +9,8 @@ library(dplyr)
 
 checkin <- read_csv(
   'data/raw/Michigan_LS_checking_in_1_22_17.csv',
-  na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know')
+  na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know'),
+  col_types = paste0(rep('c', 65), collapse = '')
 )
 surveys <-
   read_rds('data/raw/Michigan_DB_surveyentries_02_01_17.rds')
