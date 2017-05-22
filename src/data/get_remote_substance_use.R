@@ -1,4 +1,8 @@
 # Get the app-based substance use questions from the checking in survey
+# NOTE: The remapping stage of the script assumes a certain set of possible
+# responses. If an additional response appears in later data dumps, it will
+# be necessary to add it. This should appear as a warning about NAs introduced
+# by coercion
 
 library(readr)
 library(dplyr)
@@ -286,5 +290,68 @@ checkin$alc_quantity_drinks_yesterday <-
       "10 drinks", "5 drinks", "3 drinks", "7 drinks", "6 drinks (a 6-pack of beer or 6 shots of liquor)", 
       "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks"),
     c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$mar_freq_days_per_week <-
+  plyr::mapvalues(
+    checkin$mar_freq_days_per_week,
+    c(
+      'Seven days',
+      'Six days',
+      'Four days',
+      'Five days',
+      'Two days',
+      'Three days',
+      'One day'
+    ),
+    c(7, 6, 4, 5, 2, 3, 1),
+    warn_missing = T
+  ) %>% as.numeric()
+
+
+checkin$mar_freq_times_per_day <-
+  plyr::mapvalues(
+    checkin$mar_freq_times_per_day,
+    c(
+      "2 times per day",
+      "1 time per day",
+      "I never had enough to feel the effects",
+      "4 times per day",
+      "3 times per day",
+      "5 or more times per day"
+    ),
+    c(2, 1, 0, 4, 3, 5),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$mar_freq_times_yesterday <-
+  plyr::mapvalues(
+    checkin$mar_freq_times_yesterday,
+    c(
+      "I didn't use marijuana yesterday",
+      "1",
+      "3",
+      "2",
+      "5 or more times",
+      "4"
+    ),
+    c(0, 1, 3, 2, 5, 4),
+    warn_missing = T
+  ) %>% as.numeric()
+
+checkin$other_drug_freq_days_per_week <-
+  plyr::mapvalues(
+    checkin$other_drug_freq_days_per_week,
+    c(
+      'Seven days',
+      'Six days',
+      'Four days',
+      'Five days',
+      'Two days',
+      'Three days',
+      'One day'
+    ),
+    c(7, 6, 4, 5, 2, 3, 1),
     warn_missing = T
   ) %>% as.numeric()
