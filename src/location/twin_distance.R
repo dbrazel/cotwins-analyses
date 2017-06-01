@@ -8,7 +8,7 @@ tp_dists <- tibble(tp_id = character(), zygosity = character(),
 tp_mean_dists <- tibble(tp_id = character(), zygosity = character(), mean_dist = numeric(), n = numeric())
 
 std_locs <- read_rds('/work/KellerLab/david/cotwins-analyses/data/processed/std_locations.rds')
-twin_info <- read_rds('/work/KellerLab/david/cotwins-analyses/data/raw/Robin_paper-entry_12-6-16.rds')
+twin_info <- read_rds('/work/KellerLab/david/cotwins-analyses/data/raw/Robin_paper-entry_2-22-17.rds')
 id_mapping <- read_csv('/work/KellerLab/david/cotwins-analyses/data/processed/id_mapping.csv', col_types = 
                          cols(
                            T1 = col_character(),
