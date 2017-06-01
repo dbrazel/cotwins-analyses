@@ -3,8 +3,8 @@
 library(readr)
 library(dplyr)
 
-paper <- read_rds(file.path("data", "raw", "Robin_paper-entry_12-6-16.rds"))
-users <- read_rds(file.path("data", "raw", "Michigan_DB_users_02_01_17.rds"))
+paper <- read_rds(file.path("data", "raw", "Robin_paper-entry_2-22-17.rds"))
+users <- read_rds(file.path("data", "raw", "Michigan_DB_users_05_31_17.rds"))
 
 # Rearrange paper to produce one row per twin pair
 paper <- paper %>% select(ID = ID1, bestzygos)
@@ -14,5 +14,5 @@ paper2 <- tbl_df(data.frame(c(paper[seq(1, nrow(paper), by = 2), "ID"]),
                  stringsAsFactors = FALSE))
 paper2 <- select(paper2, T1 = ID, T2 = `ID.1`, bestzygos)
 
-write_csv(paper2, file.path("data", "raw", "Robin_paper-entry_12-6-16.csv"))
-write_csv(users, file.path("data", "raw", "Michigan_DB_users_02_01_17.csv"))
+write_csv(paper2, file.path("data", "raw", "Robin_paper-entry_2-22-17.csv"))
+write_csv(users, file.path("data", "raw", "Michigan_DB_users_05-31-17.csv"))

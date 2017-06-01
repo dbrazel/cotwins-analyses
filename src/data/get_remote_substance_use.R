@@ -9,12 +9,12 @@ library(dplyr)
 library(lubridate)
 
 checkin <- read_csv(
-  'data/raw/Michigan_LS_checking_in_1_22_17.csv',
+  'data/raw/Michigan_LS_checking_in_5_31_17.csv',
   na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know'),
   col_types = paste0(rep('c', 65), collapse = '')
 )
 surveys <-
-  read_rds('data/raw/Michigan_DB_surveyentries_02_01_17.rds')
+  read_rds('data/raw/Michigan_DB_surveyentries_05_31_17.rds')
 twin_ids <- read_csv(
   'data/processed/id_mapping_long.csv',
   col_types = cols(
@@ -155,9 +155,10 @@ checkin$cig_quantity_per_day <-
       "6-10 cigarettes per day",
       "More than 30 cigarettes",
       "11-15 cigarettes",
-      "4 cigarettes"
+      "4 cigarettes",
+      "Only part of a cigarette."
     ),
-    c(2, 5, 5, 3, 3, 2, 4, 8, 1, 0.5, 1, 8, 30, 13, 4),
+    c(2, 5, 5, 3, 3, 2, 4, 8, 1, 0.5, 1, 8, 30, 13, 4, 0.5),
     warn_missing = T
   ) %>%
   as.numeric()
@@ -283,9 +284,11 @@ checkin$alc_quantity_drinks_per_day <-
       "Usually 9 drinks",
       "Usually 11 drinks",
       "Usually 12 drinks (a 12-pack of beer or 12 glasses of wine)",
-      "Usually 20 drinks"
+      "Usually 20 drinks",
+      "Usually 14 drinks",
+      "Usually more than 20 drinks"
     ),
-    c(2, 1, 0.5, 6, 10, 5, 3, 4, 7, 15, 8, 13, 9, 11, 12, 20),
+    c(2, 1, 0.5, 6, 10, 5, 3, 4, 7, 15, 8, 13, 9, 11, 12, 20, 14, 20),
     warn_missing = T
   ) %>% as.numeric()
 
@@ -294,8 +297,8 @@ checkin$alc_quantity_drinks_yesterday <-
     checkin$alc_quantity_drinks_yesterday,
     c("None", "Only part of a drink", "2 drinks", "1 drink", 
       "10 drinks", "5 drinks", "3 drinks", "7 drinks", "6 drinks (a 6-pack of beer or 6 shots of liquor)", 
-      "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks"),
-    c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9),
+      "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks", "11 drinks"),
+    c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9, 11),
     warn_missing = T
   ) %>% as.numeric()
 
