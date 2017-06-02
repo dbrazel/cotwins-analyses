@@ -1,0 +1,46 @@
+---
+title: "Summary Stats on the New Data Dump"
+output: html_notebook
+date: 2017-06-02
+---
+
+Let's do some quick summary stats on the new data dump.
+
+```{r setup}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(ggTimeSeries)
+
+raw_locations <- read_rds('../data/raw/Michigan_DB_user_location_05_31_17.rds')
+cleaned_locations <- read_rds('../data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds')
+std_locations <- read_rds('../data/processed/std_locations.rds')
+twin_distances <- read_rds('../data/processed/twin_distances.rds')
+id_mapping <- read_csv('../data/processed/id_mapping_long.csv', col_types = 'ccc')
+cleaned_twin_locations <- inner_join(cleaned_locations, id_mapping, by = c("user_id" = "alternate_id"))
+user_data <- read_rds('../data/raw/Michigan_DB_users_05_31_17.rds')
+
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+```
+
+
+# Location
+
+In the raw but de-duplicated data, we have `r comma(nrow(raw_locations))` points in the current data dump. After filtering out observations with missing fields, `sample_time` values outside of the appropriate ranges, points with an accuracy greater than or equal to 500 meters, and points that don't correspond to a twin, we have `r comma(nrow(cleaned_twin_locations))` points on `r length(unique(cleaned_twin_locations$user_id))` individuals. Let's visualize the distribution of the number of points per twin.
+
+```{r}
+cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% filter(n < 50000) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% ggplot(aes(x = n, color = app_type)) + geom_density()
+```
+
+
+# Tweets
+
+
+
+# Checking In Survey
+
+
+
+# Parental Monitoring Survey
+
+
