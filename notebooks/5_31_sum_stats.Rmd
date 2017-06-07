@@ -25,8 +25,6 @@ cleaned_twin_locations <- inner_join(cleaned_locations, id_mapping, by = c("user
 user_data <- read_rds('../data/raw/Michigan_DB_users_05_31_17.rds')
 
 comma <- function(x) format(x, digits = 2, big.mark = ",")
-
-twin_app_type <- left_join
 ```
 
 
