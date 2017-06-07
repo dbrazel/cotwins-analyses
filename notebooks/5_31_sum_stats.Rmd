@@ -11,6 +11,8 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(ggTimeSeries)
+library(lubridate)
+library(geosphere)
 
 raw_locations <- read_rds('../data/raw/Michigan_DB_user_location_05_31_17.rds')
 cleaned_locations <- read_rds('../data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds')
@@ -21,6 +23,8 @@ cleaned_twin_locations <- inner_join(cleaned_locations, id_mapping, by = c("user
 user_data <- read_rds('../data/raw/Michigan_DB_users_05_31_17.rds')
 
 comma <- function(x) format(x, digits = 2, big.mark = ",")
+
+twin_app_type <- left_join
 ```
 
 
@@ -32,6 +36,45 @@ In the raw but de-duplicated data, we have `r comma(nrow(raw_locations))` points
 cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% filter(n < 50000) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% ggplot(aes(x = n, color = app_type)) + geom_density()
 ```
 
+This is the opposite of what was expected - since Android records every five minutes and iOS only when the phone moves. This may be because location tracking was deployed to the Android app after the iOS app - meaning that Android users will have fewer points. We can test this by looking at the mean density of location points for iOS vs. Android. We'll need the length of time between first and last locations for each twin, converting from seconds to days.
+
+```{r}
+first_last_locs <- cleaned_twin_locations %>% group_by(user_id) %>% summarize(first_point = min(sample_time), last_point = max(sample_time)) %>% mutate(duration_days = as.numeric(last_point - first_point)/60/60/24)
+
+cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% left_join(first_last_locs) %>% mutate(loc_density = n / duration_days) %>% ggplot(aes(x = loc_density, color = app_type)) + geom_density() + xlab('Points Per Day')
+```
+
+Clearly, we are getting far fewer points from most Android devices than we expect. Let's take a look at the distibution of the time between points. 
+
+```{r}
+results <- tibble()
+
+for (twin in unique(cleaned_twin_locations$user_id)) {
+  results2 <- cleaned_twin_locations %>% filter(user_id == twin) %>% arrange(sample_time) %>% left_join(user_data, by = c('user_id' = 'alternate_id')) %>% transmute(point_interval = lead(sample_time) - sample_time, app_type = app_type)
+  results <- bind_rows(results, results2)
+}
+```
+
+```{r}
+results %>% mutate(point_interval = point_interval + 1) %>% ggplot(aes(x = point_interval, fill = app_type)) + geom_histogram() + scale_x_log10()
+```
+
+So, most Android points are falling where we expect - around five minutes, with a long tail where the phone stopped reporting for whatever reason. We also have a very large number of iOS points where `sample_time` was the same for consecutive points. This may have something to do with the algorithm used by iOS to trigger the reporting of a point. Let's try looking at physical distance between consecutive points.
+
+```{r}
+results <- tibble()
+
+for (twin in unique(cleaned_twin_locations$user_id)) {
+  results2 <- cleaned_twin_locations %>% filter(user_id == twin) %>% arrange(sample_time) %>% left_join(user_data, by = c('user_id' = 'alternate_id')) %>% transmute(point_interval = distHaversine(cbind(lead(.$longitude), lead(.$latitude)), cbind(.$longitude, .$latitude)), app_type = app_type)
+  results <- bind_rows(results, results2)
+}
+```
+
+```{r}
+results %>% mutate(point_interval = point_interval + 1) %>% ggplot(aes(x = point_interval, fill = app_type)) + geom_histogram() + scale_x_log10()
+```
+
+After doing a little investigating, it became clear that iOS has a lot of duplicates, not across all columns but across `user_id`, `sample_time`, `latitude`, and `longitude`. I have now modified `src/location/clean_location_data.R` to eliminate this issue.
 
 # Tweets
 
