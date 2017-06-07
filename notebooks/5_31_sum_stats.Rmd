@@ -1,7 +1,9 @@
 ---
 title: "Summary Stats on the New Data Dump"
-output: html_notebook
-date: 2017-06-02
+output:
+  html_document: default
+  html_notebook: default
+date: '2017-06-02'
 ---
 
 Let's do some quick summary stats on the new data dump.
