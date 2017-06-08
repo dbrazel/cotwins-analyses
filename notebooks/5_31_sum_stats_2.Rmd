@@ -15,6 +15,7 @@ library(lubridate)
 library(geosphere)
 library(viridis)
 library(stringr)
+library(lme4)
 
 raw_locations <- read_rds('../data/raw/Michigan_DB_user_location_05_31_17.rds')
 cleaned_locations <- read_rds('../data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds')
@@ -24,6 +25,9 @@ id_mapping <- read_csv('../data/processed/id_mapping_long.csv', col_types = 'ccc
 user_data <- read_rds('../data/raw/Michigan_DB_users_05_31_17.rds')
 cleaned_twin_locations <- inner_join(cleaned_locations, id_mapping, by = c("user_id" = "alternate_id")) %>% left_join(user_data, c("user_id" = "alternate_id"))
 tweets <- read_rds('../data/raw/Michigan_DB_user_tweet_05_31_17.rds') %>% mutate(tweet_id = as.character(tweet_id))
+checkin <- read_rds('../data/processed/remote_substance_use.rds') %>% inner_join(id_mapping, by = c('user_id' = 'alternate_id'))
+twin_info <- read_rds('../data/raw/Robin_paper-entry_2-22-17.rds')
+par_mon <- read_rds('../data/processed/remote_parents.rds')
 
 comma <- function(x) format(x, digits = 2, big.mark = ",")
 ```
@@ -36,7 +40,7 @@ In the row data, we have `r comma(nrow(raw_locations))` points in the current da
 Let's visualize the distribution of the number of points per twin.
 
 ```{r}
-cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% filter(n < 50000) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% ggplot(aes(x = n, color = app_type)) + geom_density()
+cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% filter(n < 50000) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% ggplot(aes(x = n, color = app_type)) + geom_density() + xlab("Number of locations recorded")
 ```
 
 The mean density of location points for iOS vs. Android. We’ll need the length of time between first and last locations for each twin, converting from seconds to days.
@@ -93,8 +97,57 @@ We haven't received tweet data since April 11. Bizarrely, the user ID is sometim
 
 # Checking In Survey
 
+The "Checking In" substance use survey has been completed `r comma(nrow(checkin))` times by `r length(unique(checkin$user_id))` twins. The distribution of number of completed surveys looks like this:
+
+```{r}
+checkin %>% group_by(user_id) %>% summarise(n = n()) %>% ggplot(aes(x = n)) + geom_histogram(binwidth = 5) + xlab('Number of completed checking in surveys')
+```
+
+```{r}
+checkin %>% group_by(user_id) %>% summarise(n = n(), first = min(date_completed)) %>% ggplot(aes(x = first, y = n)) + geom_point() + geom_smooth(method = "lm") + xlab("Date of first checking in survey completed") + ylab("Number of completed checking in surveys")
+```
+
+In what proportion of weeks do twins use substances?
+
+```{r}
+checkin %>% group_by(user_id) %>% summarize(use_prop = sum(any_substance_use) / n()) %>% ggplot(aes(x = use_prop)) + geom_histogram(binwidth = 0.05) + xlab("Proportion of weeks in which any substance was used")
+```
 
 
 # Parental Monitoring Survey
+
+The parental monitoring survey has been completed `r comma(nrow(par_mon))` times by `r length(unique(par_mon$user_id))` twins. The distribution of completed surveys looks like this.
+
+```{r}
+par_mon %>% group_by(user_id) %>% summarise(n = n()) %>% ggplot(aes(x = n)) + geom_histogram(binwidth = 1) + xlab('Number of completed parental monitoring surveys')
+```
+
+```{r}
+par_mon %>% group_by(user_id) %>% summarise(n = n(), first = min(date_completed)) %>% ggplot(aes(x = first, y = n)) + geom_point(alpha = 0.5) + geom_smooth(method = "lm") + xlab("Date of first parental monitoring survey completed") + ylab("Number of completed parental monitoring surveys")
+```
+
+
+Let's look at the trajectories of parental monitoring score over the study for each twin.
+
+```{r}
+par_mon %>% ggplot(aes(x = date_completed, y = max_monitor_score, group = user_id)) + geom_line(alpha = 0.2) + xlab("Date of Survey Completion") + ylab("Parental Monitoring Score")
+```
+We can see that there is a tendency to persist at the current level or to shift to a closer level over a further level but that there is significant variation.
+
+```{r}
+data <- left_join(checkin, twin_info, by = c("SVID" = "ID1"))
+data2 <- tibble()
+for (twin in unique(data$user_id)) {
+  t_data <- data[data$user_id == twin,]
+  d   <- function(x,y) abs(x-y) # define the distance function
+  idx <- sapply(t_data$date_completed, function(x) which.min( d(x,par_mon$date_completed) )) # find matches
+  t_data <- cbind(t_data,par_mon[unlist(idx),-1,drop=FALSE])
+  data2 <- bind_rows(data2, t_data)
+}
+```
+
+```{r}
+glmer(any_substance_use ~ Test_AgeYears + Sex1 + bestzygos.x + max_monitor_score + (1 | family/user_id), data = data2)
+```
 
 
