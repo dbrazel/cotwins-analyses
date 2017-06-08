@@ -7,6 +7,7 @@ date: '2017-06-07'
 Let's do some quick summary stats on the new data dump, after removing the duplicates I discovered - see `5_31_sum_stats.Rmd`.
 
 ```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 library(dplyr)
 library(ggplot2)
