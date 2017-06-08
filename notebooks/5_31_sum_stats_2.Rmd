@@ -1,0 +1,100 @@
+---
+title: 'Summary Stats on the New Data Dump: Mark II'
+output: html_notebook
+date: '2017-06-07'
+---
+
+Let's do some quick summary stats on the new data dump, after removing the duplicates I discovered - see `5_31_sum_stats.Rmd`.
+
+```{r setup}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(ggTimeSeries)
+library(lubridate)
+library(geosphere)
+library(viridis)
+library(stringr)
+
+raw_locations <- read_rds('../data/raw/Michigan_DB_user_location_05_31_17.rds')
+cleaned_locations <- read_rds('../data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds')
+std_locations <- read_rds('../data/processed/std_locations.rds')
+twin_distances <- read_rds('../data/processed/twin_distances.rds')
+id_mapping <- read_csv('../data/processed/id_mapping_long.csv', col_types = 'ccc')
+user_data <- read_rds('../data/raw/Michigan_DB_users_05_31_17.rds')
+cleaned_twin_locations <- inner_join(cleaned_locations, id_mapping, by = c("user_id" = "alternate_id")) %>% left_join(user_data, c("user_id" = "alternate_id"))
+tweets <- read_rds('../data/raw/Michigan_DB_user_tweet_05_31_17.rds') %>% mutate(tweet_id = as.character(tweet_id))
+
+comma <- function(x) format(x, digits = 2, big.mark = ",")
+```
+
+
+# Location
+
+In the row data, we have `r comma(nrow(raw_locations))` points in the current data dump. After deduplicating, filtering out observations with missing fields,  sample_time values outside of the appropriate ranges, points with an accuracy greater than or equal to 500 meters, and points that don’t correspond to a twin, we have `r comma(nrow(cleaned_twin_locations))` on `r length(unique(cleaned_twin_locations))` individuals. Of those individuals, `r user_data %>% filter(app_type == 'ios') %>% nrow()` have an iPhone, `r user_data %>% filter(app_type == 'android') %>% nrow()` have an Android phone, and `r sum(is.na(user_data$app_type))` do not have a recorded device type.
+
+Let's visualize the distribution of the number of points per twin.
+
+```{r}
+cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% filter(n < 50000) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% ggplot(aes(x = n, color = app_type)) + geom_density()
+```
+
+The mean density of location points for iOS vs. Android. We’ll need the length of time between first and last locations for each twin, converting from seconds to days.
+
+```{r}
+first_last_locs <- cleaned_twin_locations %>% group_by(user_id) %>% summarize(first_point = min(sample_time), last_point = max(sample_time)) %>% mutate(duration_days = as.numeric(last_point - first_point)/60/60/24)
+cleaned_twin_locations %>% group_by(user_id) %>% summarize(n = n()) %>% left_join(user_data, by = c("user_id" = "alternate_id")) %>% left_join(first_last_locs) %>% mutate(loc_density = n / duration_days) %>% ggplot(aes(x = loc_density, color = app_type)) + geom_density() + xlab('Points Per Day') + coord_cartesian(xlim = c(0, 500))
+```
+
+Now let's look at the distribution of time between points.
+
+```{r}
+results <- tibble()
+for (twin in unique(cleaned_twin_locations$user_id)) {
+  results2 <- cleaned_twin_locations %>% filter(user_id == twin) %>% arrange(sample_time) %>% transmute(point_interval = lead(sample_time) - sample_time, app_type = app_type)
+  results <- bind_rows(results, results2)
+}
+```
+
+```{r}
+results %>% mutate(point_interval = point_interval + 1) %>% ggplot(aes(x = point_interval, fill = app_type)) + geom_histogram() + scale_x_log10() + xlab('Interval in seconds')
+```
+
+Let's try looking at physical distance between points.
+
+```{r}
+results <- tibble()
+for (twin in unique(cleaned_twin_locations$user_id)) {
+  results2 <- cleaned_twin_locations %>% filter(user_id == twin) %>% arrange(sample_time) %>% transmute(point_interval = distHaversine(cbind(lead(.$longitude), lead(.$latitude)), cbind(.$longitude, .$latitude)), app_type = app_type)
+  results <- bind_rows(results, results2)
+}
+```
+
+```{r}
+results %>% mutate(point_interval = point_interval + 1) %>% ggplot(aes(x = point_interval, fill = app_type)) + geom_histogram() + scale_x_log10() + xlab('Interval in meters')
+```
+
+Let's look at how many points we've received over time.
+
+```{r}
+cleaned_twin_locations %>% mutate(date = as.Date(sample_time)) %>% group_by(date) %>% summarize(n = n()) %>% ggplot_calendar_heatmap('date', 'n') + xlab(NULL) + ylab(NULL) + scale_fill_viridis() + facet_wrap(~Year, ncol = 1)
+```
+
+What device types have these points come from?
+
+```{r}
+cleaned_twin_locations %>% group_by(app_type) %>% summarize(n = n())
+```
+
+
+# Tweets
+
+We haven't received tweet data since April 11. Bizarrely, the user ID is sometimes the hashed Colorado ID and sometimes the Michigan ID. Nevertheless, we have `r comma(nrow(tweets))` tweets from `r length(unique(tweets$alternate_id))` ID's. `r comma(sum(str_detect(tweets$text, 'RT')))` are retweets.
+
+# Checking In Survey
+
+
+
+# Parental Monitoring Survey
+
+
