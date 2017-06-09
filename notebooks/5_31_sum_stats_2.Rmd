@@ -135,6 +135,8 @@ par_mon %>% ggplot(aes(x = date_completed, y = max_monitor_score, group = user_i
 ```
 We can see that there is a tendency to persist at the current level or to shift to a closer level over a further level but that there is significant variation.
 
+# Model of Substance Use and Parental Monitoring
+
 ```{r}
 data <- left_join(checkin, twin_info, by = c("SVID" = "ID1"))
 data2 <- tibble()
