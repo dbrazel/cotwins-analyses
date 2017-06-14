@@ -149,8 +149,11 @@ for (twin in unique(data$user_id)) {
 }
 ```
 
+Looking first at the longitudinal remote data.
+
 ```{r}
-glmer(any_substance_use ~ Test_AgeYears + Sex1 + bestzygos.x + max_monitor_score + (1 | family/user_id), data = data2)
+m1 <- glmer(any_substance_use ~ Test_AgeYears + Sex1 + bestzygos.x + max_monitor_score + (1 | family/user_id), data = data2)
+summary(m1)
 ```
 
 
