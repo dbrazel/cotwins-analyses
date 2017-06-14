@@ -156,4 +156,16 @@ m1 <- glmer(any_substance_use ~ Test_AgeYears + Sex1 + bestzygos.x + max_monitor
 summary(m1)
 ```
 
+Now the in person data
+
+```{r}
+in_person_parent <- read_rds("../data/processed/in_person_parents.rds")
+in_person_drug <- read_rds("../data/processed/PhenX_diagnoses.rds")
+
+in_person_drug <- left_join(in_person_drug, in_person_parent, by = "SVID")
+in_person_drug <- left_join(in_person_drug, twin_info, by = c("SVID" = "ID1"))
+
+summary(glmer(total_drugs_lifetime_use ~ Test_AgeYears + Sex1 + bestzygos + max_monitor_score + (1 | family), data = in_person_drug))
+```
+
 
