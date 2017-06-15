@@ -168,4 +168,10 @@ in_person_drug <- left_join(in_person_drug, twin_info, by = c("SVID" = "ID1"))
 summary(glmer(total_drugs_lifetime_use ~ Test_AgeYears + Sex1 + bestzygos + max_monitor_score + (1 | family), data = in_person_drug))
 ```
 
+```{r}
+m1 <- glm(any_substance_use ~ Test_AgeYears + Sex1 + bestzygos.x + max_monitor_score, data = data2, family = binomial(link = "logit"))
+summary(m1)
+```
+
+What can we conclude here? When we use a mixed effects model with random intercepts, nested by individuals within families in the longitudinal case or by family alone in the in person case, the variability of parental monitoring within a family and individual over time is not predictive of the use of drugs in any given week but parental monitoring is predictive of the total number of drugs used in a lifetime in the in person data. If we do simple logistic regression on the longitudinal data, the parental monitoring score is predictive of whether an individual used a substance or not in a given week. One possible interpretation is that the fluctuation of parental monitoring over time for a pair of twins or for an individual twin does not affect their substance use - at least at the time scales we're looking at. But baseline parental monitoring does affect substance use. Unresolved question - why does zygosity have significant predictive value in the last model?
 
