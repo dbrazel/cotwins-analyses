@@ -36,7 +36,7 @@ comma <- function(x) format(x, digits = 2, big.mark = ",")
 
 # Location
 
-In the row data, we have `r comma(nrow(raw_locations))` points in the current data dump. After deduplicating, filtering out observations with missing fields,  sample_time values outside of the appropriate ranges, points with an accuracy greater than or equal to 500 meters, and points that don’t correspond to a twin, we have `r comma(nrow(cleaned_twin_locations))` on `r length(unique(cleaned_twin_locations$user_id))` individuals. Of those individuals, `r user_data %>% filter(app_type == 'ios') %>% nrow()` have an iPhone, `r user_data %>% filter(app_type == 'android') %>% nrow()` have an Android phone, and `r sum(is.na(user_data$app_type))` do not have a recorded device type.
+In the row data, we have `r comma(nrow(raw_locations))` points in the current data dump. After deduplicating, filtering out observations with missing fields,  sample_time values outside of the appropriate ranges, points with an accuracy greater than or equal to 500 meters, and points that don’t correspond to a twin, we have `r comma(nrow(cleaned_twin_locations))` on `r length(unique(cleaned_twin_locations$user_id))` individuals. Of those individuals, `r user_data %>% filter(app_type == 'ios') %>% nrow() / 680 * 100`% have an iPhone, `r user_data %>% filter(app_type == 'android') %>% nrow() / 680 * 100`% have an Android phone, and `r sum(is.na(user_data$app_type)) / 680 * 100`% do not have a recorded device type.
 
 Let's visualize the distribution of the number of points per twin.
 
@@ -90,7 +90,6 @@ What device types have these points come from?
 ```{r}
 cleaned_twin_locations %>% group_by(app_type) %>% summarize(n = n())
 ```
-
 
 # Tweets
 
