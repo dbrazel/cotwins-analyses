@@ -42,4 +42,4 @@ for (i in 1:nrow(locs)) {
   if (i %% 5000 == 0) {print(i)}
 }
 
-write_rds("data/processed/at_home.rds")
+write_rds(locs, "data/processed/at_home.rds")
