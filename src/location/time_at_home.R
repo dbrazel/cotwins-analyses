@@ -15,7 +15,7 @@ addresses <- read_rds("data/processed/home_addresses.rds")
 locs <- inner_join(locs, id_mapping, by = c("user_id" = "alternate_id"))
 
 locs["at_home"] <- NA
-locs["home_distance"] <- NA
+#locs["home_distance"] <- NA
 
 # Get the SVID for the family (the first six characters of the twin SVID)
 locs["fam_id"] <- str_sub(locs$SVID, 1, 6)
@@ -37,7 +37,7 @@ for (i in 1:nrow(locs)) {
   # If the point is within 100 meters of any of the home addresses for a twin
   # mark them as at home
   locs$at_home[i] <- any(dists < 100)
-  locs$home_distance[i] <- min(dists)
+  #locs$home_distance[i] <- min(dists)
   
   if (i %% 5000 == 0) {print(i)}
 }
