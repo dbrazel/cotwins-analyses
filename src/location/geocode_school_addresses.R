@@ -60,6 +60,58 @@ private <-
 
 # Concatenate the addresses
 public <- unite(public, "address", address_1, address_city, address_state, sep = ", ", remove = F)
-public <- unite(public, "address", address, address_zip, sep = " ", remove = F)
+public <- unite(public, "address_full", address, address_zip, sep = " ", remove = F)
 
-private <- unite(private, "address", address_1, address_city, address_zip, sep = ", ", remove = F)
+private <- unite(private, "address_full", address_1, address_city, address_zip, sep = ", ", remove = F)
+
+public <- select(public, school_name, school_id, agency_name, agency_id, address_full)
+private <- select(private, school_name, school_id, address_full)
+
+api_key <- Sys.getenv("GOOGLE_API_KEY")[[1]]
+
+public["latitude"] <- NA
+public["longitude"] <- NA
+private["latitude"] <- NA
+private["longitude"] <- NA
+
+geocode <- function (address) {
+  encoded_address <- url_encode(address)
+  
+  r <-
+    fromJSON(
+      paste0(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=",
+        encoded_address,
+        "&key=",
+        api_key
+      )
+    )
+  
+  # The API can return more than one result, we take the top one
+  return(c(r$results$geometry$location$lat[[1]], r$results$geometry$location$lng[[1]]))
+}
+
+for (i in 1:nrow(public)) {
+  result <- geocode(public[[i, 5]])
+  public[i, 6] <- result[[1]]
+  public[i, 7] <- result[[2]]
+  
+  print(i)
+  
+  # Rate limit
+  Sys.sleep(0.1)
+}
+
+for (i in 1:nrow(private)) {
+  result <- geocode(private[[i, 3]])
+  public[i, 4] <- result[[1]]
+  public[i, 5] <- result[[2]]
+  
+  print(i)
+  
+  # Rate limit
+  Sys.sleep(0.1)
+}
+
+write_rds(public, "data/processed/public_school_address.rds")
+write_rds(private, "data/processed/private_school_address.rds")
