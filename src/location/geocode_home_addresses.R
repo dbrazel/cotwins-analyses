@@ -15,8 +15,7 @@ addresses <- addresses[-c(225, 254, 349),]
 # This will only work if the env file has been sourced first
 api_key <- Sys.getenv("GOOGLE_API_KEY")[[1]]
 
-geocode <- function (row) {
-  address <- row[[2]]
+geocode <- function (address) {
   encoded_address <- url_encode(address)
   
   r <-
@@ -35,7 +34,7 @@ geocode <- function (row) {
 
 # Loop over the addresses and get the lats and longs
 for (i in 1:nrow(addresses)) {
-  result <- geocode(addresses[i, ])
+  result <- geocode(addresses[i, 2])
   addresses[i, 3] <- result[[1]]
   addresses[i, 4] <- result[[2]]
   
