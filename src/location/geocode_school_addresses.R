@@ -77,15 +77,27 @@ private["longitude"] <- NA
 geocode <- function (address) {
   encoded_address <- url_encode(address)
   
-  r <-
-    fromJSON(
-      paste0(
-        "https://maps.googleapis.com/maps/api/geocode/json?address=",
-        encoded_address,
-        "&key=",
-        api_key
-      )
-    )
+  # The API throws occasionally throws a 500 error, which doesn't recur when retried
+  tryCatch({r <-
+             fromJSON(
+               paste0(
+                 "https://maps.googleapis.com/maps/api/geocode/json?address=",
+                 encoded_address,
+                 "&key=",
+                 api_key
+               )
+             )},
+           error = function(e) {
+             r <-
+               fromJSON(
+                 paste0(
+                   "https://maps.googleapis.com/maps/api/geocode/json?address=",
+                   encoded_address,
+                   "&key=",
+                   api_key
+                 )
+               )
+           })
   
   # The API can return more than one result, we take the top one
   return(c(r$results$geometry$location$lat[[1]], r$results$geometry$location$lng[[1]]))
