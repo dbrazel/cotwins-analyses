@@ -26,9 +26,7 @@ vignettes/*.pdf
 # Environment variable files
 *.env
 # Data directory
-data/raw
-data/processed
-data/external
+data/
 # Packrat setup
 .Rproj.user
 packrat/lib*/
