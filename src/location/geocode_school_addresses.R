@@ -125,3 +125,7 @@ for (i in 1:nrow(private)) {
 
 write_rds(public, "data/processed/public_school_address.rds")
 write_rds(private, "data/processed/private_school_address.rds")
+
+# Create a merged version with all schools
+schools <- bind_rows(public, private)
+write_rds(schools, "data/processed/all_school_address.rds")
