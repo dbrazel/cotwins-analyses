@@ -114,8 +114,8 @@ for (i in 1:nrow(public)) {
 
 for (i in 1:nrow(private)) {
   result <- geocode(private[[i, 3]])
-  public[i, 4] <- result[[1]]
-  public[i, 5] <- result[[2]]
+  private[i, 4] <- result[[1]]
+  private[i, 5] <- result[[2]]
   
   print(i)
   
