@@ -25,52 +25,143 @@ comma <- function(x) format(x, digits = 3, big.mark = ",")
 
 There are `r nrow(id_mapping_long)` twins in the study. `r length(unique(remote_sub_use$user_id))` have completed at least one checking in survey. `r length(unique(locs$user_id[locs$user_id %in% id_mapping_long$alternate_id]))` have at least one GPS point after data cleaning. 
 
-## Followup Rates
+### Followup Rates
 
 ```{r}
 checkin_rate <-
-  remote_sub_use %>% group_by(user_id) %>% summarize(n = n()) %>% left_join(id_mapping_long, by = c("user_id" = "alternate_id")) %>% left_join(paper_data, by = c("SVID" = "ID1")) %>% mutate(time_in_study = as.duration(ymd("2017-05-31") - Test_Date)) %>% mutate(time_in_study = if_else(time_in_study <= dyears(1), time_in_study, dyears(1))) %>% mutate(
+  remote_sub_use %>%
+  group_by(user_id) %>%
+  summarize(n = n()) %>%
+  left_join(id_mapping_long, by = c("user_id" = "alternate_id")) %>%
+  left_join(paper_data, by = c("SVID" = "ID1")) %>%
+  mutate(time_in_study = as.duration(ymd("2017-05-31") - Test_Date)) %>%
+  mutate(time_in_study = if_else(time_in_study <= dyears(1), time_in_study, dyears(1))) %>%
+  mutate(
   weeks_in_study = as.numeric(time_in_study) / 604800,
   checkin_per_week = n / (as.numeric(time_in_study) / 604800)
-  ) %>% select(user_id,
-  n,
-  Test_Date,
-  time_in_study,
-  checkin_per_week,
-  weeks_in_study)
+  ) %>%
+  select(
+    user_id,
+    n,
+    Test_Date,
+    time_in_study,
+    checkin_per_week,
+    weeks_in_study)
   
   ggplot(checkin_rate, aes(x = weeks_in_study, y = checkin_per_week)) + geom_point(alpha = 0.5)
 ```
 
 `r comma(sum(checkin_rate$checkin_per_week > 0.5) / nrow(checkin_rate) * 100)`% of twins have a Checking In completion rate of greater than 50%.
 
-## Sample Composition
+### Sample Composition
 
 ```{r}
-paper_data %>% mutate(Sex1 = as.numeric(Sex1)) %>% mutate(Sex1 = recode(Sex1, `1` = "Female", `2` = "Male")) %>% group_by(Zygosity = bestzygos, Sex = Sex1) %>% summarize(N = n(), `Mean Age at Assessment` = comma(mean(as.numeric(Test_Age / 365))))
+paper_data %>%
+  mutate(Sex1 = as.numeric(Sex1)) %>%
+  mutate(Sex1 = recode(Sex1, `1` = "Female", `2` = "Male")) %>%
+  group_by(Zygosity = bestzygos, Sex = Sex1) %>%
+  summarize(
+    N = n(), 
+    `Mean Age at Assessment` = comma(mean(as.numeric(Test_Age / 365)))
+    )
 ```
 
-## Birth Years
+### Birth Years
 
 ```{r}
-paper_data %>% group_by(Birth_Year) %>% summarize(N = n())
+paper_data %>%
+  group_by(Birth_Year) %>%
+  summarize(N = n())
 ```
 
 # Validation of Remote Measures
 
+The correlation between the in-person parental monitoring score and the first remote parental monitoring score for an individual.
 ```{r}
-all_par_mon <- left_join(in_person_par, id_mapping_long, by = "SVID") %>% left_join(distinct(remote_par, user_id, .keep_all = T), by = c("alternate_id" = "user_id"))
+all_par_mon <-
+  left_join(in_person_par, id_mapping_long, by = "SVID") %>%
+  left_join(
+    distinct(remote_par, user_id, .keep_all = T),
+    by = c("alternate_id" = "user_id")
+    )
+
 cor(all_par_mon$max_monitor_score.x, all_par_mon$max_monitor_score.y, use = "complete.obs")
 ```
+
+The correlation between the first and second remote parental monitoring scores for an individual.
 ```{r}
-lagged_remote <- remote_par %>% group_by(user_id) %>% summarize(first_mon = first(max_monitor_score), second_mon = nth(max_monitor_score, 2))
+lagged_remote <-
+  remote_par %>%
+  group_by(user_id) %>%
+  summarize(
+    first_mon = first(max_monitor_score),
+    second_mon = nth(max_monitor_score, 2)
+    )
+
 cor(lagged_remote$first_mon, lagged_remote$second_mon, use = "complete.obs")
 ```
+
+The correlations are very similar, suggesting that any change due to the nature of the assessment is small compared to the week to week changes in the score.
 
 # Twin Discordance
 
 ```{r}
-tp_phenx <- left_join(id_mapping, phenx_diagnoses, by = c("T1" = "SVID")) %>% left_join(phenx_diagnoses, by = c("T2" = "SVID"), suffix = c(".T1", ".T2"))
+tp_phenx <- 
+  left_join(id_mapping, phenx_diagnoses, by = c("T1" = "SVID")) %>%
+  left_join(phenx_diagnoses, by = c("T2" = "SVID"), suffix = c(".T1", ".T2"))
 ```
 
 Out of `r nrow(id_mapping_long)` twin pairs, `r sum(tp_phenx$alc_lifetime_use.T1 != tp_phenx$alc_lifetime_use.T2)` are discordant for lifetime alcohol use. `r sum(phenx_diagnoses$alc_lifetime_use)` twins have ever used alcohol. `r sum(tp_phenx$life_alc_depend.T1 != tp_phenx$life_alc_depend.T2)` twin pairs are discordant for a lifetime diagnosis of alcohol dependence. `r sum(phenx_diagnoses$life_alc_depend)` twins have a lifetime diagnosis of alcohol dependence.
+
+# Substance Use Trajectories
+
+Get the subject's age in years at survey completion for all of the remote substance use responses.
+
+```{r}
+remote_sub_use_age <-
+  remote_sub_use %>%
+  left_join(id_mapping_long, by = c("user_id" = "alternate_id")) %>%
+  left_join(paper_data, by = c("SVID" = "ID1")) %>%
+  mutate(age_at_completion = as.numeric(as_date(date_completed) - Birth_Date) / 365)
+```
+
+If the subject claimed no substance use or no use of the substance in question in a given response, set the quantity consumed or frequency of use to zero.
+
+### Alcohol
+
+```{r}
+remote_sub_use_age$alc_quantity_drinks_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
+remote_sub_use_age$alc_quantity_drinks_per_day[remote_sub_use_age$alc_use == FALSE] = 0
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = alc_quantity_drinks_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Drinks per Day")
+```
+
+### Marijuana
+
+```{r}
+remote_sub_use_age$mar_freq_times_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
+remote_sub_use_age$mar_freq_times_per_day[remote_sub_use_age$mar_use == FALSE] = 0
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = mar_freq_times_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Marijuana Use, Times per Day")
+```
+
+### Cigarettes
+
+```{r}
+remote_sub_use_age$cig_quantity_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
+remote_sub_use_age$cig_quantity_per_day[remote_sub_use_age$cig_use == FALSE] = 0
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = cig_quantity_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Cigarettes per Day")
+```
+
+### E-Cigarettes
+
+```{r}
+remote_sub_use_age$ecig_quantity_puffs[remote_sub_use_age$any_substance_use == FALSE] = 0
+remote_sub_use_age$ecig_quantity_puffs[remote_sub_use_age$ecig_use == FALSE] = 0
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_quantity_puffs)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("E-Cigarette Puffs per Use")
+```
+
+```{r}
+remote_sub_use_age$ecig_freq_times_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
+remote_sub_use_age$ecig_freq_times_per_day[remote_sub_use_age$ecig_use == FALSE] = 0
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_freq_times_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("E-Cigarette Uses per Day")
+```
+
