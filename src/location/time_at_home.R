@@ -6,7 +6,7 @@ library(dplyr)
 library(geosphere)
 library(stringr)
 
-locs <- read_rds("data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds")
+locs <- read_rds("data/processed/Michigan_DB_user_location_09_25_17_cleaned.rds")
 id_mapping <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 addresses <- read_rds("data/processed/home_addresses.rds")
 
