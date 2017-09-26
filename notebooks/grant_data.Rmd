@@ -19,6 +19,8 @@ id_mapping <- read_csv("../data/processed/id_mapping.csv", col_types = "ccccc")
 locs <- read_rds("../data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds")
 
 comma <- function(x) format(x, digits = 3, big.mark = ",")
+
+theme_set(theme_gray(base_size = 13))
 ```
 
 # Descriptives
@@ -132,7 +134,7 @@ If the subject claimed no substance use or no use of the substance in question i
 ```{r}
 remote_sub_use_age$alc_quantity_drinks_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
 remote_sub_use_age$alc_quantity_drinks_per_day[remote_sub_use_age$alc_use == FALSE] = 0
-ggplot(remote_sub_use_age, aes(x = age_at_completion, y = alc_quantity_drinks_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Drinks per Day")
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = alc_quantity_drinks_per_day)) + geom_smooth() + xlab("Age in Years") + ylab("Drinks per Day") + xlim(14.5, 19)
 ```
 
 ### Marijuana
@@ -140,7 +142,7 @@ ggplot(remote_sub_use_age, aes(x = age_at_completion, y = alc_quantity_drinks_pe
 ```{r}
 remote_sub_use_age$mar_freq_times_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
 remote_sub_use_age$mar_freq_times_per_day[remote_sub_use_age$mar_use == FALSE] = 0
-ggplot(remote_sub_use_age, aes(x = age_at_completion, y = mar_freq_times_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Marijuana Use, Times per Day")
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = mar_freq_times_per_day)) + geom_smooth() + xlab("Age in Years") + ylab("Marijuana Use, Times per Day") + xlim(14.5, 19)
 ```
 
 ### Cigarettes
@@ -148,7 +150,7 @@ ggplot(remote_sub_use_age, aes(x = age_at_completion, y = mar_freq_times_per_day
 ```{r}
 remote_sub_use_age$cig_quantity_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
 remote_sub_use_age$cig_quantity_per_day[remote_sub_use_age$cig_use == FALSE] = 0
-ggplot(remote_sub_use_age, aes(x = age_at_completion, y = cig_quantity_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("Cigarettes per Day")
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = cig_quantity_per_day)) + geom_smooth() + xlab("Age in Years") + ylab("Cigarettes per Day") + xlim(14.5, 19)
 ```
 
 ### E-Cigarettes
@@ -156,12 +158,12 @@ ggplot(remote_sub_use_age, aes(x = age_at_completion, y = cig_quantity_per_day))
 ```{r}
 remote_sub_use_age$ecig_quantity_puffs[remote_sub_use_age$any_substance_use == FALSE] = 0
 remote_sub_use_age$ecig_quantity_puffs[remote_sub_use_age$ecig_use == FALSE] = 0
-ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_quantity_puffs)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("E-Cigarette Puffs per Use")
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_quantity_puffs)) + geom_smooth() + xlab("Age in Years") + ylab("E-Cigarette Puffs per Use") + xlim(14.5, 19)
 ```
 
 ```{r}
 remote_sub_use_age$ecig_freq_times_per_day[remote_sub_use_age$any_substance_use == FALSE] = 0
 remote_sub_use_age$ecig_freq_times_per_day[remote_sub_use_age$ecig_use == FALSE] = 0
-ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_freq_times_per_day)) + geom_smooth(method = "lm") + xlab("Age in Years") + ylab("E-Cigarette Uses per Day")
+ggplot(remote_sub_use_age, aes(x = age_at_completion, y = ecig_freq_times_per_day)) + geom_smooth() + xlab("Age in Years") + ylab("E-Cigarette Uses per Day") + xlim(14.5, 19)
 ```
 
