@@ -24,4 +24,4 @@ annotate("text", x = -104.9847, y = 39.73915, label = "Denver") +
 annotate("text", x = -105.08442, y = 40.58526, label = "Ft. Collins") +
 annotate("text", x = -104.82136, y = 38.83388, label = "Colorado Springs")
 
-ggsave("~/locs_map.pdf")
+ggsave("figs/locs_map.pdf")
