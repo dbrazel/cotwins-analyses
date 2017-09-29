@@ -34,7 +34,7 @@ locations <- filter(locations, user_id %in% twin_info$Colorado_ID[twin_pair:(twi
 # If the twins have no locations, terminate
 if (nrow(locations) == 0) {quit(save = 'no')}
 
-# Get the grid of time points, at a ten minute frequency
+# Get the grid of time points, at a thirty minute frequency
 time_grid <- seq(min(locations$sample_time), max(locations$sample_time), 60*30)
 
 # Get the cartesian product of the twin IDs and the time grid and add empty columns for lat and long
