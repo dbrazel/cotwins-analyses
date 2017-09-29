@@ -35,14 +35,14 @@ locations <- filter(locations, user_id %in% twin_info$Colorado_ID[twin_pair:(twi
 if (nrow(locations) == 0) {quit(save = 'no')}
 
 # Get the grid of time points, at a ten minute frequency
-time_grid <- seq(min(locations$sample_time), max(locations$sample_time), 60*10)
+time_grid <- seq(min(locations$sample_time), max(locations$sample_time), 60*30)
 
 # Get the cartesian product of the twin IDs and the time grid and add empty columns for lat and long
 results <- expand.grid(DateTime = time_grid, Colorado_ID = twin_info$Colorado_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
 results[, c('latitude', 'longitude')] <- NA
 
 for (row in seq(to = nrow(results))) {
-    subset <- filter(locations, user_id == results[row, 2], sample_time < results[row, 1] + minutes(5), sample_time > results[row, 1] - minutes(5))
+    subset <- filter(locations, user_id == results[row, 2], sample_time < results[row, 1] + minutes(15), sample_time > results[row, 1] - minutes(15))
     if (nrow(subset) == 0) {next()}
     else {
         results[row, 3] <- mean(subset$latitude, na.rm = T)
