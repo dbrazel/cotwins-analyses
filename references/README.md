@@ -15,3 +15,9 @@ Contains the column names and labels for `data/raw/Robin_PhenX_12-6-16.rds`, ext
 `Rscript -e 'library(readr);library(Hmisc);phenx <- read_rds("data/raw/Robin_PhenX_12-6-16.rds");label(phenx)' | xargs | sed 's/ PHXQ/;PHXQ/g' | tr ';' '\n' > references/phenx_column_labels`
 
 xargs strips the white space, sed replaces the spaces between columns with semicolons, tr replaces the semicolons with newlines. I used this workaround because sed, at least on macOS, will not accept escaped newlines on the right hand side of the expression.
+
+---
+
+`HealthyKidsColoradoExecutiveSummary.pdf`
+
+The 2015 Executive Summary for the Healthy Kids Colorado Survey. Information on substance use rates in high school students in Colorado. Downloaded from http://www.ucdenver.edu/academics/colleges/PublicHealth/community/CEPEG/UnifYouth/Pages/HealthyKidsSurvey.aspx
