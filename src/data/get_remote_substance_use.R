@@ -9,7 +9,7 @@ library(dplyr)
 library(lubridate)
 
 checkin <- read_csv(
-  'data/raw/Michigan_LS_checking_in_9_27_17.csv',
+  'data/raw/Michigan_LS_checking_in_11_3_17.csv',
   na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know'),
   col_types = paste0(rep('c', 65), collapse = '')
 )
