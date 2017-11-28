@@ -3,7 +3,7 @@
 #SBATCH --ntasks-per-node 24
 #SBATCH --output output.out
 #SBATCH --partition shas
-#SBATCH --time 20:00:00
+#SBATCH --time 5:00:00
 
 module load intel
 module load R

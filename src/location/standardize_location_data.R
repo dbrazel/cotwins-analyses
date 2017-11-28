@@ -39,14 +39,19 @@ time_grid <- seq(min(locations$sample_time), max(locations$sample_time), 60*30)
 
 # Get the cartesian product of the twin IDs and the time grid and add empty columns for lat and long
 results <- expand.grid(DateTime = time_grid, Colorado_ID = twin_info$Colorado_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
-results[, c('latitude', 'longitude')] <- NA
+results[, c('latitude', 'longitude', 'id', 'accuracy', 'sample_timezone', 'app_type')] <- NA
 
 for (row in seq(to = nrow(results))) {
     subset <- filter(locations, user_id == results[row, 2], sample_time < results[row, 1] + minutes(15), sample_time > results[row, 1] - minutes(15))
     if (nrow(subset) == 0) {next()}
     else {
-        results[row, 3] <- mean(subset$latitude, na.rm = T)
-        results[row, 4] <- mean(subset$longitude, na.rm = T)
+        best_idx <- which.min(abs(subset$sample_time - results[row, 1]))
+        results[row, 'latitude'] <- subset[best_idx, 'latitude']
+        results[row, 'longitude'] <- subset[best_idx, 'longitude']
+        results[row, 'id'] <- subset[best_idx, 'id']
+        results[row, 'accuracy'] <- subset[best_idx, 'accuracy']
+        results[row, 'sample_timezone'] <- subset[best_idx, 'sample_timezone']
+        results[row, 'app_type'] <- subset[best_idx, 'app_type']
     }
 }
 
