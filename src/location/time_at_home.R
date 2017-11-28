@@ -6,13 +6,16 @@ library(dplyr)
 library(geosphere)
 library(stringr)
 
-locs <- read_rds("data/processed/Michigan_DB_user_location_09_25_17_cleaned.rds")
+locs <- read_rds("data/processed/std_locations.rds")
 id_mapping <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 addresses <- read_rds("data/processed/home_addresses.rds")
 
+# Select only non-missing rows
+locs <- na.omit(locs)
+
 # Get rid of test accounts (there won't be corresponding rows)
 # and get the SVIDs
-locs <- inner_join(locs, id_mapping, by = c("user_id" = "alternate_id"))
+locs <- inner_join(locs, id_mapping, by = c("Colorado_ID" = "alternate_id"))
 
 locs["at_home"] <- NA
 #locs["home_distance"] <- NA
