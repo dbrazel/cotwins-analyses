@@ -128,7 +128,7 @@ write_rds(public, "data/processed/public_school_address.rds")
 write_rds(private, "data/processed/private_school_address.rds")
 
 # Create a merged version with all schools, after removing schools
-# within 100 meters of each other
+# within 200 meters of each other
 schools <- bind_rows(public, private)
 
 to_keep <- rep(T, nrow(schools))
@@ -137,7 +137,7 @@ for (i in 1:nrow(schools)) {
   dists <- distCosine(
     c(schools[[i, "longitude"]], schools[[i, "latitude"]]),
     cbind(schools$longitude, schools$latitude))
-  outside_radius <- dists > 100
+  outside_radius <- dists > 200
   outside_radius[1:i] <- T
   to_keep <- to_keep & outside_radius
 }
