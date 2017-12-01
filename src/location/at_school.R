@@ -1,28 +1,33 @@
-# Accepts the row number of a twin as input
-# Calculates how many standardized points
-# the twin has within 100 meters of each school
+# Annotate each standardized location points with whether it is within
+# 100 meters of the top school for that twin
 
 library(readr)
 library(dplyr)
 library(geosphere)
 
-# Get the first command line argument
-args <- commandArgs(trailingOnly = T)
-twin <- as.numeric(args[1])
-
 std_locs <- read_rds("data/processed/std_locations.rds")
-id_mapping <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
-schools <- read_rds("data/processed/all_school_address.rds")
+schools <- read_rds("data/processed/twin_top_school.rds")
 
-# Subset the locs to the twin
-twin_id <- id_mapping$alternate_id[[twin]]
-std_locs <- filter(std_locs, Colorado_ID == twin_id)
-std_locs <- filter(std_locs, complete.cases(std_locs))
+# Use only non-missing points
+std_locs <- na.omit(std_locs)
 
-# Count the number of locations within 100 meters of each school
-schools["N"] <- 0
+std_locs["at_school"] <- NA
 
-for (i in 1:nrow(schools)) {
-  dists <- distCosine(c(schools$longitude[[i]], schools$latitude[[i]]), cbind(std_locs$longitude, std_locs$latitude))
-  schools$N[[i]] <- sum(dists <= 100)
-}
+# Get the top school for each twin
+std_locs <- left_join(
+  std_locs,
+  schools,
+  by = c("Colorado_ID" = "twin_id")
+  )
+
+dists <- distCosine(
+  cbind(std_locs$school_longitude, std_locs$school_latitude),
+  cbind(std_locs$longitude, std_locs$latitude)
+  )
+
+std_locs$at_school <- dists <= 100
+
+std_locs %>%
+  select(DateTime:at_school) %>%
+  write_rds("data/processed/at_school.rds")
+
