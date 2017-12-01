@@ -10,6 +10,9 @@ library(viridis)
 locs <- read_rds("data/processed/at_home.rds")
 locs <- na.omit(locs)
 
+# Up the font size
+theme_set(theme_gray(base_size = 16))
+
 # Get local time and then extract day and hour
 locs %>%
   mutate(DateTime = DateTime + minutes(sample_timezone)) %>%
@@ -23,4 +26,4 @@ locs %>%
   ylab("Hour of day") +
   scale_fill_viridis(name = "Fraction at home")
 
-ggsave("figs/at_home_week.pdf")
+ggsave("figs/at_home_week.pdf", width = 16, height = 10)
