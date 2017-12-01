@@ -7,6 +7,7 @@ library(stringr)
 library(dplyr)
 library(tidyr)
 library(geosphere)
+library(stringr)
 
 # Bizarrely, the ELSI data uses "†" as a missing value
 # The skip and n_max arguments are used because there is
@@ -127,21 +128,10 @@ for (i in 1:nrow(private)) {
 write_rds(public, "data/processed/public_school_address.rds")
 write_rds(private, "data/processed/private_school_address.rds")
 
-# Create a merged version with all schools, after removing schools
-# within 200 meters of each other
+# Create a merged version with all schools, after removing elementary
+# and middle schools
 schools <- bind_rows(public, private)
-
-to_keep <- rep(T, nrow(schools))
-
-for (i in 1:nrow(schools)) {
-  dists <- distCosine(
-    c(schools[[i, "longitude"]], schools[[i, "latitude"]]),
-    cbind(schools$longitude, schools$latitude))
-  outside_radius <- dists > 200
-  outside_radius[1:i] <- T
-  to_keep <- to_keep & outside_radius
-}
-
-schools <- schools[to_keep, ]
+not_hs <- "ELEMENTARY|MIDDLE SCHOOL|JUNIOR HIGH SCHOOL"
+schools <- filter(schools, !str_detect(schools$school_name, not_hs))
 
 write_rds(schools, "data/processed/all_school_address.rds")
