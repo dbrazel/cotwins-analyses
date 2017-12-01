@@ -33,4 +33,3 @@ df %>%
     theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 
 ggsave("figs/twin_school_frac.pdf", width = 6, height = 4)
-  
