@@ -61,4 +61,7 @@ for (twin in twins) {
   print(twin)
 }
 
+# Sort by twin and n_school_points
+results <- arrange(results, twin_id, desc(n_school_points))
+
 write_rds(results, "data/processed/twin_by_school.rds")
