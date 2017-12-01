@@ -65,3 +65,16 @@ for (twin in twins) {
 results <- arrange(results, twin_id, desc(n_school_points))
 
 write_rds(results, "data/processed/twin_by_school.rds")
+
+# Select the top school for each twin
+results %>%
+  group_by(twin_id) %>%
+  summarize(
+    school_id = first(school_id),
+    school_latitude = first(latitude),
+    school_longitude = first(longitude),
+    n_school_points = first(n_school_points),
+    total_points = first(total_points),
+    school_points_frac = first(school_points_frac)
+    ) %>%
+  write_rds("data/processed/twin_top_school.rds")
