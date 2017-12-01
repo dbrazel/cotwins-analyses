@@ -5,15 +5,14 @@ library(dplyr)
 library(geosphere)
 library(ggplot2)
 
+# Up the font size
+theme_set(theme_gray(base_size = 16))
+
 locs <- read_rds("data/processed/Michigan_DB_user_location_09_25_17_cleaned.rds")
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # Get rid of data not from twins
 locs <- semi_join(locs, id_mapping_long, by = c("user_id" = "alternate_id"))
-
-# Get the device type
-user_info <- read_rds("data/raw/Michigan_DB_users_09_25_17.rds")
-locs <- left_join(locs, user_info, by = c("user_id" = "alternate_id"))
 
 time_interval <- tibble()
 
@@ -32,7 +31,8 @@ time_interval %>%
   ggplot(aes(x = interval, fill = app_type)) +
   geom_histogram() +
   scale_x_log10() +
-  xlab("Time between points (seconds)")
+  xlab("Time between points (seconds)") +
+  scale_fill_discrete(name = "App type")
 
 ggsave("figs/time_interval.pdf", width = 6, height = 4)
 
@@ -54,6 +54,7 @@ space_interval %>%
   ggplot(aes(x = interval, fill = app_type)) +
   geom_histogram() +
   scale_x_log10() +
-  xlab("Distance between points (meters)")
+  xlab("Distance between points (meters)") +
+  scale_fill_discrete(name = "App type")
 
 ggsave("figs/space_interval.pdf", width = 6, height = 4)
