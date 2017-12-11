@@ -28,6 +28,7 @@ sub_use <- mutate(sub_use, Test_Age = as.numeric(as_date(date_completed) - Birth
 # If the twin didn't use alcohol that week, set DPD to 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$any_substance_use] <- 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$alc_use] <- 0
+sub_use$alc_quantity_drinks_per_day <- ceiling(sub_use$alc_quantity_drinks_per_day)
 
 # Convert age and DPD to wide format
 sub_use <- sub_use %>%
@@ -45,6 +46,9 @@ sub_use_age <- sub_use %>%
   mutate(age = dpd) %>%
   select(-alc_quantity_drinks_per_day, -dpd) %>%
   spread(age, Test_Age, sep = "_")
+
+# MPlus requires the definition variable to be complete
+sub_use_age[is.na(sub_use_age)] <- 18
 
 sub_use <- bind_cols(select(sub_use_dpd, -user_id), select(sub_use_age, -user_id))
 
