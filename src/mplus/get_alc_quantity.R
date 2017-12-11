@@ -28,9 +28,6 @@ sub_use <- mutate(sub_use, Test_Age = as.numeric(as_date(date_completed) - Birth
 # If the twin didn't use alcohol that week, set DPD to 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$any_substance_use] <- 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$alc_use] <- 0
-
-# Round DPD to accommadate modeling as count variable
-# This only affect the "part of a drink response" which is coded as 0.5
 sub_use$alc_quantity_drinks_per_day <- ceiling(sub_use$alc_quantity_drinks_per_day)
 
 # Convert age and DPD to wide format
