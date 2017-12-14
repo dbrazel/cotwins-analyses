@@ -30,7 +30,7 @@ sub_use$alc_quantity_drinks_per_day[!sub_use$any_substance_use] <- 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$alc_use] <- 0
 
 # Round DPD to accommodate modeling as count variable
-# This only affect the "part of a drink response" which is coded as 0.5
+# This only affects the "part of a drink response" which is coded as 0.5
 sub_use$alc_quantity_drinks_per_day <- ceiling(sub_use$alc_quantity_drinks_per_day)
 
 # Convert age and DPD to wide format
