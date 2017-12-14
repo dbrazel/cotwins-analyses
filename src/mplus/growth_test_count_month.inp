@@ -1,0 +1,10 @@
+TITLE:  growth model with individually-varying times of observation and counts by month
+DATA:   FILE IS alc_quantity_month.dat;
+VARIABLE: NAMES ARE dpd1-dpd12 age1-age12;
+    USEVAR = dpd1-dpd12 age1-age12;
+    MISSING ARE *;
+    COUNT = dpd1-dpd12 (i);
+    TSCORES = age1-age12;
+ANALYSIS: TYPE = RANDOM;
+MODEL:  i s | dpd1-dpd12 AT age1-age12;
+OUTPUT: SAMPSTAT;

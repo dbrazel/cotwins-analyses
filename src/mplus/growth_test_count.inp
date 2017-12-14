@@ -9,3 +9,4 @@ ANALYSIS: TYPE = RANDOM;
 MODEL:  i s | dpd1-dpd114 AT age1-age114;
         i*0;
         s*0.1;
+

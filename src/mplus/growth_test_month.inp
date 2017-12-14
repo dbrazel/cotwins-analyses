@@ -1,0 +1,42 @@
+TITLE:  growth model with individually-varying times of observation, binned by month
+DATA:   FILE IS alc_quantity_month.dat;
+VARIABLE: NAMES ARE dpd1-dpd28 age1-age28;
+    MISSING ARE *;
+    USEVAR ARE dpd1-dpd12;
+    CONSTRAINT ARE age1-age12;
+ANALYSIS: ESTIMATOR = MLR;
+MODEL: eta_1 BY dpd1-dpd12@1;
+       eta_2 BY dpd1* (L1)
+                dpd2  (L2)
+                dpd3  (L3)
+                dpd4  (L4)
+                dpd5  (L5)
+                dpd6  (L6)
+                dpd7  (L7)
+                dpd8  (L8)
+                dpd9  (L9)
+                dpd10  (L10)
+                dpd11  (L11)
+                dpd12  (L12);
+       eta_1 eta_2;
+       eta_1 WITH eta_2;
+       [eta_1 eta_2];
+
+       dpd1-dpd12 (theta);
+       [dpd1-dpd12@0];
+      
+MODEL CONSTRAINT:
+       L1 = age1;
+       L2 = age2;
+       L3 = age3;
+       L4 = age4;
+       L5 = age5;
+       L6 = age6;
+       L7 = age7;
+       L8 = age8;
+       L9 = age9;
+       L10 = age10;
+       L11 = age11;
+       L12 = age12;
+
+OUTPUT: SAMPSTAT TECH1;

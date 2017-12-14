@@ -5,7 +5,7 @@ VARIABLE: NAMES ARE dpd1-dpd119 age1-age119;
     USEVAR ARE dpd1-dpd114;
     CONSTRAINT ARE age1-age114;
 ANALYSIS: ESTIMATOR = MLR;
-          ITERATIONS=(10000);
+          COVERAGE = 0;
 
 MODEL: eta_1 BY dpd1-dpd114@1;
        eta_2 BY dpd1* (L1)
@@ -245,4 +245,5 @@ MODEL CONSTRAINT:
        L113 = age113;
        L114 = age114;
 
-OUTPUT: SAMPSTAT TECH1;
+OUTPUT: SAMPSTAT TECH1 TECH8;
+
