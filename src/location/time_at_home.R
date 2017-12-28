@@ -13,10 +13,6 @@ addresses <- read_rds("data/processed/home_addresses.rds")
 # Select only non-missing rows
 locs <- na.omit(locs)
 
-# Get rid of test accounts (there won't be corresponding rows)
-# and get the SVIDs
-locs <- inner_join(locs, id_mapping, by = c("Colorado_ID" = "alternate_id"))
-
 locs["at_home"] <- NA
 #locs["home_distance"] <- NA
 
