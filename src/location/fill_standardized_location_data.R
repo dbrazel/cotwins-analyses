@@ -10,7 +10,7 @@ std_locs <- read_rds('data/processed/std_locations.rds')
 # Add a column to hold the original datetime a row had before it was copied
 std_locs["orig_datetime"] <- std_locs$DateTime
 
-# Define how far back to search for a point
+# Define how far forward in time we will fill a point
 time_valid <- hours(12)
 
 # Order the points by user id and then ascending datetime
@@ -21,11 +21,10 @@ std_locs <- arrange(std_locs, Colorado_ID, DateTime)
 std_locs <- data.table::as.data.table(std_locs)
 
 # If the row is missing and the previous row is from the same iOS user and is
-# not missing, and the difference between current row DateTime and previous row
-# orig_datetime is less than or equal to time_valid, copy the previous row to
-# the current row
+# not missing, and current row DateTime is no more than time_valid after the
+# previous row orig_datetime, copy the previous row to the current row
 for (i in 1:nrow(std_locs)) {
-  if (i %% 100 == 0) print(i)
+  if (i %% 1000 == 0) print(i)
   if (i == 1) next()
   
   if (
