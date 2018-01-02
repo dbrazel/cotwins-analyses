@@ -46,4 +46,4 @@ for (i in 1:nrow(std_locs)) {
 }
 
 std_locs <- as_tibble(std_locs)
-write_rds('data/processed/std_locations_filled.rds')
+write_rds(std_locs, 'data/processed/std_locations_filled.rds')
