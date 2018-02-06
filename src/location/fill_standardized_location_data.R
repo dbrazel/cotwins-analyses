@@ -14,7 +14,7 @@ std_locs["orig_datetime"] <- std_locs$DateTime
 time_valid <- hours(12)
 
 # Order the points by user id and then ascending datetime
-std_locs <- arrange(std_locs, Colorado_ID, DateTime)
+std_locs <- arrange(std_locs, Michigan_ID, DateTime)
 
 # Use data.table for its update in-place functionality - using tibbles or dfs
 # will cause R to create deep copies which is slow
@@ -30,7 +30,7 @@ for (i in 1:nrow(std_locs)) {
   if (
     is.na(std_locs[[i, 'id']]) &
     !is.na(std_locs[[i - 1, 'id']]) &
-    std_locs[[i, 'Colorado_ID']] == std_locs[[i - 1, 'Colorado_ID']] &
+    std_locs[[i, 'Michigan_ID']] == std_locs[[i - 1, 'Michigan_ID']] &
     std_locs[[i - 1, 'app_type']] == 'ios' &
     std_locs[[i, 'DateTime']] - time_valid <= std_locs[[i - 1, 'orig_datetime']]
   ) {

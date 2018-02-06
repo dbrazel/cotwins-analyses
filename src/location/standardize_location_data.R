@@ -25,11 +25,11 @@ id_mapping <- read_csv('/work/KellerLab/david/cotwins-analyses/data/processed/id
                          ))
 
 # Put twins on separate rows and then join to the twin info table
-id_mapping <- bind_rows(tibble(SVID = id_mapping$T1, Colorado_ID = id_mapping$T1_alternate_id), tibble(SVID = id_mapping$T2, Colorado_ID = id_mapping$T2_alternate_id))
+id_mapping <- bind_rows(tibble(SVID = id_mapping$T1, Michigan_ID = id_mapping$T1_alternate_id), tibble(SVID = id_mapping$T2, Michigan_ID = id_mapping$T2_alternate_id))
 twin_info <- left_join(twin_info, id_mapping, by = c('ID1' = 'SVID'))
 
 # Get locations corresponding to the twin pair
-locations <- filter(locations, user_id %in% twin_info$Colorado_ID[twin_pair:(twin_pair + 1)])
+locations <- filter(locations, user_id %in% twin_info$Michigan_ID[twin_pair:(twin_pair + 1)])
 
 # If the twins have no locations, terminate
 if (nrow(locations) == 0) {quit(save = 'no')}
@@ -38,7 +38,7 @@ if (nrow(locations) == 0) {quit(save = 'no')}
 time_grid <- seq(min(locations$sample_time), max(locations$sample_time), 60*30)
 
 # Get the cartesian product of the twin IDs and the time grid and add empty columns for lat and long
-results <- expand.grid(DateTime = time_grid, Colorado_ID = twin_info$Colorado_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
+results <- expand.grid(DateTime = time_grid, Michigan_ID = twin_info$Michigan_ID[twin_pair:(twin_pair + 1)], stringsAsFactors = F)
 results[, c('latitude', 'longitude', 'id', 'accuracy', 'sample_timezone', 'app_type')] <- NA
 
 for (row in seq(to = nrow(results))) {

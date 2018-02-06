@@ -14,7 +14,7 @@ std_locs_ios <- mutate(
 )
 
 # Ensure that the data are sorted
-std_locs_ios <- arrange(std_locs_ios, Colorado_ID, DateTime)
+std_locs_ios <- arrange(std_locs_ios, Michigan_ID, DateTime)
 
 # Get the datetime and length of each forward fill in the ios std locs
 # rle only works with atomic types so we have to convert to character

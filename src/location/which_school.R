@@ -11,7 +11,7 @@ schools <- read_rds("data/processed/all_school_address.rds")
 # Use only non-missing points
 std_locs <- na.omit(std_locs)
 
-twins <- unique(std_locs$Colorado_ID)
+twins <- unique(std_locs$Michigan_ID)
 
 # Make an empty tibble to hold the results
 # One row per twin and school:
@@ -32,7 +32,7 @@ results <- tibble(
 # Loop over the twins
 for (twin in twins) {
   # For each twin, get their locations and make a tibble to hold their results
-  subset <- filter(std_locs, Colorado_ID == twin)
+  subset <- filter(std_locs, Michigan_ID == twin)
   twin_results <- tibble(
     twin_id = twin,
     school_id = schools$school_id,

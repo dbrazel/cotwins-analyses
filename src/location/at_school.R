@@ -17,7 +17,7 @@ std_locs["at_school"] <- NA
 std_locs <- left_join(
   std_locs,
   schools,
-  by = c("Colorado_ID" = "twin_id")
+  by = c("Michigan_ID" = "twin_id")
   )
 
 dists <- distCosine(
