@@ -6,7 +6,7 @@ library(dplyr)
 library(geosphere)
 library(stringr)
 
-locs <- read_rds("data/processed/std_locations.rds")
+locs <- read_rds("data/processed/std_locations_filled.rds")
 id_mapping <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 addresses <- read_rds("data/processed/home_addresses.rds")
 
@@ -15,6 +15,10 @@ locs <- na.omit(locs)
 
 locs["at_home"] <- NA
 #locs["home_distance"] <- NA
+
+# Get the twin SVID
+locs <- left_join(locs, id_mapping, by = c("Michigan_ID" = "alternate_id")) %>%
+  select(-bestzygos)
 
 # Get the SVID for the family (the first six characters of the twin SVID)
 locs["fam_id"] <- str_sub(locs$SVID, 1, 6)

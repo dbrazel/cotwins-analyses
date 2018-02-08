@@ -5,7 +5,7 @@ library(readr)
 library(dplyr)
 library(geosphere)
 
-std_locs <- read_rds("data/processed/std_locations.rds")
+std_locs <- read_rds("data/processed/std_locations_filled.rds")
 schools <- read_rds("data/processed/twin_top_school.rds")
 
 # Use only non-missing points
