@@ -13,7 +13,13 @@ intercepts <- filter(re_est, term == "b_1i")
 slopes <- filter(re_est, term == "b_2i")
 
 # Get the slope and intercepts for each twin pair
-id_mapping <- select(id_mapping, T1_id = T1_alternate_id, T2_id = T2_alternate_id, bestzygos)
+id_mapping <-
+  select(
+    id_mapping,
+    T1_id = T1_alternate_id,
+    T2_id = T2_alternate_id,
+    bestzygos
+    )
 
 id_mapping <- left_join(id_mapping, intercepts, by = c("T1_id" = "twin"))
 id_mapping <- select(id_mapping, T1_id:bestzygos, intercept1 = estimate)
@@ -32,10 +38,23 @@ mzData <- filter(id_mapping, bestzygos == "MZ")
 dzData <- filter(id_mapping, bestzygos %in% c("DZ", "OS"))
 
 # Univariate model of the intercepts
-int_model <- umxACE(selDVs = "intercept", dzData = dzData, mzData = mzData, sep = "")
+int_model <-
+  umxACE(selDVs = "intercept", dzData = dzData, mzData = mzData, sep = "")
 
 # Univariate model of the slopes
-slope_model <- umxACE(selDVs = "slope", dzData = dzData, mzData = mzData, sep = "")
+slope_model <-
+  umxACE(
+    selDVs = "slope",
+    dzData = dzData,
+    mzData = mzData,
+    sep = ""
+  )
 
 # Bivariate model
-both_model <- umxACE(selDVs = c("slope", "intercept"), dzData = dzData, mzData = mzData, sep = "")
+both_model <-
+  umxACE(
+    selDVs = c("slope", "intercept"),
+    dzData = dzData,
+    mzData = mzData,
+    sep = ""
+  )
