@@ -52,3 +52,15 @@ slope_fit <-
 
 summary(slope_fit)
 
+# Fit the bivariate model of slope and intercept
+print("Summary of the bivariate model of slope and intercept for DPD:")
+
+both_fit <-
+  fit_ace_bivariate(mz_data,
+                    dz_data,
+                    "intercept1",
+                    "intercept2",
+                    "slope1",
+                    "slope2"
+                    )
+summary(both_fit)
