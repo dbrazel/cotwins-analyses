@@ -10,8 +10,8 @@ re_est <- read_rds("data/models/dpd_linear_random_effects.rds")
 id_mapping <- read_csv("data/processed/id_mapping.csv", col_types = "ccccc")
 
 # Filter out the intercept and slope terms
-intercepts <- filter(re_est, term == "b_1i")
-slopes <- filter(re_est, term == "b_2i")
+intercepts <- filter(re_est, term == "d_1i")
+slopes <- filter(re_est, term == "d_2i")
 
 # Get the slope and intercepts for each twin pair
 id_mapping <- select(id_mapping, T1_id = T1_alternate_id, T2_id = T2_alternate_id, bestzygos)

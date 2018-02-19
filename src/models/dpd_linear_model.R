@@ -12,7 +12,8 @@ sub_use <- read_rds("data/processed/remote_substance_use.rds")
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds")
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
-# For each survey response get the twin's age at that time
+# For each survey response get the twin's age at that time and switch sex to
+# a 0/1 coding from 1/2
 sub_use <- left_join(sub_use, id_mapping_long, by = c("user_id" = "alternate_id"))
 sub_use <- left_join(sub_use, twin_info, by = c("SVID" = "ID1"))
 sub_use <- select(
@@ -22,11 +23,16 @@ sub_use <- select(
   any_substance_use,
   alc_use,
   alc_quantity_drinks_per_day,
+  Sex1,
   Birth_Date,
   Test_Date,
   family
 )
-sub_use <- mutate(sub_use, Test_Age = as.numeric(as_date(date_completed) - Birth_Date) / 365)
+sub_use <- mutate(
+  sub_use,
+  test_age = as.numeric(as_date(date_completed) - Birth_Date) / 365,
+  sex = Sex1 - 1
+  )
 
 # If the twin didn't use alcohol that week, set DPD to 0
 sub_use$alc_quantity_drinks_per_day[!sub_use$any_substance_use] <- 0
@@ -37,16 +43,18 @@ sub_use$alc_quantity_drinks_per_day[!sub_use$alc_use] <- 0
 # group by twin within family
 ml <-
   nlme(
-    alc_quantity_drinks_per_day ~ b_1i + b_2i * (Test_Age-14),
+    alc_quantity_drinks_per_day ~
+      (beta_01 + beta_11 * sex + d_1i) +
+      (beta_02 + beta_12 * sex + d_2i) * (test_age - 14),
     data = sub_use,
-    fixed = b_1i + b_2i ~ 1,
-    random = b_1i + b_2i ~ 1|family/user_id,
+    fixed = beta_01 + beta_11 + beta_02 + beta_12 ~ 1,
+    random = d_1i + d_2i ~ 1|family/user_id,
     na.action = "na.omit",
-    start = c(0, 0)
+    start = c(0, 0, 0, 0)
     )
 
 # Get the random effect estimates
-re_est <- tidy(ml)
+re_est <- tidy(ml) %>% filter(term %in% c("d_1i", "d_2i"))
 
 # Extract the twin ID
 re_est <- separate(re_est, level, into = c("family", "twin"), sep = "/")
