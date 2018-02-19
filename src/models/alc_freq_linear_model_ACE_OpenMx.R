@@ -37,7 +37,7 @@ mz_data <- mz_data[, 4:7]
 dz_data <- dz_data[, 4:7]
 
 # Fit the univariate intercept model
-print("Summary of the univariate intercept model for DPD:")
+print("Summary of the univariate intercept model for alcohol frequency:")
 
 intercept_fit <-
   fit_ace_univariate(mz_data, dz_data, "intercept1", "intercept2")
@@ -45,7 +45,7 @@ intercept_fit <-
 summary(intercept_fit)
 
 # Fit the univariate slope model
-print("Summary of the univariate slope model for DPD:")
+print("Summary of the univariate slope model for alcohol frequency:")
 
 slope_fit <-
   fit_ace_univariate(mz_data, dz_data, "slope1", "slope2")
@@ -53,7 +53,7 @@ slope_fit <-
 summary(slope_fit)
 
 # Fit the bivariate model of slope and intercept
-print("Summary of the bivariate model of slope and intercept for DPD:")
+print("Summary of the bivariate model of slope and intercept for alcohol frequency:")
 
 both_fit <-
   fit_ace_bivariate(mz_data,
