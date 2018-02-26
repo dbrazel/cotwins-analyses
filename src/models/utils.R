@@ -21,7 +21,7 @@ fit_ace_univariate <- function (mz_data, dz_data, t1_var, t2_var) {
       nrow = nv,
       ncol = nv,
       free = TRUE,
-      values = .6,
+      values = .25,
       labels = "x",
       name = "X"
     )
@@ -31,7 +31,7 @@ fit_ace_univariate <- function (mz_data, dz_data, t1_var, t2_var) {
       nrow = nv,
       ncol = nv,
       free = TRUE,
-      values = .6,
+      values = .35,
       labels = "y",
       name = "Y"
     )
@@ -41,7 +41,7 @@ fit_ace_univariate <- function (mz_data, dz_data, t1_var, t2_var) {
       nrow = nv,
       ncol = nv,
       free = TRUE,
-      values = .6,
+      values = .45,
       labels = "z",
       name = "Z"
     )
