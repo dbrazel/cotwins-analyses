@@ -1,4 +1,5 @@
-# Geocode school addresses, using the Google API
+# Geocode Colorado high school addresses obtained from the ELSI database,
+# using the Google API
 
 library(readr)
 library(jsonlite)
@@ -9,9 +10,9 @@ library(tidyr)
 library(geosphere)
 library(stringr)
 
-# Bizarrely, the ELSI data uses "†" as a missing value
-# The skip and n_max arguments are used because there is
-# garbage at the start and end of each "CSV"
+# Bizarrely, the ELSI data uses "†", "‡", and "-" as missing values
+# The skip and n_max arguments are used because there is garbage at
+# the start and end of each "CSV"
 # THIS IS FRAGILE AND MAY BREAK ON NEW DATA
 public <-
   read_csv("data/external/ELSI_CO_PUBLIC.csv",
