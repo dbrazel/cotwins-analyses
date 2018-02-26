@@ -47,6 +47,17 @@ sub_use <- mutate(
   mar_per_week = mar_freq_times_per_day * mar_freq_days_per_week
 )
 
+# Consider only responses up to age 18
+sub_use <- filter(sub_use, test_age < 18)
+
+# Get rid of subjects with very few responses
+valid_ids <- sub_use %>%
+  group_by(user_id) %>%
+  summarize(N = n()) %>%
+  filter(N > 5)
+
+sub_use <- filter(sub_use, user_id %in% valid_ids$user_id)
+
 # Fit a linear growth model with age at assessment as the time metric
 # We adjust the intercept to correspond to age 14 and
 # group by twin within family
