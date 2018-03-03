@@ -65,7 +65,7 @@ ml <-
   nlme(
     mar_per_week ~
       (beta_01 + beta_11 * sex + d_1i) +
-      (beta_02 + beta_12 * sex + d_2i) * (test_age - 14),
+      (beta_02 + beta_12 * sex + d_2i) * (test_age - 15),
     data = sub_use,
     fixed = beta_01 + beta_11 + beta_02 + beta_12 ~ 1,
     random = d_1i + d_2i ~ 1|family/user_id,
