@@ -37,3 +37,4 @@ packrat/lib*/
 *sublime*
 #macOS attribute files
 *DS_Store*
+*.dat
