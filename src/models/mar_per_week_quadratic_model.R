@@ -8,7 +8,9 @@ library(lubridate)
 library(lme4)
 
 sub_use <- read_rds("data/processed/remote_substance_use.rds")
-twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds")
+twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
+  haven::zap_formats() %>%
+  haven::zap_labels()
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # For each survey response get the twin's age at that time, centered at 16.5, and
