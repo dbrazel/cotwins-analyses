@@ -26,6 +26,17 @@ dz_data <- filter(id_mapping, bestzygos %in% c("DZ", "OS"))
 mz_data <- mz_data[, 4:9]
 dz_data <- dz_data[, 4:9]
 
+# Rescale to variances around 1
+mz_data_scale <-
+  mutate_all(mz_data, funs(. * round(sqrt(
+    1 / var(., use = "complete.obs")
+  ), 1)))
+
+dz_data_scale <-
+  mutate_all(dz_data, funs(. * round(sqrt(
+    1 / var(., use = "complete.obs")
+  ), 1)))
+
 # Fit the univariate models of the parameters and extract the a2, c2, and e2 estimates
 print("Summary of the univariate model of intercept for drinks per week:")
 
