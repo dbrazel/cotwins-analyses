@@ -21,7 +21,8 @@ ggplot(dpw_quadratic_comps,
        )) +
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
-  labs(title = "DPW Quadratic Growth Model: ACE Estimates")
+  labs(title = "DPW Quadratic Growth Model: ACE Estimates") +
+  coord_cartesian(ylim = c(0, 1))
 ggsave("figs/dpw_quadratic_ACE_comps.pdf", width = 7, height = 4.67)
 
 ggplot(mpw_quadratic_comps,
@@ -34,7 +35,8 @@ ggplot(mpw_quadratic_comps,
        )) +
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
-  labs(title = "MPW Quadratic Growth Model: ACE Estimates")
+  labs(title = "MPW Quadratic Growth Model: ACE Estimates") +
+  coord_cartesian(ylim = c(0, 1))
 ggsave("figs/mpw_quadratic_ACE_comps.pdf", width = 7, height = 4.67)
 
 ggplot(dpw_linear_comps,
@@ -47,7 +49,8 @@ ggplot(dpw_linear_comps,
        )) +
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
-  labs(title = "DPW Linear Growth Model: ACE Estimates")
+  labs(title = "DPW Linear Growth Model: ACE Estimates") +
+  coord_cartesian(ylim = c(0, 1))
 ggsave("figs/dpw_linear_ACE_comps.pdf", width = 7, height = 4.67)
 
 ggplot(mpw_linear_comps,
@@ -60,6 +63,7 @@ ggplot(mpw_linear_comps,
        )) +
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
-  labs(title = "MPW Linear Growth Model: ACE Estimates")
+  labs(title = "MPW Linear Growth Model: ACE Estimates") +
+  coord_cartesian(ylim = c(0, 1))
 ggsave("figs/mpw_linear_ACE_comps.pdf", width = 7, height = 4.67)
 
