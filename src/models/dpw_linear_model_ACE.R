@@ -29,7 +29,7 @@ dz_data <- dz_data[, 4:7]
 # Fit the bivariate model of slope and intercept
 print("Summary of the bivariate model of slope and intercept for DPW:")
 
-both_fit <-
+bi_fit <-
   fit_ace_bivariate(mz_data,
                     dz_data,
                     "intercept1",
@@ -37,14 +37,7 @@ both_fit <-
                     "slope1",
                     "slope2"
   )
-summary(both_fit)
+summary(bi_fit)
 
-# Write out the variance component estimates
-var_comps <- tibble(
-  lbound = both_fit$output$confidenceIntervals[, 1],
-  estimate = both_fit$output$confidenceIntervals[, 2],
-  ubound = both_fit$output$confidenceIntervals[, 3],
-  component = c("a2", "c2", "e2", "a2", "c2", "e2"),
-  pheno = c(rep("intercept", 3), rep("slope", 3))
-)
+var_comps <- extract_bivariate_comps(bi_fit)
 write_rds(var_comps, "data/models/dpw_linear_ACE_comps.rds")
