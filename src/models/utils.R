@@ -184,7 +184,7 @@ fit_ace_bivariate <-
         ncol = nv * 2,
         free = TRUE,
         values = 1,
-        labels = c("m1", "m1", "m2", "m2"),
+        labels = c("m1", "m2", "m1", "m2"),
         name = "expMean"
       )
     
@@ -219,6 +219,10 @@ fit_ace_bivariate <-
     corE <-
       mxAlgebra(expression = solve(sqrt(I * E)) %&% E, name = "rE")
     
+    rA12 <- mxAlgebra(expression = rA[1, 2], name = "rA12")
+    rC12 <- mxAlgebra(expression = rC[1, 2], name = "rC12")
+    rE12 <- mxAlgebra(expression = rE[1, 2], name = "rE12")
+    
     pars <-
       list(X,
            Y,
@@ -238,7 +242,10 @@ fit_ace_bivariate <-
            mean_G,
            corA,
            corC,
-           corE)
+           corE,
+           rA12,
+           rC12,
+           rE12)
     
     fun_ML <- mxFitFunctionML()
     
@@ -258,16 +265,25 @@ fit_ace_bivariate <-
     fit_ML <-
       mxFitFunctionMultigroup(c("MZ.fitfunction", "DZ.fitfunction"))
     Cf <-
-      mxModel(
-        "ACE",
-        pars,
-        model_mz,
-        model_dz,
-        fit_ML,
-        est_VC,
-        mxCI(c("a1_2", "c1_2", "e1_2", "a2_2", "c2_2", "e2_2")
-             )
-        )
+      mxModel("ACE",
+              pars,
+              model_mz,
+              model_dz,
+              fit_ML,
+              est_VC,
+              mxCI(
+                c(
+                  "a1_2",
+                  "c1_2",
+                  "e1_2",
+                  "a2_2",
+                  "c2_2",
+                  "e2_2",
+                  "rA12",
+                  "rC12",
+                  "rE12"
+                )
+              ))
     # Run the CholACE model
     mxRun(Cf, intervals = T)
   }
@@ -356,8 +372,8 @@ fit_ace_trivariate <-
         nrow = 1,
         ncol = nv * 2,
         free = TRUE,
-        values = c(0.07, 0.07, 0.05, 0.05, 0.007, 0.007),
-        labels = c("m1", "m1", "m2", "m2", "m3", "m3"),
+        values = 1,
+        labels = c("m1", "m2", "m3", "m1", "m2", "m3"),
         name = "expMean"
       )
     
@@ -392,6 +408,18 @@ fit_ace_trivariate <-
     corE <-
       mxAlgebra(expression = solve(sqrt(I * E)) %&% E, name = "rE")
     
+    rA12 <- mxAlgebra(expression = rA[1, 2], name = "rA12")
+    rC12 <- mxAlgebra(expression = rC[1, 2], name = "rC12")
+    rE12 <- mxAlgebra(expression = rE[1, 2], name = "rE12")
+    
+    rA13 <- mxAlgebra(expression = rA[1, 3], name = "rA13")
+    rC13 <- mxAlgebra(expression = rC[1, 3], name = "rC13")
+    rE13 <- mxAlgebra(expression = rE[1, 3], name = "rE13")
+    
+    rA23 <- mxAlgebra(expression = rA[2, 3], name = "rA23")
+    rC23 <- mxAlgebra(expression = rC[2, 3], name = "rC23")
+    rE23 <- mxAlgebra(expression = rE[2, 3], name = "rE23")
+    
     pars <-
       list(X,
            Y,
@@ -414,7 +442,16 @@ fit_ace_trivariate <-
            mean_G,
            corA,
            corC,
-           corE)
+           corE,
+           rA12,
+           rC12,
+           rE12,
+           rA13,
+           rC13,
+           rE13,
+           rA23,
+           rC23,
+           rE23)
     
     fun_ML <- mxFitFunctionML()
     
@@ -434,16 +471,80 @@ fit_ace_trivariate <-
     fit_ML <-
       mxFitFunctionMultigroup(c("MZ.fitfunction", "DZ.fitfunction"))
     Cf <-
-      mxModel(
-        "ACE",
-        pars,
-        model_mz,
-        model_dz,
-        fit_ML,
-        est_VC,
-        mxCI(c("a1_2", "c1_2", "e1_2", "a2_2", "c2_2", "e2_2", "a3_2", "c3_2", "e3_2")
-        )
-      )
+      mxModel("ACE",
+              pars,
+              model_mz,
+              model_dz,
+              fit_ML,
+              est_VC,
+              mxCI(
+                c(
+                  "a1_2",
+                  "c1_2",
+                  "e1_2",
+                  "a2_2",
+                  "c2_2",
+                  "e2_2",
+                  "a3_2",
+                  "c3_2",
+                  "e3_2",
+                  "rA12",
+                  "rC12",
+                  "rE12",
+                  "rA13",
+                  "rC13",
+                  "rE13",
+                  "rA23",
+                  "rC23",
+                  "rE23"
+                )
+              ))
     # Run the CholACE model
     mxRun(Cf, intervals = T)
   }
+
+# Given a fit trivariate model, extract the variance component
+# and correlation estimates
+extract_trivariate_comps <- function (model) {
+  require(tibble)
+  df <- tibble(
+    lbound = model$output$confidenceIntervals[, 1],
+    estimate = model$output$confidenceIntervals[, 2],
+    ubound = model$output$confidenceIntervals[, 3],
+    component = c(rep(c("a2", "c2", "e2"), 3), rep(c("rA", "rC", "rE"), 3)),
+    pheno = c(
+      rep("intercept", 3),
+      rep("slope", 3),
+      rep("quadratic", 3),
+      rep("intercept to slope", 3),
+      rep("intercept to quadratic", 3),
+      rep("slope to quadratic", 3)
+    )
+  )
+  df$lbound[is.na(df$lbound)] <- -1.0
+  df$ubound[is.na(df$ubound)] <- 1.0
+  
+  df
+}
+
+# Given a fit bivariate model, extract the variance component
+# and correlation estimates
+extract_bivariate_comps <- function (model) {
+  require(tibble)
+  df <- tibble(
+    lbound = model$output$confidenceIntervals[, 1],
+    estimate = model$output$confidenceIntervals[, 2],
+    ubound = model$output$confidenceIntervals[, 3],
+    component = c(rep(c("a2", "c2", "e2"), 2), rep(c("rA", "rC", "rE"), 1)),
+    pheno = c(
+      rep("intercept", 3),
+      rep("slope", 3),
+      rep("intercept to slope", 3)
+    )
+  )
+  
+  df$lbound[is.na(df$lbound)] <- -1.0
+  df$ubound[is.na(df$ubound)] <- 1.0
+  
+  df
+}
