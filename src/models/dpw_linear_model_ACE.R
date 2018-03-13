@@ -38,3 +38,13 @@ both_fit <-
                     "slope2"
   )
 summary(both_fit)
+
+# Write out the variance component estimates
+var_comps <- tibble(
+  lbound = both_fit$output$confidenceIntervals[, 1],
+  estimate = both_fit$output$confidenceIntervals[, 2],
+  ubound = both_fit$output$confidenceIntervals[, 3],
+  component = c("a2", "c2", "e2", "a2", "c2", "e2"),
+  pheno = c(rep("intercept", 3), rep("slope", 3))
+)
+write_rds(var_comps, "data/models/dpw_linear_ACE_comps.rds")
