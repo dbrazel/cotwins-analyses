@@ -26,62 +26,30 @@ dz_data <- filter(id_mapping, bestzygos %in% c("DZ", "OS"))
 mz_data <- mz_data[, 4:9]
 dz_data <- dz_data[, 4:9]
 
-# Fit the univariate models of the parameters and extract the a2, c2, and e2 estimates
-print("Summary of the univariate model of intercept for marijuana uses per week:")
+mz_data <-
+  mutate_all(mz_data, funs(. * round(sqrt(
+    1 / var(., use = "complete.obs")
+  ), 1)))
 
-intercept_fit <-
-  fit_ace_univariate(mz_data,
+dz_data <-
+  mutate_all(dz_data, funs(. * round(sqrt(
+    1 / var(., use = "complete.obs")
+  ), 1)))
+
+# Fit the trivariate model of the parameters and extract the a2, c2, and e2 estimates
+print("Summary of the trivariate model of marijuana uses per week:")
+
+tri_fit <-
+  fit_ace_trivariate(mz_data,
                     dz_data,
                     "intercept1",
-                    "intercept2"
+                    "intercept2",
+                    "slope1",
+                    "slope2",
+                    "quadratic1",
+                    "quadratic2"
   )
-summary(intercept_fit)
-intercept_fit_comps <-
-  tibble(
-    lbound = intercept_fit$output$confidenceIntervals[, 1],
-    estimate = intercept_fit$output$confidenceIntervals[, 2],
-    ubound = intercept_fit$output$confidenceIntervals[, 3],
-    component = c("a2", "c2", "e2"),
-    pheno = rep("intercept", 3)
-  )
+summary(tri_fit)
 
-print("Summary of the univariate model of slope for marijuana uses per week:")
-
-slope_fit <-
-  fit_ace_univariate(mz_data,
-                     dz_data,
-                     "slope1",
-                     "slope2"
-  )
-summary(slope_fit)
-slope_fit_comps <-
-  tibble(
-    lbound = slope_fit$output$confidenceIntervals[, 1],
-    estimate = slope_fit$output$confidenceIntervals[, 2],
-    ubound = slope_fit$output$confidenceIntervals[, 3],
-    component = c("a2", "c2", "e2"),
-    pheno = rep("slope", 3)
-  )
-
-print("Summary of the univariate model of the quadratic term for marijuana uses per week:")
-
-quadratic_fit <-
-  fit_ace_univariate(mz_data,
-                     dz_data,
-                     "quadratic1",
-                     "quadratic2"
-  )
-summary(quadratic_fit)
-quadratic_fit_comps <-
-  tibble(
-    lbound = quadratic_fit$output$confidenceIntervals[, 1],
-    estimate = quadratic_fit$output$confidenceIntervals[, 2],
-    ubound = quadratic_fit$output$confidenceIntervals[, 3],
-    component = c("a2", "c2", "e2"),
-    pheno = rep("quadratic", 3)
-  )
-
-# Combine and write out the variance component estimates
-all_comps <- bind_rows(intercept_fit_comps, slope_fit_comps, quadratic_fit_comps)
-all_comps$pheno <- factor(all_comps$pheno, levels = c("intercept", "slope", "quadratic"))
-write_rds(all_comps, "data/models/mpw_quadratic_ACE_comps.rds")
+var_comps <- extract_trivariate_comps(tri_fit)
+write_rds(var_comps, "data/models/mpw_quadratic_ACE_comps.rds")
