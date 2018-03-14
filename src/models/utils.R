@@ -513,16 +513,17 @@ extract_trivariate_comps <- function (model) {
     ubound = model$output$confidenceIntervals[, 3],
     component = c(rep(c("a2", "c2", "e2"), 3), rep(c("rA", "rC", "rE"), 3)),
     pheno = c(
-      rep("intercept", 3),
-      rep("slope", 3),
-      rep("quadratic", 3),
-      rep("intercept to slope", 3),
-      rep("intercept to quadratic", 3),
-      rep("slope to quadratic", 3)
+      rep("Intercept", 3),
+      rep("Slope", 3),
+      rep("Quadratic", 3),
+      rep("Intercept to Slope", 3),
+      rep("Intercept to Quadratic", 3),
+      rep("Slope to Quadratic", 3)
     )
   )
   df$lbound[is.na(df$lbound)] <- -1.0
   df$ubound[is.na(df$ubound)] <- 1.0
+  df$pheno <- factor(df$pheno, levels = unique(df$pheno))
   
   df
 }
@@ -537,14 +538,15 @@ extract_bivariate_comps <- function (model) {
     ubound = model$output$confidenceIntervals[, 3],
     component = c(rep(c("a2", "c2", "e2"), 2), rep(c("rA", "rC", "rE"), 1)),
     pheno = c(
-      rep("intercept", 3),
-      rep("slope", 3),
-      rep("intercept to slope", 3)
+      rep("Intercept", 3),
+      rep("Slope", 3),
+      rep("Intercept to Slope", 3)
     )
   )
   
   df$lbound[is.na(df$lbound)] <- -1.0
   df$ubound[is.na(df$ubound)] <- 1.0
+  df$pheno <- factor(df$pheno, levels = unique(df$pheno))
   
   df
 }
