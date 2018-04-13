@@ -5,12 +5,21 @@ library(dplyr)
 library(lubridate)
 
 parents <- read_csv(
-  'data/raw/Michigan_LS_parents_5_31_17.csv',
+  'data/raw/Michigan_LS_parents_4_12_18.csv',
   na = c('NA', 'N/A', ''),
   col_types = paste0(rep('c', 40), collapse = '')
 )
+parents2 <- read_csv(
+  'data/raw/Michigan_LS_parents_2_4_12_18.csv',
+  na = c('NA', 'N/A', ''),
+  col_types = paste0(rep('c', 41), collapse = '')
+) %>%
+  select(-`Who are the adults you live with? [I don't live with any of these adults]`)
+
+parents <- bind_rows(parents, parents2)
+
 surveys <-
-  read_rds('data/raw/Michigan_DB_surveyentries_05_31_17.rds')
+  read_rds('data/raw/Michigan_DB_surveyentries_04_12_18.rds')
 twin_ids <- read_csv(
   'data/processed/id_mapping_long.csv',
   col_types = cols(

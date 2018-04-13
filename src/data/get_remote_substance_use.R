@@ -9,12 +9,12 @@ library(dplyr)
 library(lubridate)
 
 checkin <- read_csv(
-  'data/raw/Michigan_LS_checking_in_11_3_17.csv',
+  'data/raw/Michigan_LS_checking_in_4_12_18.csv',
   na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know'),
   col_types = paste0(rep('c', 65), collapse = '')
 )
 surveys <-
-  read_rds('data/raw/Michigan_DB_surveyentries_09_25_17.rds')
+  read_rds('data/raw/Michigan_DB_surveyentries_04_12_18.rds')
 twin_ids <- read_csv(
   'data/processed/id_mapping_long.csv',
   col_types = cols(
@@ -156,9 +156,10 @@ checkin$cig_quantity_per_day <-
       "More than 30 cigarettes",
       "11-15 cigarettes",
       "4 cigarettes",
-      "Only part of a cigarette."
+      "Only part of a cigarette.",
+      "More than 30 cigarettes per day"
     ),
-    c(2, 5, 5, 3, 3, 2, 4, 8, 1, 0.5, 1, 8, 30, 13, 4, 0.5),
+    c(2, 5, 5, 3, 3, 2, 4, 8, 1, 0.5, 1, 8, 30, 13, 4, 0.5, 30),
     warn_missing = T
   ) %>%
   as.numeric()
@@ -287,9 +288,10 @@ checkin$alc_quantity_drinks_per_day <-
       "Usually 20 drinks",
       "Usually 14 drinks",
       "Usually more than 20 drinks",
-      "Usually 16 drinks"
+      "Usually 16 drinks",
+      "Usually 18 drinks"
     ),
-    c(2, 1, 0.5, 6, 10, 5, 3, 4, 7, 15, 8, 13, 9, 11, 12, 20, 14, 20, 16),
+    c(2, 1, 0.5, 6, 10, 5, 3, 4, 7, 15, 8, 13, 9, 11, 12, 20, 14, 20, 16, 18),
     warn_missing = T
   ) %>% as.numeric()
 
@@ -298,8 +300,8 @@ checkin$alc_quantity_drinks_yesterday <-
     checkin$alc_quantity_drinks_yesterday,
     c("None", "Only part of a drink", "2 drinks", "1 drink", 
       "10 drinks", "5 drinks", "3 drinks", "7 drinks", "6 drinks (a 6-pack of beer or 6 shots of liquor)", 
-      "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks", "11 drinks", "16 drinks", "14 drinks"),
-    c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9, 11, 16, 14),
+      "15 drinks", "4 drinks", "8 drinks", "13 drinks", "9 drinks", "11 drinks", "16 drinks", "14 drinks", "12 drinks (a 12-pack of beer or 12 glasses of wine)"),
+    c(0, 0.5, 2, 1, 10, 5, 3, 7, 6, 15, 4, 8, 13, 9, 11, 16, 14, 12),
     warn_missing = T
   ) %>% as.numeric()
 
