@@ -1,0 +1,13 @@
+digraph {
+	alc_int[label="Alcohol Intercept"]
+	alc_slope[label="Alcohol Slope"]
+	home_int[label="Time at Home Intercept"]
+	home_slope[label="Time at Home Slope"]
+
+	alc_int -> alc_slope[label="[0.082, 0.24]"]
+	alc_int -> home_slope[label="[-0.13, -0.02]"]
+	alc_int -> home_int[label="[-0.13, -0.06]"]
+	alc_slope -> home_int[label="[-0.11, -0.01]"]
+	alc_slope -> home_slope[label="[-0.12, -0.02]"]
+	home_int -> home_slope[label="[-0.10, 0.16]"]
+}
