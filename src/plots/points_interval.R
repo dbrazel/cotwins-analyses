@@ -8,7 +8,7 @@ library(ggplot2)
 # Up the font size
 theme_set(theme_gray(base_size = 16))
 
-locs <- read_rds("data/processed/Michigan_DB_user_location_09_25_17_cleaned.rds")
+locs <- read_rds("data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds")
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # Get rid of data not from twins

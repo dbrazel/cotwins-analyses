@@ -3,7 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(viridis)
 
-locs <- read_rds("data/processed/Michigan_DB_user_location_05_31_17_cleaned.rds") %>% sample_n(1000000)
+locs <- read_rds("data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds") %>% sample_n(1000000)
 states <- map_data("state")
 
 theme_set(theme_gray(base_size = 16))
