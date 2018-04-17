@@ -1,4 +1,4 @@
-# Visualize the number of GPS points over the course of 2017,
+# Visualize the number of GPS points over time,
 # using a calendar heatmap
 
 library(readr)

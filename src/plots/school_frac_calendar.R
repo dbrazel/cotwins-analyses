@@ -1,4 +1,4 @@
-# Visualize the fraction of points at school over the course of 2017,
+# Visualize the fraction of points at school since the start of 2017,
 # using a calendar heatmap
 
 library(readr)
