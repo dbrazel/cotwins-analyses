@@ -13,7 +13,7 @@ twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>
   haven::zap_labels()
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
-# For each survey response get the twin's age at that time, centered at 16.5, and
+# For each survey response get the twin's age at that time, centered at 17, and
 # switch sex to a 0/1 coding from 1/2
 sub_use <- left_join(sub_use, id_mapping_long, by = c("user_id" = "alternate_id"))
 sub_use <- left_join(sub_use, twin_info, by = c("SVID" = "ID1"))
@@ -33,7 +33,7 @@ sub_use <- select(
 sub_use <- mutate(
   sub_use,
   test_age = as.numeric(as_date(date_completed) - Birth_Date) / 365,
-  test_age = test_age - 16.5,
+  test_age = test_age - 17,
   sex = Sex1 - 1
 )
 
@@ -49,14 +49,6 @@ sub_use <- mutate(
   mar_per_week = mar_freq_times_per_day * mar_freq_days_per_week,
   mar_per_week = log(mar_per_week + 1)
 )
-
-# Get rid of subjects with very few responses
-valid_ids <- sub_use %>%
-  group_by(user_id) %>%
-  summarize(N = n()) %>%
-  filter(N > 5)
-
-sub_use <- filter(sub_use, user_id %in% valid_ids$user_id)
 
 # Fit a linear growth model with age at assessment as the time metric
 # and age squared and sex as fixed effects
