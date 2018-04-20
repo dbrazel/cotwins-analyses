@@ -95,4 +95,7 @@ write_rds(boot_obj_home, "data/models/home_boot.rds")
 boot_obj_dpw <- boot_quadratic(ml_dpw)
 write_rds(boot_obj_dpw, "data/models/dpw_boot.rds")
 
-home_dpw_cors <- get_quadratic_corrs(boot_obj_home, boot_obj_dpw)
+home_dpw_cors <- get_quadratic_cors(boot_obj_home, boot_obj_dpw)
+
+home_dpw_cis <- get_quad_cis(boot_obj_home, boot_obj_dpw, home_dpw_cors)
+write_rds(home_dpw_cis, "data/models/home_dpw_cor.rds")

@@ -46,7 +46,7 @@ boot_quadratic <- function(ml) {
 
 # Given two bootstrapped lme4 quadratic growth models, calculate the
 # correlations between their growth parameters
-get_quadratic_corrs <- function(ml1, ml2) {
+get_quadratic_cors <- function(ml1, ml2) {
   require(lme4)
   require(dplyr)
   
@@ -75,18 +75,60 @@ get_quadratic_corrs <- function(ml1, ml2) {
   )
   
   for (i in 1:nsim) {
-    results$ml1_int_ml2_int[i] <- cor(as.numeric(ml1_ints[i, ]), as.numeric(ml2_ints[i, ]))
-    results$ml1_int_ml2_slope[i] <- cor(as.numeric(ml1_ints[i, ]), as.numeric(ml2_slopes[i, ]))
-    results$ml1_int_ml2_quad[i] <- cor(as.numeric(ml1_ints[i, ]), as.numeric(ml2_quads[i, ]))
+    results$ml1_int_ml2_int[i] <-
+      cor(as.numeric(ml1_ints[i,]), as.numeric(ml2_ints[i,]))
+    results$ml1_int_ml2_slope[i] <-
+      cor(as.numeric(ml1_ints[i,]), as.numeric(ml2_slopes[i,]))
+    results$ml1_int_ml2_quad[i] <-
+      cor(as.numeric(ml1_ints[i,]), as.numeric(ml2_quads[i,]))
     
-    results$ml1_slope_ml2_int[i] <- cor(as.numeric(ml1_slopes[i, ]), as.numeric(ml2_ints[i, ]))
-    results$ml1_slope_ml2_slope[i] <- cor(as.numeric(ml1_slopes[i, ]), as.numeric(ml2_slopes[i, ]))
-    results$ml1_slope_ml2_quad[i] <- cor(as.numeric(ml1_slopes[i, ]), as.numeric(ml2_quads[i, ]))
+    results$ml1_slope_ml2_int[i] <-
+      cor(as.numeric(ml1_slopes[i,]), as.numeric(ml2_ints[i,]))
+    results$ml1_slope_ml2_slope[i] <-
+      cor(as.numeric(ml1_slopes[i,]), as.numeric(ml2_slopes[i,]))
+    results$ml1_slope_ml2_quad[i] <-
+      cor(as.numeric(ml1_slopes[i,]), as.numeric(ml2_quads[i,]))
     
-    results$ml1_quad_ml2_int[i] <- cor(as.numeric(ml1_quads[i, ]), as.numeric(ml2_ints[i, ]))
-    results$ml1_quad_ml2_slope[i] <- cor(as.numeric(ml1_quads[i, ]), as.numeric(ml2_slopes[i, ]))
-    results$ml1_quad_ml2_quad[i] <- cor(as.numeric(ml1_quads[i, ]), as.numeric(ml2_quads[i, ]))
+    results$ml1_quad_ml2_int[i] <-
+      cor(as.numeric(ml1_quads[i,]), as.numeric(ml2_ints[i,]))
+    results$ml1_quad_ml2_slope[i] <-
+      cor(as.numeric(ml1_quads[i,]), as.numeric(ml2_slopes[i,]))
+    results$ml1_quad_ml2_quad[i] <-
+      cor(as.numeric(ml1_quads[i,]), as.numeric(ml2_quads[i,]))
   }
   
   return(results)
+}
+
+# Given two bootstrapped lme4 quadratic growth models and the output
+# of get_quadratic_cors, get the point estimates and 95% CIs
+get_quad_cis <- function(ml1, ml2, cors) {
+  i <- length(ml1$t0) / 3
+  
+  ml1_ints <- ml1$t0[1:i]
+  ml1_slopes <- ml1$t0[(i+1):(2*i)]
+  ml1_quads <- ml1$t0[(2*i+1):(3*i)]
+  
+  ml2_ints <- ml2$t0[1:i]
+  ml2_slopes <- ml2$t0[(i+1):(2*i)]
+  ml2_quads <- ml2$t0[(2*i+1):(3*i)]
+  
+  estimates = c(
+    cor(ml1_ints, ml2_ints),
+    cor(ml1_ints, ml2_slopes),
+    cor(ml1_ints, ml2_quads),
+    cor(ml1_slopes, ml2_ints),
+    cor(ml1_slopes, ml2_slopes),
+    cor(ml1_slopes, ml2_quads),
+    cor(ml1_quads, ml2_ints),
+    cor(ml1_quads, ml2_slopes),
+    cor(ml1_quads, ml2_quads)
+  )
+  
+  tibble(
+    lbound = apply(cors, 2, quantile, 0.025),
+    estimate = estimates,
+    ubound = apply(cors, 2, quantile, 0.975),
+    name = colnames(cors)
+  )
 }
