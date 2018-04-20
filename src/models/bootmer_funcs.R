@@ -37,7 +37,6 @@ boot_quadratic <- function(ml) {
     ml,
     get_growth_params_quadratic,
     nsim = 1000,
-    verbose = T,
     use.u = T,
     type = "semiparametric",
     ncpus = 3,
