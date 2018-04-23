@@ -1,5 +1,6 @@
 # Fit a multi-level linear growth model to drinks per week (DPW) using lme4 and
 # write out the estimated model, its parameters, and the predictions and residuals
+# so that we can compare it to the quadratic model
 
 library(readr)
 library(dplyr)
