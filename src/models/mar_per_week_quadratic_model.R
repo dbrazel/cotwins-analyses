@@ -57,6 +57,11 @@ ml <-
     mar_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = sub_use
   )
+ml_test <-
+  lmerTest::lmer(
+    mar_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
+    data = sub_use
+  )
 
 # Get the random and fixed effects
 rand_effs <- ranef(ml)
@@ -91,5 +96,6 @@ sub_use_pred <- left_join(sub_use, parameters, by = "user_id") %>%
   select(user_id, family:mar_per_week, mar_per_week_pred, mar_per_week_resid)
 
 write_rds(ml, "data/models/mpw_quadratic_model.rds")
+write_rds(ml_test, "data/models/mpw_quadratic_model_lmerTest.rds")
 write_rds(sub_use_pred, "data/models/mpw_quadratic_predictions.rds")
 write_rds(parameters, "data/models/mpw_quadratic_parameters.rds")
