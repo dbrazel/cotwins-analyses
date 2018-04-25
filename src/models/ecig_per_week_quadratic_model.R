@@ -54,6 +54,8 @@ sub_use <- mutate(
   puffs_per_week = log(puffs_per_week + 1)
 )
 
+sub_use <- select(sub_use, user_id, family:puffs_per_week) %>% na.omit()
+
 ml <-
   lmer(
     puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),

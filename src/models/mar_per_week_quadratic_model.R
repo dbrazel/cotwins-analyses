@@ -50,6 +50,8 @@ sub_use <- mutate(
   mar_per_week = log(mar_per_week + 1)
 )
 
+sub_use <- select(sub_use, user_id, family:mar_per_week) %>% na.omit()
+
 # Fit a quadratic growth model with age at assessment as the time metric
 # and age squared and sex as fixed effects
 ml <-

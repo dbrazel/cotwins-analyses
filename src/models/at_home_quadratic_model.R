@@ -31,6 +31,8 @@ at_home <- filter(at_home, test_age <= 1)
 at_home <- group_by(at_home, user_id = Michigan_ID, week = week(DateTime), year = year(DateTime)) %>%
   summarize(home_frac = sum(at_home) / n(), test_age = mean(test_age), sex = first(sex), family = first(family))
 
+at_home <- na.omit(at_home)
+
 # Fit a quadratic growth model with age at assessment as the time metric
 # and age squared and sex as fixed effects
 ml <-
