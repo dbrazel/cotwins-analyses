@@ -132,3 +132,101 @@ get_quad_cis <- function(ml1, ml2, cors) {
     name = colnames(cors)
   )
 }
+
+# Given a fitted lme4 quadratic growth model, extract a named vector
+# of variance covariance parameters
+
+get_vcov_quadratic <- function(ml) {
+  require(lme4)
+  require(dplyr)
+  
+  vcor <- VarCorr(ml) %>% as.data.frame()
+  
+  # Assert that the vcov matrix has the expected order and entries
+  stopifnot(all(
+    vcor$grp == c(
+      "user_id:family",
+      "user_id:family",
+      "user_id:family",
+      "user_id:family",
+      "user_id:family",
+      "user_id:family",
+      "family",
+      "family",
+      "family",
+      "family",
+      "family",
+      "family",
+      "Residual"
+    )
+  ),
+  all(
+    vcor$var1 == c(
+      "(Intercept)",
+      "test_age",
+      "I(test_age^2)",
+      "(Intercept)",
+      "(Intercept)",
+      "test_age",
+      "(Intercept)",
+      "test_age",
+      "I(test_age^2)",
+      "(Intercept)",
+      "(Intercept)",
+      "test_age",
+      NA
+    ),
+    na.rm = T
+  ),
+  all(
+    vcor$var2 == c(
+      NA,
+      NA,
+      NA,
+      "test_age",
+      "I(test_age^2)",
+      "I(test_age^2)",
+      NA,
+      NA,
+      NA,
+      "test_age",
+      "I(test_age^2)",
+      "I(test_age^2)",
+      NA
+    ),
+    na.rm = T
+  ))
+  
+  vcor_standardized <- vcor$sdcor
+  names(vcor_standardized) <- c(
+    "twin_std_dev_intercept",
+    "twin_std_dev_slope",
+    "twin_std_dev_quadratic",
+    "twin_cor_intercept_slope",
+    "twin_cor_intercept_quadratic",
+    "twin_cor_slope_quadratic",
+    "family_std_dev_intercept",
+    "family_std_dev_slope",
+    "family_std_dev_quadratic",
+    "family_cor_intercept_slope",
+    "family_cor_intercept_quadratic",
+    "family_cor_slope_quadratic",
+    "residual"
+    )
+  
+  return(vcor_standardized)
+}
+
+# Semiparametric bootstrap of a lme4 quadratic growth model
+boot_vcov_quadratic <- function(ml) {
+  require(lme4)
+  bootMer(
+    ml,
+    get_vcov_quadratic,
+    nsim = 1000,
+    use.u = T,
+    type = "semiparametric",
+    ncpus = 3,
+    parallel = "multicore"
+  )
+}
