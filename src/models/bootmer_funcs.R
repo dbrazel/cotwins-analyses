@@ -227,6 +227,6 @@ boot_vcov_quadratic <- function(ml) {
     use.u = T,
     type = "semiparametric",
     ncpus = 3,
-    parallel = "multicore"
+    parallel = "snow"
   )
 }
