@@ -230,3 +230,26 @@ boot_vcov_quadratic <- function(ml) {
     parallel = "snow"
   )
 }
+
+# Given a bootstrapped lme4 quadratic growth model, get CIs
+get_single_quad_cis <- function(ml_boot, pheno_name) {
+  require(dplyr)
+  
+  param_names <- names(ml_boot$t0)
+  out <- tibble(
+    pheno = rep(pheno_name, 13),
+    param = param_names,
+    estimate = rep(NA, 13),
+    lower = rep(NA, 13),
+    upper = rep(NA, 13)
+  )
+  
+  for (i in 1:13) {
+    ci <- boot::boot.ci(ml_boot, type = "perc", index = i)
+    out[i, "estimate"] = ci$t0
+    out[i, "lower"] = ci$percent[4]
+    out[i, "upper"] = ci$percent[5]
+  }
+  
+  return(out)
+}
