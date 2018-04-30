@@ -2,19 +2,81 @@
 
 library(readr)
 library(lme4)
+library(dplyr)
+library(boot)
 
 source("src/models/bootmer_funcs.R")
 
-at_home_ml <- read_rds("data/models/at_home_quadratic_model.rds")
-dpw_ml <- read_rds("data/models/dpw_quadratic_model.rds")
-mpw_ml <- read_rds("data/models/mpw_quadratic_model.rds")
-ecig_ml <- read_rds("data/models/ecig_quadratic_model.rds")
+num_cpus <- 3
 
-at_home_boot <- boot_vcov_quadratic(at_home_ml)
+# Time at home
+at_home_data <- read_rds("data/models/at_home_data.rds")
+at_home_formula <- formula(home_frac ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+at_home_families <- unique(at_home_data$family)
+
+at_home_boot <-
+  boot(
+    at_home_families,
+    get_vcov_quadratic_nonpara,
+    R = 1000,
+    lme_formula = at_home_formula,
+    pheno_data = at_home_data,
+    parallel = "snow",
+    ncpus = num_cpus
+  )
+
 write_rds(at_home_boot, "data/models/at_home_quadratic_model_boot.rds")
-dpw_boot <- boot_vcov_quadratic(dpw_ml)
+
+# DPW
+dpw_data <- read_rds("data/models/dpw_data.rds")
+dpw_formula <- formula(drinks_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+dpw_families <- unique(dpw_data$family)
+
+dpw_boot <-
+  boot(
+    dpw_families,
+    get_vcov_quadratic_nonpara,
+    R = 1000,
+    lme_formula = dpw_formula,
+    pheno_data = dpw_data,
+    parallel = "snow",
+    ncpus = num_cpus
+  )
+
 write_rds(dpw_boot, "data/models/dpw_quadratic_model_boot.rds")
-mpw_boot <- boot_vcov_quadratic(mpw_ml)
+
+# MPW
+mpw_data <- read_rds("data/models/mpw_data.rds")
+mpw_formula <- formula(mar_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+mpw_families <- unique(mpw_data$family)
+
+mpw_boot <-
+  boot(
+    mpw_families,
+    get_vcov_quadratic_nonpara,
+    R = 1000,
+    lme_formula = mpw_formula,
+    pheno_data = mpw_data,
+    parallel = "snow",
+    ncpus = num_cpus
+  )
+
 write_rds(mpw_boot, "data/models/mpw_quadratic_model_boot.rds")
-ecig_boot <- boot_vcov_quadratic(ecig_ml)
+
+# ecig
+ecig_data <- read_rds("data/models/ecig_data.rds")
+ecig_formula <- formula(puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+ecig_families <- unique(ecig_data$family)
+
+ecig_boot <-
+  boot(
+    ecig_families,
+    get_vcov_quadratic_nonpara,
+    R = 1000,
+    lme_formula = ecig_formula,
+    pheno_data = ecig_data,
+    parallel = "snow",
+    ncpus = num_cpus
+  )
+
 write_rds(ecig_boot, "data/models/ecig_quadratic_model_boot.rds")
