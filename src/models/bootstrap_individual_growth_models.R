@@ -7,7 +7,7 @@ library(boot)
 
 source("src/models/bootmer_funcs.R")
 
-num_cpus <- 3
+num_cpus <- 4
 
 # Time at home
 at_home_data <- read_rds("data/models/at_home_data.rds")
