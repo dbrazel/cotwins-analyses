@@ -26,7 +26,7 @@ at_home_boot <-
     ncpus = num_cpus
   )
 
-at_home_cis <- tidy(at_home_boot, conf.int = T)
+at_home_cis <- tidy(at_home_boot, conf.int = T) %>% mutate(pheno = "Home")
 
 write_rds(at_home_boot, "data/models/at_home_quadratic_model_boot.rds")
 write_rds(at_home_cis, "data/models/at_home_quadratic_model_cis.rds")
@@ -47,7 +47,7 @@ dpw_boot <-
     ncpus = num_cpus
   )
 
-dpw_cis <- tidy(dpw_boot, conf.int = T)
+dpw_cis <- tidy(dpw_boot, conf.int = T) %>% mutate(pheno = "DPW")
 
 write_rds(dpw_boot, "data/models/dpw_quadratic_model_boot.rds")
 write_rds(dpw_cis, "data/models/dpw_quadratic_model_cis.rds")
@@ -68,7 +68,7 @@ mpw_boot <-
     ncpus = num_cpus
   )
 
-mpw_cis <- tidy(mpw_boot, conf.int = T)
+mpw_cis <- tidy(mpw_boot, conf.int = T) %>% mutate(pheno = "MPW")
 
 write_rds(mpw_boot, "data/models/mpw_quadratic_model_boot.rds")
 write_rds(mpw_cis, "data/models/mpw_quadratic_model_cis.rds")
@@ -89,7 +89,10 @@ ecig_boot <-
     ncpus = num_cpus
   )
 
-ecig_cis <- tidy(ecig_boot, conf.int = T)
+ecig_cis <- tidy(ecig_boot, conf.int = T) %>% mutate(pheno = "PPW")
 
 write_rds(ecig_boot, "data/models/ecig_quadratic_model_boot.rds")
 write_rds(ecig_cis, "data/models/ecig_quadratic_model_cis.rds")
+
+all_cis <- bind_rows(at_home_cis, dpw_cis, mpw_cis, ecig_cis)
+write_rds(all_cis, "data/models/all_phenos_cis.rds")
