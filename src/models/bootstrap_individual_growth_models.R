@@ -4,6 +4,7 @@ library(readr)
 library(lme4)
 library(dplyr)
 library(boot)
+library(broom)
 
 source("src/models/bootmer_funcs.R")
 
@@ -25,7 +26,10 @@ at_home_boot <-
     ncpus = num_cpus
   )
 
+at_home_cis <- tidy(at_home_boot, conf.int = T)
+
 write_rds(at_home_boot, "data/models/at_home_quadratic_model_boot.rds")
+write_rds(at_home_cis, "data/models/at_home_quadratic_model_cis.rds")
 
 # DPW
 dpw_data <- read_rds("data/models/dpw_data.rds")
@@ -43,7 +47,10 @@ dpw_boot <-
     ncpus = num_cpus
   )
 
+dpw_cis <- tidy(dpw_boot, conf.int = T)
+
 write_rds(dpw_boot, "data/models/dpw_quadratic_model_boot.rds")
+write_rds(dpw_cis, "data/models/dpw_quadratic_model_cis.rds")
 
 # MPW
 mpw_data <- read_rds("data/models/mpw_data.rds")
@@ -61,7 +68,10 @@ mpw_boot <-
     ncpus = num_cpus
   )
 
+mpw_cis <- tidy(mpw_boot, conf.int = T)
+
 write_rds(mpw_boot, "data/models/mpw_quadratic_model_boot.rds")
+write_rds(mpw_cis, "data/models/mpw_quadratic_model_cis.rds")
 
 # ecig
 ecig_data <- read_rds("data/models/ecig_data.rds")
@@ -79,4 +89,7 @@ ecig_boot <-
     ncpus = num_cpus
   )
 
+ecig_cis <- tidy(ecig_boot, conf.int = T)
+
 write_rds(ecig_boot, "data/models/ecig_quadratic_model_boot.rds")
+write_rds(ecig_cis, "data/models/ecig_quadratic_model_cis.rds")
