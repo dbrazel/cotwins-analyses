@@ -1,33 +1,29 @@
-# Annotate each standardized location points with whether it is within
-# 100 meters of the top school for that twin
+# Annotate each standardized location point with whether it is within
+# 100 meters of a Colorado high school
 
 library(readr)
 library(dplyr)
 library(geosphere)
 
 std_locs <- read_rds("data/processed/std_locations_filled.rds")
-schools <- read_rds("data/processed/twin_top_school.rds")
+schools <- read_rds("data/processed/all_school_address.rds")
 
 # Use only non-missing points
 std_locs <- na.omit(std_locs)
 
-std_locs["at_school"] <- NA
+at_school <- rep(NA, nrow(std_locs))
 
-# Get the top school for each twin
-std_locs <- left_join(
-  std_locs,
-  schools,
-  by = c("Michigan_ID" = "twin_id")
-  )
+for (i in 1:nrow(std_locs)) {
+  at_school[i] <-
+    any(
+      distCosine(
+        c(std_locs[[i, "longitude"]], std_locs[[i, "latitude"]]),
+        cbind(schools$longitude, schools$latitude)
+        ) <= 100
+      )
+}
 
-dists <- distCosine(
-  cbind(std_locs$school_longitude, std_locs$school_latitude),
-  cbind(std_locs$longitude, std_locs$latitude)
-  )
+std_locs["at_school"] <- at_school
 
-std_locs$at_school <- dists <= 100
-
-std_locs %>%
-  select(DateTime:at_school) %>%
-  write_rds("data/processed/at_school.rds")
+write_rds(std_locs, "data/processed/at_school.rds")
 
