@@ -10,6 +10,7 @@ theme_set(theme_gray(base_size = 16))
 
 at_home_quadratic_comps <- read_rds("data/models/at_home_quadratic_ACE_comps.rds")
 at_school_quadratic_comps <- read_rds("data/models/at_school_quadratic_ACE_comps.rds")
+par_mon_quadratic_comps <- read_rds("data/models/par_mon_quadratic_ACE_comps.rds")
 dpw_quadratic_comps <- read_rds("data/models/dpw_quadratic_ACE_comps.rds")
 mpw_quadratic_comps <- read_rds("data/models/mpw_quadratic_ACE_comps.rds")
 ecig_quadratic_comps <- read_rds("data/models/ecig_quadratic_ACE_comps.rds")
@@ -22,6 +23,9 @@ at_home_quadratic_comps <- filter(at_home_quadratic_comps, !str_detect(pheno, "t
 
 at_school_quadratic_corrs <- filter(at_school_quadratic_comps, str_detect(pheno, "to"))
 at_school_quadratic_comps <- filter(at_school_quadratic_comps, !str_detect(pheno, "to"))
+
+par_mon_quadratic_corrs <- filter(par_mon_quadratic_comps, str_detect(pheno, "to"))
+par_mon_quadratic_comps <- filter(par_mon_quadratic_comps, !str_detect(pheno, "to"))
 
 dpw_quadratic_corrs <- filter(dpw_quadratic_comps, str_detect(pheno, "to"))
 dpw_quadratic_comps <- filter(dpw_quadratic_comps, !str_detect(pheno, "to"))
@@ -67,6 +71,9 @@ ggsave("figs/at_home_quadratic_ACE_comps.pdf", width = width, height = height)
 plot_comps(at_school_quadratic_comps, "School Quadratic Growth Model: ACE Estimates", c(0, 1))
 ggsave("figs/at_school_quadratic_ACE_comps.pdf", width = width, height = height)
 
+plot_comps(par_mon_quadratic_comps, "Parents Quadratic Growth Model: ACE Estimates", c(0, 1))
+ggsave("figs/par_mon_quadratic_ACE_comps.pdf", width = width, height = height)
+
 plot_comps(dpw_quadratic_comps, "DPW Quadratic Growth Model: ACE Estimates", c(0, 1))
 ggsave("figs/dpw_quadratic_ACE_comps.pdf", width = width, height = height)
 
@@ -90,6 +97,9 @@ ggsave("figs/at_home_quadratic_ACE_corrs.pdf", width = width, height = height)
 
 plot_comps(at_school_quadratic_corrs, "School Quadratic Growth Model: Correlations", c(-1, 1))
 ggsave("figs/at_school_quadratic_ACE_corrs.pdf", width = width, height = height)
+
+plot_comps(par_mon_quadratic_corrs, "Parents Quadratic Growth Model: Correlations", c(-1, 1))
+ggsave("figs/par_mon_quadratic_ACE_corrs.pdf", width = width, height = height)
 
 plot_comps(dpw_quadratic_corrs, "DPW Quadratic Growth Model: Correlations", c(-1, 1))
 ggsave("figs/dpw_quadratic_ACE_corrs.pdf", width = width, height = height)
