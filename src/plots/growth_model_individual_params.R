@@ -10,8 +10,8 @@ all_cis <- read_rds("data/models/all_phenos_cis.rds")
 
 all_cis <-
   mutate(all_cis,
-         term = factor(term, ordered = T),
-         pheno = factor(pheno, levels = c("Home", "School", "DPW", "MPW", "PPW")))
+         term = factor(term, levels = all_cis$term[1:13]),
+         pheno = factor(pheno, levels = c("Home", "School", "Parents", "DPW", "MPW", "PPW")))
 
 ggplot(all_cis,
        aes(
@@ -24,7 +24,6 @@ ggplot(all_cis,
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
   labs(y = "Estimate") +
-  coord_cartesian(ylim = c(-1, 1)) +
   theme(
     axis.title.x = element_blank(),
     legend.title = element_blank(),
@@ -45,7 +44,6 @@ ggplot(all_cis_std,
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
   labs(y = "Estimate") +
-  coord_cartesian(ylim = c(0, 1)) + 
   theme(axis.title.x = element_blank(), legend.title = element_blank())
 
 ggsave("figs/growth_model_individual_params_std_devs.pdf", width = 10, height = 8)
