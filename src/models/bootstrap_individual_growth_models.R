@@ -52,6 +52,27 @@ at_school_cis <- tidy(at_school_boot, conf.int = T) %>% mutate(pheno = "School")
 write_rds(at_school_boot, "data/models/at_school_quadratic_model_boot.rds")
 write_rds(at_school_cis, "data/models/at_school_quadratic_model_cis.rds")
 
+# Parental monitoring
+par_mon_data <- read_rds("data/models/par_mon_data.rds")
+par_mon_formula <- formula(max_monitor_score ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+par_mon_families <- unique(par_mon_data$family)
+
+par_mon_boot <-
+  boot(
+    par_mon_families,
+    get_vcov_quadratic_nonpara,
+    R = 1000,
+    lme_formula = par_mon_formula,
+    pheno_data = par_mon_data,
+    parallel = "snow",
+    ncpus = num_cpus
+  )
+
+par_mon_cis <- tidy(par_mon_boot, conf.int = T) %>% mutate(pheno = "Parents")
+
+write_rds(par_mon_boot, "data/models/par_mon_quadratic_model_boot.rds")
+write_rds(par_mon_cis, "data/models/par_mon_quadratic_model_cis.rds")
+
 # DPW
 dpw_data <- read_rds("data/models/dpw_data.rds")
 dpw_formula <- formula(drinks_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
@@ -115,5 +136,5 @@ ecig_cis <- tidy(ecig_boot, conf.int = T) %>% mutate(pheno = "PPW")
 write_rds(ecig_boot, "data/models/ecig_quadratic_model_boot.rds")
 write_rds(ecig_cis, "data/models/ecig_quadratic_model_cis.rds")
 
-all_cis <- bind_rows(at_home_cis, at_school_cis, dpw_cis, mpw_cis, ecig_cis)
+all_cis <- bind_rows(at_home_cis, at_school_cis, par_mon_cis, dpw_cis, mpw_cis, ecig_cis)
 write_rds(all_cis, "data/models/all_phenos_cis.rds")
