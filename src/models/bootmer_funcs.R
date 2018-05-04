@@ -253,12 +253,12 @@ get_single_quad_cis <- function(ml_boot, pheno_name) {
   return(out)
 }
 
-# Given selected twin pairs (from the boot function) fit an lme4 quadratic
-# growth model and return a named vector of variance covariance parameters.
+# Given selected twin pairs (from the boot function) fit an lme4 
+# model and return a named vector of variance covariance parameters.
 # Meant to work with nonparametric bootstrapping
 #
 # tp_ids - a vector of possible twin pair IDs
-# idx - a vector of indices in twins to be included
+# idx - a vector of indices in tp_ids to be included
 # lme_formula - the lmer formula to be used in the model fit
 # pheno_data - a dataframe containing the data for the model fit
 get_vcov_quadratic_nonpara <- function(tp_ids, idx, lme_formula, pheno_data) {
@@ -346,4 +346,45 @@ get_vcov_quadratic_nonpara <- function(tp_ids, idx, lme_formula, pheno_data) {
   )
   
   return(vcor_standardized)
+}
+
+# Given selected twin pairs (from the boot function) fit lme4 models to two
+# different phenotypes and return a vector of growth parameter correlations
+#
+# tp_ids - a vector of possible twin pair IDs
+# idx - a vector of indices in tp_ids to be included
+# lme_formula1 - the lmer formula for the first pheno
+# lme_formula2 - the lmer formula for the second pheno
+# pheno_data1 - a data frame for the first pheno
+# pheno_data2 - a data frame for the second pheno
+get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula2, pheno_data1, pheno_data2) {
+  require(lme4)
+  require(dplyr)
+  
+  tp_ids <- tp_ids[idx]
+  pheno_data1 <- filter(pheno_data1, family %in% tp_ids)
+  pheno_data2 <- filter(pheno_data2, family %in% tp_ids)
+  
+  # Make sure both dfs have the same twins in the same order
+  pheno_data1 <- filter(user_id %in% pheno_data2$user_id) %>%
+    arrange(user_id)
+  pheno_data2 <- filter(user_id %in% pheno_data1$user_id) %>%
+    arrange(user_id)
+  
+  ml1 <- lmer(formula = lme_formula1, data = pheno_data1)
+  ml2 <- lmer(formula = lme_formula2, data = pheno_data2)
+  
+  ml1_params <- get_growth_params_quadratic(ml1)
+  ml2_params <- get_growth_params_quadratic(ml2)
+  
+  # Make sure the vectors have the same order
+  stopifnot(names(ml1_params == ml2_params))
+  
+  ml1_ints <- ml1_params[1:(length(ml1_params)/3)]
+  ml1_slopes <- ml1_params[((length(ml1_params)/3)+1):(length(ml1_params)/3*2)]
+  ml1_quads <- ml1_params[((length(ml1_params)/3*2)+1):(length(ml1_params))]
+  
+  ml2_ints <- ml2_params[1:(length(ml2_params)/3)]
+  ml2_slopes <- ml2_params[((length(ml2_params)/3)+1):(length(ml2_params)/3*2)]
+  ml2_quads <- ml2_params[((length(ml2_params)/3*2)+1):(length(ml2_params))]
 }
