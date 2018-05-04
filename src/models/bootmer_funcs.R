@@ -366,9 +366,9 @@ get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula
   pheno_data2 <- filter(pheno_data2, family %in% tp_ids)
   
   # Make sure both dfs have the same twins in the same order
-  pheno_data1 <- filter(user_id %in% pheno_data2$user_id) %>%
+  pheno_data1 <- filter(pheno_data1, user_id %in% pheno_data2$user_id) %>%
     arrange(user_id)
-  pheno_data2 <- filter(user_id %in% pheno_data1$user_id) %>%
+  pheno_data2 <- filter(pheno_data2, user_id %in% pheno_data1$user_id) %>%
     arrange(user_id)
   
   ml1 <- lmer(formula = lme_formula1, data = pheno_data1)
@@ -378,7 +378,7 @@ get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula
   ml2_params <- get_growth_params_quadratic(ml2)
   
   # Make sure the vectors have the same order
-  stopifnot(names(ml1_params == ml2_params))
+  stopifnot(names(ml1_params) == names(ml2_params))
   
   ml1_ints <- ml1_params[1:(length(ml1_params)/3)]
   ml1_slopes <- ml1_params[((length(ml1_params)/3)+1):(length(ml1_params)/3*2)]
@@ -387,4 +387,29 @@ get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula
   ml2_ints <- ml2_params[1:(length(ml2_params)/3)]
   ml2_slopes <- ml2_params[((length(ml2_params)/3)+1):(length(ml2_params)/3*2)]
   ml2_quads <- ml2_params[((length(ml2_params)/3*2)+1):(length(ml2_params))]
+  
+  results <- rep(NA, 9)
+  names(results) <- c(
+    "cor_int_int",
+    "cor_int_slope",
+    "cor_int_quad",
+    "cor_slope_int",
+    "cor_slope_slope",
+    "cor_slope_quad",
+    "cor_quad_int",
+    "cor_quad_slope",
+    "cor_quad_quad"
+  )
+  
+  results[1] <- cor(ml1_ints, ml2_ints)
+  results[2] <- cor(ml1_ints, ml2_slopes)
+  results[3] <- cor(ml1_ints, ml2_quads)
+  results[4] <- cor(ml1_slopes, ml2_ints)
+  results[5] <- cor(ml1_slopes, ml2_slopes)
+  results[6] <- cor(ml1_slopes, ml2_quads)
+  results[7] <- cor(ml1_quads, ml2_ints)
+  results[8] <- cor(ml1_quads, ml2_slopes)
+  results[9] <- cor(ml1_quads, ml2_quads)
+  
+  return(results)
 }
