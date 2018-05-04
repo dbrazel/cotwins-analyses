@@ -357,7 +357,7 @@ get_vcov_quadratic_nonpara <- function(tp_ids, idx, lme_formula, pheno_data) {
 # lme_formula2 - the lmer formula for the second pheno
 # pheno_data1 - a data frame for the first pheno
 # pheno_data2 - a data frame for the second pheno
-get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula2, pheno_data1, pheno_data2) {
+get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula2, pheno_data1, pheno_data2, extract_func) {
   require(lme4)
   require(dplyr)
   
@@ -374,8 +374,8 @@ get_growth_params_cor_nonpara <- function(tp_ids, idx, lme_formula1, lme_formula
   ml1 <- lmer(formula = lme_formula1, data = pheno_data1)
   ml2 <- lmer(formula = lme_formula2, data = pheno_data2)
   
-  ml1_params <- get_growth_params_quadratic(ml1)
-  ml2_params <- get_growth_params_quadratic(ml2)
+  ml1_params <- extract_func(ml1)
+  ml2_params <- extract_func(ml2)
   
   # Make sure the vectors have the same order
   stopifnot(names(ml1_params) == names(ml2_params))

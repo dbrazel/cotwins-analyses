@@ -46,6 +46,7 @@ dpw_mpw_boot <-
     lme_formula2 = mpw_formula,
     pheno_data1 = dpw_data,
     pheno_data2 = mpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -60,6 +61,7 @@ dpw_ecig_boot <-
     lme_formula2 = ecig_formula,
     pheno_data1 = dpw_data,
     pheno_data2 = ecig_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -74,6 +76,7 @@ mpw_ecig_boot <-
     lme_formula2 = ecig_formula,
     pheno_data1 = mpw_data,
     pheno_data2 = ecig_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -91,6 +94,7 @@ at_home_dpw_boot <-
     lme_formula2 = dpw_formula,
     pheno_data1 = at_home_data,
     pheno_data2 = dpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -105,6 +109,7 @@ at_home_mpw_boot <-
     lme_formula2 = mpw_formula,
     pheno_data1 = at_home_data,
     pheno_data2 = mpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -119,6 +124,7 @@ at_home_ecig_boot <-
     lme_formula2 = ecig_formula,
     pheno_data1 = at_home_data,
     pheno_data2 = ecig_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -136,6 +142,7 @@ at_school_dpw_boot <-
     lme_formula2 = dpw_formula,
     pheno_data1 = at_school_data,
     pheno_data2 = dpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -150,6 +157,7 @@ at_school_mpw_boot <-
     lme_formula2 = mpw_formula,
     pheno_data1 = at_school_data,
     pheno_data2 = mpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -164,6 +172,7 @@ at_school_ecig_boot <-
     lme_formula2 = ecig_formula,
     pheno_data1 = at_school_data,
     pheno_data2 = ecig_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -181,6 +190,7 @@ par_mon_dpw_boot <-
     lme_formula2 = dpw_formula,
     pheno_data1 = par_mon_data,
     pheno_data2 = dpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -195,6 +205,7 @@ par_mon_mpw_boot <-
     lme_formula2 = mpw_formula,
     pheno_data1 = par_mon_data,
     pheno_data2 = mpw_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -209,6 +220,7 @@ par_mon_ecig_boot <-
     lme_formula2 = ecig_formula,
     pheno_data1 = par_mon_data,
     pheno_data2 = ecig_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -225,6 +237,7 @@ at_home_dpw_boot <-
     lme_formula2 = at_school_formula,
     pheno_data1 = at_home_data,
     pheno_data2 = at_school_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -240,6 +253,7 @@ at_home_par_mon_boot <-
     lme_formula2 = par_mon_formula,
     pheno_data1 = at_home_data,
     pheno_data2 = par_mon_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
@@ -255,6 +269,7 @@ at_school_par_mon_boot <-
     lme_formula2 = par_mon_formula,
     pheno_data1 = at_school_data,
     pheno_data2 = par_mon_data,
+    extract_func = get_growth_params_quadratic,
     parallel = "snow",
     ncpus = num_cpus
   )
