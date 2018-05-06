@@ -179,3 +179,12 @@ results['mar_mpw_half_year'] <- results$mar_freq_half_year * results$mar_quant_h
 results[!results$mar_ever_half_year, 'mar_mpw_half_year'] <- 0
 
 # Alcohol abuse symptoms
+
+alc_failure <- phenx$A21 | phenx$A22
+alc_hazard <- phenx$A23 | phenx$A25 | phenx$A26
+alc_continue <- phenx$A27 | phenx$A28
+alc_legal <- phenx$A29
+
+# Alcohol abuse diagnoses and symptom counts
+results$alc_abuse_count <- rowSums(data.frame(alc_failure, alc_hazard, alc_continue, alc_legal), na.rm = T)
+results$alc_abuse <- results$alc_abuse_count >= 1
