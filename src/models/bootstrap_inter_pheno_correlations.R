@@ -4,6 +4,7 @@ library(readr)
 library(dplyr)
 library(lme4)
 library(boot)
+library(broom)
 
 source("src/models/bootmer_funcs.R")
 
@@ -228,7 +229,7 @@ write_rds(par_mon_ecig_boot, "data/models/par_mon_ecig_boot.rds")
 
 # Remaining pairs
 at_home_at_school_families <- intersect(at_home_families, at_school_families)
-at_home_dpw_boot <-
+at_home_at_school_boot <-
   boot(
     at_home_at_school_families,
     get_growth_params_cor_nonpara,
