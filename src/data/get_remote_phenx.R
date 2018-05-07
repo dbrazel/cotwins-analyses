@@ -186,5 +186,106 @@ alc_continue <- phenx$A27 | phenx$A28
 alc_legal <- phenx$A29
 
 # Alcohol abuse diagnoses and symptom counts
-results$alc_abuse_count <- rowSums(data.frame(alc_failure, alc_hazard, alc_continue, alc_legal), na.rm = T)
+results$alc_abuse_count <-
+  rowSums(data.frame(alc_failure, alc_hazard, alc_continue, alc_legal),
+          na.rm = T)
 results$alc_abuse <- results$alc_abuse_count >= 1
+
+# Alcohol dependence symptoms
+alc_tolerance <- phenx$A1 | phenx$A2 | phenx$A3 | phenx$A4
+alc_quit <- phenx$A5 | phenx$A6
+alc_intend <- phenx$A7 | phenx$A8
+
+alc_withdrawal_count <- rowSums(
+  select(phenx, `A10[SQ001]`:`A10[SQ008]`),
+  na.rm = T)
+alc_withdrawal <-
+  ((alc_withdrawal_count >= 2) &
+     (alc_withdrawal_count <= 8)) | phenx$A12 | phenx$A13
+
+alc_time <- phenx$A14 | phenx$A15
+alc_giveup <- phenx$A16 | phenx$A17
+alc_problems <- phenx$A18 | phenx$A19 | phenx$A20
+
+# Alcohol dependence diagnoses and symptom counts
+results$alc_depend_count <-
+  rowSums(
+    data.frame(
+      alc_tolerance,
+      alc_quit,
+      alc_intend,
+      alc_withdrawal,
+      alc_time,
+      alc_giveup,
+      alc_problems
+    ),
+    na.rm = T
+  )
+results$alc_depend <- results$alc_depend_count >= 3
+
+# Tobacco dependence symptoms
+tob_tolerance <- phenx$T12 | phenx$T13
+
+tob_withdrawal_count <-
+  rowSums(select(phenx, `T7[SQ001]`:`T7[SQ005]`), na.rm = T)
+tob_withdrawal <-
+  (tob_withdrawal_count > 3) | phenx$T9 | phenx$T10 | phenx$T11
+
+tob_intend <- phenx$T14
+tob_quit <- phenx$T1 | phenx$T6
+tob_giveup <- phenx$T2 | phenx$T3
+tob_time <- phenx$T5
+tob_problems <- phenx$T4 | phenx$T15
+
+# Tobacco dependence diagnoses and symptom counts
+results$tob_depend_count <-
+  rowSums(
+    data.frame(
+      tob_tolerance,
+      tob_withdrawal,
+      tob_intend,
+      tob_quit,
+      tob_giveup,
+      tob_time,
+      tob_problems
+    ),
+    na.rm = T
+  )
+results$tob_depend <- results$tob_depend_count >= 3
+
+# Marijuana abuse symptoms
+mar_continue <- phenx$M1 | phenx$M2 | phenx$M3
+mar_failure <- phenx$M4 | phenx$M5
+mar_hazard <- phenx$M6 | phenx$M7 | phenx$M8
+mar_legal <- phenx$M9
+
+# Marijuana abuse diagnosis and symptom counts
+results$mar_abuse_count <-
+  rowSums(data.frame(mar_continue, mar_failure, mar_hazard, mar_legal),
+          na.rm = T)
+results$mar_abuse <- results$mar_abuse_count >= 1
+
+# Marijuana dependence symptoms
+mar_quit <- phenx$M10 | phenx$M11
+mar_intend <- phenx$M12
+mar_time <- phenx$M13 | phenx$M14
+mar_tolerance <- phenx$M18 | phenx$M19
+mar_giveup <- phenx$M20 | phenx$M21
+mar_problems <- phenx$M22 | phenx$M23
+
+# Marijuana dependence diagnoses and symptom counts
+results$mar_depend_count <-
+  rowSums(
+    data.frame(
+      mar_quit,
+      mar_intend,
+      mar_time,
+      mar_tolerance,
+      mar_giveup,
+      mar_problems
+    ),
+    na.rm = T
+  )
+results$mar_depend <- results$mar_depend_count >= 3
+
+write_rds(results, "data/processed/remote_PhenX_diagnoses.rds")
