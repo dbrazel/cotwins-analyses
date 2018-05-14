@@ -45,6 +45,8 @@ for (i in 1:nrow(std_locs)) {
   if (i %% 5000 == 0) {print(i)}
 }
 
+write_rds(std_locs, "data/processed/at_home_unfiltered.rds")
+
 # Remove individuals where we seem to have the wrong home address (time at zero)
 to_remove <- c(
   "11248670135330017765",

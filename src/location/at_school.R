@@ -25,6 +25,8 @@ for (i in 1:nrow(std_locs)) {
 
 std_locs["at_school"] <- at_school
 
+write_rds(std_locs, "data/processed/at_school_unfiltered.rds")
+
 # Remove individuals where we seem to have failed to identify a school
 # (time at zero)
 to_remove <- c(
