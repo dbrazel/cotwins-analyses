@@ -1,6 +1,8 @@
 # Plot the trajectories of all growth model phenos by age
 # Inspired by https://stackoverflow.com/a/48907846
 
+# k values chosen using gam.check and ?choose.k
+
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -14,7 +16,7 @@ twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # At Home
-at_home <- read_rds("data/processed/at_home.rds")
+at_home <- read_rds("data/processed/at_home_unfiltered.rds")
 
 # Shift the locations to local time and restrict to 12 AM to 5 AM
 at_home <- mutate(at_home, DateTime = DateTime + minutes(sample_timezone)) %>%
@@ -33,7 +35,7 @@ at_home <- group_by(at_home, user_id = Michigan_ID, week = week(DateTime), year 
 
 at_home_data <- na.omit(at_home)
 
-at_home_ml <- gamm4(home_frac ~ s(test_age), random = ~(1 | family/user_id), data = at_home_data)
+at_home_ml <- gamm4(home_frac ~ s(test_age, k = 13), random = ~(1 | family/user_id), data = at_home_data)
 at_home_pred <- predict(at_home_ml$gam, se.fit = T)
 at_home_plot_data <-
   tibble(
@@ -53,7 +55,7 @@ at_home_plot <- ggplot(at_home_plot_data, aes(test_age, home_frac)) +
 save_plot("figs/at_home_trajectory.pdf", at_home_plot)
 
 # At School
-at_school <- read_rds("data/processed/at_school.rds")
+at_school <- read_rds("data/processed/at_school_unfiltered.rds")
 
 # We started getting more locations in November 2016. Let's restrict to there and
 # later to make the manual part of this tractable
@@ -107,7 +109,7 @@ at_school <- group_by(at_school, user_id, week = week(DateTime), year = year(Dat
 
 at_school_data <- na.omit(at_school)
 
-at_school_ml <- gamm4(school_frac ~ s(test_age), random = ~(1 | family/user_id), data = at_school_data)
+at_school_ml <- gamm4(school_frac ~ s(test_age, k = 18), random = ~(1 | family/user_id), data = at_school_data)
 at_school_pred <- predict(at_school_ml$gam, se.fit = T)
 at_school_plot_data <-
   tibble(
@@ -142,7 +144,7 @@ par_mon <- left_join(par_mon, id_mapping_long, by = c("user_id" = "alternate_id"
 
 par_mon_data <- na.omit(par_mon)
 
-par_mon_ml <- gamm4(max_monitor_score ~ s(test_age), random = ~(1 | family/user_id), data = par_mon_data)
+par_mon_ml <- gamm4(max_monitor_score ~ s(test_age, k = 6), random = ~(1 | family/user_id), data = par_mon_data)
 par_mon_pred <- predict(par_mon_ml$gam, se.fit = T)
 par_mon_plot_data <-
   tibble(
@@ -164,7 +166,7 @@ save_plot("figs/par_mon_trajectory.pdf", par_mon_plot)
 # Alcohol
 dpw_data <- read_rds("data/models/dpw_data.rds")
 
-dpw_ml <- gamm4(drinks_per_week ~ s(test_age), random = ~(1 | family/user_id), data = dpw_data)
+dpw_ml <- gamm4(drinks_per_week ~ s(test_age, k = 4), random = ~(1 | family/user_id), data = dpw_data)
 dpw_pred <- predict(dpw_ml$gam, se.fit = T)
 dpw_plot_data <-
   tibble(
@@ -186,7 +188,7 @@ save_plot("figs/alcohol_trajectory.pdf", dpw_plot)
 # Marijuana
 mpw_data <- read_rds("data/models/mpw_data.rds")
 
-mpw_ml <- gamm4(mar_per_week ~ s(test_age), random = ~(1 | family/user_id), data = mpw_data)
+mpw_ml <- gamm4(mar_per_week ~ s(test_age, k = 5), random = ~(1 | family/user_id), data = mpw_data)
 mpw_pred <- predict(mpw_ml$gam, se.fit = T)
 mpw_plot_data <-
   tibble(
@@ -208,7 +210,7 @@ save_plot("figs/marijuana_trajectory.pdf", mpw_plot)
 # E-Cigarettes
 ecig_data <- read_rds("data/models/ecig_data.rds")
 
-ecig_ml <- gamm4(puffs_per_week ~ s(test_age), random = ~(1 | family/user_id), data = ecig_data)
+ecig_ml <- gamm4(puffs_per_week ~ s(test_age, k = 4), random = ~(1 | family/user_id), data = ecig_data)
 ecig_pred <- predict(ecig_ml$gam, se.fit = T)
 ecig_plot_data <-
   tibble(
