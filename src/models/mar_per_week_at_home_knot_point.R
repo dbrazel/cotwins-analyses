@@ -1,0 +1,72 @@
+library(readr)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(lmerTest)
+
+sub_use <- read_rds("data/processed/remote_substance_use.rds")
+twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
+  haven::zap_formats() %>%
+  haven::zap_labels()
+id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
+
+knot_points <- read_csv("data/raw/at_home_knot_points.csv", na = "", cols(
+  `Plot Number` = col_integer(),
+  user_id = col_character(),
+  `DB Knot Point` = col_double(),
+  Flag = col_character(),
+  `SV Knot Point` = col_character(),
+  `SV Flag` = col_character(),
+  Note1 = col_character(),
+  KP = col_double(),
+  Note2 = col_character()
+), col_names = T)
+knot_points <- select(knot_points, user_id, KP)
+knot_points <- na.omit(knot_points)
+
+sub_use <- left_join(sub_use, id_mapping_long, by = c("user_id" = "alternate_id"))
+sub_use <- left_join(sub_use, twin_info, by = c("SVID" = "ID1"))
+sub_use <- select(
+  sub_use,
+  user_id,
+  date_completed,
+  any_substance_use,
+  mar_use,
+  mar_freq_times_per_day,
+  mar_freq_days_per_week,
+  Sex1,
+  Birth_Date,
+  Test_Date,
+  family
+)
+sub_use <- mutate(
+  sub_use,
+  test_age = as.numeric(as_date(date_completed) - Birth_Date) / 365,
+  sex = Sex1 - 1
+)
+
+# If the twin didn't use marijuana that week, set the phenos to 0
+sub_use$mar_freq_times_per_day[!sub_use$any_substance_use] <- 0
+sub_use$mar_freq_times_per_day[!sub_use$mar_use] <- 0
+sub_use$mar_freq_days_per_week[!sub_use$any_substance_use] <- 0
+sub_use$mar_freq_days_per_week[!sub_use$mar_use] <- 0
+
+# Calculate log-transformed marijuana uses per week
+sub_use <- mutate(
+  sub_use,
+  mar_per_week = mar_freq_times_per_day * mar_freq_days_per_week,
+  mar_per_week = log(mar_per_week + 1)
+)
+
+sub_use <- select(sub_use, user_id, family:mar_per_week) %>% na.omit()
+
+sub_use <- filter(sub_use, user_id %in% unique(knot_points$user_id))
+sub_use <- group_by(sub_use, user_id) %>% mutate(time1 = test_age - min(test_age)) %>% ungroup()
+sub_use_sum <- group_by(sub_use, user_id) %>% summarize(min_age = min(test_age))
+sub_use_sum <- left_join(sub_use_sum, knot_points)
+sub_use <- left_join(sub_use, sub_use_sum)
+sub_use <- mutate(sub_use, time2 = time1 - (KP - min_age))
+sub_use[sub_use$time2 < 0, "time2"] <- 0
+ml <- lmer(mar_per_week ~ (time1 + time2) + (time1 + time2 | family/user_id), data = sub_use)
+
+sub_use$pred <- predict(ml)
