@@ -67,6 +67,13 @@ sub_use_sum <- left_join(sub_use_sum, knot_points)
 sub_use <- left_join(sub_use, sub_use_sum)
 sub_use <- mutate(sub_use, time2 = time1 - (KP - min_age))
 sub_use[sub_use$time2 < 0, "time2"] <- 0
-ml <- lmer(mar_per_week ~ (time1 + time2) + (time1 + time2 | family/user_id), data = sub_use)
 
-sub_use$pred <- predict(ml)
+mar_ml_bilinear <- lmer(mar_per_week ~ (time1 + time2) + (time1 + time2 | user_id), data = sub_use)
+mar_ml_monolinear <- lmer(mar_per_week ~ time1 + (time1 | user_id), data = sub_use)
+
+sub_use$KP <- 18.5
+sub_use <- mutate(sub_use, time2 = time1 - (KP - min_age))
+sub_use[sub_use$time2 < 0, "time2"] <- 0
+mar_ml_fixed_knot <- lmer(mar_per_week ~ (time1 + time2) + (time1 + time2 | user_id), data = sub_use)
+
+sub_use$pred <- predict(mar_ml_bilinear)
