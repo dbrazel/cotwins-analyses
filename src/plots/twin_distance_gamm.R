@@ -1,6 +1,6 @@
 library(readr)
 library(dplyr)
-library(lmerTest)
+library(gamm4)
 library(lubridate)
 library(cowplot)
 
@@ -30,53 +30,48 @@ tp_dists_sum <-
     distance = mean(distance),
     age = mean(age)
   )
+tp_dists_sum$zygosity <-
+  factor(tp_dists_sum$zygosity, levels = c("MZ", "DZ", "OS"))
 
-tp_dists_sum_dz <- filter(tp_dists_sum, zygosity == "DZ")
-tp_dists_sum_mz <- filter(tp_dists_sum, zygosity == "MZ")
-tp_dists_sum_os <- filter(tp_dists_sum, zygosity == "OS")
+# Windsorize based on the distribution of distance
+tp_dists_sum[tp_dists_sum$distance > 2e5, "distance"] <- 1e5
+tp_dists_sum <- mutate(tp_dists_sum, distance = log10(distance + 1))
 
-mz_ml <-
-  gamm4(distance ~ s(age), random = ~ (1 |
-                                         tp_id), data = tp_dists_sum_mz)
-dz_ml <-
-  gamm4(distance ~ s(age), random = ~ (1 |
-                                         tp_id), data = tp_dists_sum_dz)
-os_ml <-
-  gamm4(distance ~ s(age), random = ~ (1 |
-                                         tp_id), data = tp_dists_sum_os)
-
-mz_pred <- predict(mz_ml$gam, se.fit = T)
-dz_pred <- predict(dz_ml$gam, se.fit = T)
-os_pred <- predict(os_ml$gam, se.fit = T)
-
-mz_plot_data <-
-  tibble(
-    age = tp_dists_sum_mz$age,
-    distance = mz_pred$fit,
-    dist_lower = mz_pred$fit - 1.96 * mz_pred$se.fit,
-    dist_upper = mz_pred$fit + 1.96 * mz_pred$se.fit
-  )
-dz_plot_data <-
-  tibble(
-    age = tp_dists_sum_dz$age,
-    distance = dz_pred$fit,
-    dist_lower = dz_pred$fit - 1.96 * dz_pred$se.fit,
-    dist_upper = dz_pred$fit + 1.96 * dz_pred$se.fit
-  )
-os_plot_data <-
-  tibble(
-    age = tp_dists_sum_os$age,
-    distance = os_pred$fit,
-    dist_lower = os_pred$fit - 1.96 * os_pred$se.fit,
-    dist_upper = os_pred$fit + 1.96 * os_pred$se.fit
+ml <- gamm4(
+  distance ~ zygosity + s(age, by = zygosity),
+  random = ~(1 | tp_id), data = tp_dists_sum
   )
 
-mz_plot_data$zygosity = "MZ"
-dz_plot_data$zygosity = "DZ"
-os_plot_data$zygosity = "OS"
+pred <- predict(ml$gam, se.fit = T)
 
 plot_data <-
-  bind_rows(mz_plot_data, dz_plot_data) %>% bind_rows(os_plot_data)
-ggplot(plot_data, aes(age, distance, fill = zygosity, color = zygosity)) +
+  tibble(
+    age = tp_dists_sum$age,
+    zygosity = tp_dists_sum$zygosity,
+    distance = pred$fit,
+    dist_lower = pred$fit - 1.96 * pred$se.fit,
+    dist_upper = pred$fit + 1.96 * pred$se.fit
+    )
+
+plt <- ggplot(plot_data, aes(age, distance, fill = zygosity, color = zygosity)) +
   geom_ribbon(aes(ymax = dist_upper, ymin = dist_lower), alpha = 0.2) +
-  geom_line()
+  geom_line() +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1") +
+  labs(
+    x = "Age (years)",
+    y = "log10 of distance (meters)",
+    color = "Zygosity",
+    fill = "Zygosity"
+  ) +
+  theme(legend.direction = "horizontal", legend.position = c(0.35, 0.1)) +
+  scale_y_continuous(
+    breaks = c(3, 4, 5, 6),
+    labels = c(
+      "1 km",
+      "10 km",
+      "100 km",
+      "1,000 km")
+  )
+
+save_plot("figs/twin_distance_gamm.pdf", plt, base_aspect_ratio = 1.33)
