@@ -20,34 +20,33 @@ tp_dists <-
 tp_dists <-
   mutate(tp_dists, age = as.numeric(as_date(DateTime) - Birth_Date) / 365)
 tp_dists$zygosity = factor(tp_dists$zygosity, levels = c("MZ", "DZ", "OS"))
-tp_dists_sum <-
+tp_dists <-
   group_by(tp_dists,
            tp_id,
-           w = week(DateTime),
+           d = day(DateTime),
+           m = month(DateTime),
            y = year(DateTime)) %>%
   summarise(
     zygosity = first(zygosity),
     distance = mean(distance),
     age = mean(age)
   )
-tp_dists_sum$zygosity <-
-  factor(tp_dists_sum$zygosity, levels = c("MZ", "DZ", "OS"))
 
-# Windsorize based on the distribution of distance
-tp_dists_sum[tp_dists_sum$distance > 2e5, "distance"] <- 1e5
-tp_dists_sum <- mutate(tp_dists_sum, distance = log10(distance + 1))
+# Winsorize based on the distribution of distance and log transform
+tp_dists[tp_dists$distance > 2e5, "distance"] <- 2e5
+tp_dists <- mutate(tp_dists, distance = log10(distance + 1))
 
 ml <- gamm4(
   distance ~ zygosity + s(age, by = zygosity),
-  random = ~(1 | tp_id), data = tp_dists_sum
+  random = ~(1 | tp_id), data = tp_dists
   )
 
 pred <- predict(ml$gam, se.fit = T)
 
 plot_data <-
   tibble(
-    age = tp_dists_sum$age,
-    zygosity = tp_dists_sum$zygosity,
+    age = tp_dists$age,
+    zygosity = tp_dists$zygosity,
     distance = pred$fit,
     dist_lower = pred$fit - 1.96 * pred$se.fit,
     dist_upper = pred$fit + 1.96 * pred$se.fit
