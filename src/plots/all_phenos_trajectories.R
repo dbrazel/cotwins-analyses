@@ -8,6 +8,7 @@ library(dplyr)
 library(gamm4)
 library(lubridate)
 library(cowplot)
+library(ggExtra)
 
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
   haven::zap_formats() %>%
@@ -127,6 +128,15 @@ home_school_plot <- ggplot(home_school_plot_data, aes(test_age, frac, fill = phe
   theme(legend.direction = "horizontal", legend.position = c(0.55, 0.05)) +
   xlim(14, 20)
 
+pdf("figs/home_school_trajectory.pdf", width = 6, height = 6)
+ggMarginal(
+  home_school_plot,
+  margins = "x",
+  groupColour = T,
+  groupFill = T,
+  type = "histogram")
+dev.off()
+
 # Twin Distance
 tp_dists <- read_rds("data/processed/twin_distances.rds")
 
@@ -193,6 +203,15 @@ dist_plot <- ggplot(dist_plot_data, aes(age, distance, fill = zygosity, color = 
   ) +
   xlim(14, 20)
 
+pdf("figs/twin_distance_trajectory.pdf", width = 6, height = 6)
+ggMarginal(
+  dist_plot,
+  margins = "x",
+  groupColour = T,
+  groupFill = T,
+  type = "histogram")
+dev.off()
+
 # Parental Monitoring
 par_mon <- read_rds("data/processed/remote_parents.rds") %>%
   select(user_id, date_completed, n_par_figs, max_monitor_score)
@@ -225,6 +244,13 @@ par_mon_plot <- ggplot(par_mon_plot_data, aes(test_age, max_monitor_score)) +
   xlab("Age (years)") +
   ylab("Predicted parental monitoring score") +
   xlim(14, 20)
+
+pdf("figs/par_mon_trajectory.pdf", width = 6, height = 6)
+ggMarginal(
+  par_mon_plot,
+  margins = "x",
+  type = "histogram")
+dev.off()
 
 # Substance Use
 dpw_data <- read_rds("data/models/dpw_data.rds")
@@ -283,6 +309,13 @@ sub_use_plot <- ggplot(sub_use_plot_data, aes(test_age, use, fill = pheno, color
   ) +
   theme(legend.direction = "horizontal", legend.position = c(0.2, 0.05)) +
   xlim(14, 20)
+
+pdf("figs/sub_use_trajectory.pdf", width = 6, height = 6)
+ggMarginal(
+  sub_use_plot,
+  margins = "x",
+  type = "histogram")
+dev.off()
 
 # Combine the plots with aligned axes
 all_plot <-
