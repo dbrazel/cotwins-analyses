@@ -41,21 +41,34 @@ locs <- filter(locs, user_id %in% id_mapping_long$alternate_id) %>%
 locs[locs$app_type == "android", "app_type"] <- "Android"
 locs[locs$app_type == "iOS", "app_type"] <- "iOS"
 
+# Bin by week
+surveys$bin <- cut(surveys$t, seq(0, 2, 1/52), include.lowest = T)
+locs$bin <- cut(locs$t, seq(0, 2, 1/52), include.lowest = T)
+
+surveys <- group_by(surveys, bin) %>% summarise(n = n(), t = mean(t)) %>% ungroup() %>% filter(!is.na(bin))
+locs <- group_by(locs, app_type, bin) %>% summarise(n = n(), t = mean(t)) %>% ungroup() %>% filter(!is.na(bin))
+
+# 670 twins for the first year, 531 for the second, normalize to measures per twin
+surveys <- mutate(surveys, n = if_else(t > 1, n / 531, n / 670))
+locs <- mutate(locs, n = if_else(t > 1, n / 531, n / 670))
+
 # Plot the per capita number of surveys completed each week, by years since
 # enrollment in the study
-surveys_plot <- ggplot(surveys, aes(t)) +
-  geom_freqpoly(aes(y = ..count.. / 670), binwidth = 1/52) +
+surveys_plot <- ggplot(surveys, aes(t, n)) +
+  geom_line() +
   xlim(0, 2) +
+  ylim(0, 2.5) +
   labs(x = "Years since enrollment", y = "Surveys per twin per week") +
   geom_hline(yintercept = 2.05)
 
-save_plot("figs/survey_rate.pdf", surveys_plot, base_aspect_ratio = 2)
+save_plot("figs/survey_rate.pdf", surveys_plot, base_aspect_ratio = 1.2)
 
 # Plot the per capita number of locations recorded each week, by years
 # since enrollment in the study
-location_plot <- ggplot(locs, aes(t)) +
-  geom_freqpoly(aes(y = ..count.. / 670), binwidth = 1/52) +
+location_plot <- ggplot(locs, aes(t, n, color = app_type)) +
+  geom_line() +
   xlim(0, 2) +
-  labs(x = "Years since enrollment", y = "Locations per twin per week")
+  ylim(0, 150) +
+  labs(x = "Years since enrollment", y = "Locations per twin per week", color = "OS")
 
-save_plot("figs/location_rate.pdf", location_plot, base_aspect_ratio = 2)
+save_plot("figs/location_rate.pdf", location_plot, base_aspect_ratio = 1.2)
