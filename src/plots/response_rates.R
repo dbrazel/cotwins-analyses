@@ -39,7 +39,7 @@ locs <- filter(locs, user_id %in% id_mapping_long$alternate_id) %>%
   na.omit()
 
 locs[locs$app_type == "android", "app_type"] <- "Android"
-locs[locs$app_type == "iOS", "app_type"] <- "iOS"
+locs[locs$app_type == "ios", "app_type"] <- "iOS"
 
 # Bin by week
 surveys$bin <- cut(surveys$t, seq(0, 2, 1/52), include.lowest = T)
@@ -59,7 +59,7 @@ surveys_plot <- ggplot(surveys, aes(t, n)) +
   xlim(0, 2) +
   ylim(0, 2.5) +
   labs(x = "Years since enrollment", y = "Surveys per twin per week") +
-  geom_hline(yintercept = 2.05)
+  geom_hline(yintercept = 2.05, color = "green")
 
 save_plot("figs/survey_rate.pdf", surveys_plot, base_aspect_ratio = 1.2)
 
@@ -72,3 +72,20 @@ location_plot <- ggplot(locs, aes(t, n, color = app_type)) +
   labs(x = "Years since enrollment", y = "Locations per twin per week", color = "OS")
 
 save_plot("figs/location_rate.pdf", location_plot, base_aspect_ratio = 1.2)
+
+all_plot <- plot_grid(
+  surveys_plot,
+  location_plot,
+  align = "h",
+  labels = c("A", "B"),
+  nrow = 1,
+  ncol = 2
+)
+
+save_plot(
+  "figs/rate_plots.pdf",
+  all_plot,
+  nrow = 1,
+  ncol = 2,
+  base_aspect_ratio = 1.2
+  )
