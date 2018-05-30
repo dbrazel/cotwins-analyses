@@ -184,8 +184,8 @@ dist_plot_data <-
 dist_plot <- ggplot(dist_plot_data, aes(age, distance, fill = zygosity, color = zygosity)) +
   geom_ribbon(aes(ymax = dist_upper, ymin = dist_lower), alpha = 0.2) +
   geom_line() +
-  scale_color_brewer(palette = "Dark2") +
-  scale_fill_brewer(palette = "Dark2") +
+  scale_color_manual(values = c(MZ = "#e7298a", DZ = "#66a61e", OS = "#e6ab02")) +
+  scale_fill_manual(values = c(MZ = "#e7298a", DZ = "#66a61e", OS = "#e6ab02")) +
   labs(
     x = "Age (years)",
     y = "Predicted log10 of distance (meters)",
@@ -301,8 +301,8 @@ sub_use_plot_data$pheno <- factor(sub_use_plot_data$pheno, levels = c("Alcohol",
 sub_use_plot <- ggplot(sub_use_plot_data, aes(test_age, use, fill = pheno, color = pheno)) +
   geom_ribbon(aes(ymax = upper, ymin = lower), alpha = 0.2) +
   geom_line() +
-  scale_color_brewer("", palette = "Dark2") +
-  scale_fill_brewer("", palette = "Dark2") +
+  scale_color_brewer("", palette = "Set1") +
+  scale_fill_brewer("", palette = "Set1") +
   labs(
     x = "Age (years)",
     y = "Predicted ln of substance use"
