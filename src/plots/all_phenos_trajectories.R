@@ -305,7 +305,7 @@ sub_use_plot <- ggplot(sub_use_plot_data, aes(test_age, use, fill = pheno, color
     x = "Age (years)",
     y = "Predicted ln of substance use"
   ) +
-  theme(legend.direction = "horizontal", legend.position = c(0.2, 0.05)) +
+  theme(legend.direction = "horizontal", legend.position = c(0.13, 0.05)) +
   xlim(14, 20)
 
 sub_use_plot <- ggMarginal(
