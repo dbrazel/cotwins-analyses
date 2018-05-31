@@ -128,14 +128,12 @@ home_school_plot <- ggplot(home_school_plot_data, aes(test_age, frac, fill = phe
   theme(legend.direction = "horizontal", legend.position = c(0.55, 0.05)) +
   xlim(14, 20)
 
-pdf("figs/home_school_trajectory.pdf", width = 6, height = 6)
-ggMarginal(
+home_school_plot <- ggMarginal(
   home_school_plot,
   margins = "x",
-  groupColour = T,
-  groupFill = T,
   type = "histogram")
-dev.off()
+
+save_plot("figs/home_school_trajectory.pdf", home_school_plot, base_aspect_ratio = 1.2)
 
 # Twin Distance
 tp_dists <- read_rds("data/processed/twin_distances.rds")
@@ -203,14 +201,14 @@ dist_plot <- ggplot(dist_plot_data, aes(age, distance, fill = zygosity, color = 
   ) +
   xlim(14, 20)
 
-pdf("figs/twin_distance_trajectory.pdf", width = 6, height = 6)
-ggMarginal(
+dist_plot <- ggMarginal(
   dist_plot,
   margins = "x",
   groupColour = T,
   groupFill = T,
   type = "histogram")
-dev.off()
+
+save_plot("figs/twin_distance_trajectory.pdf", dist_plot, base_aspect_ratio = 1.2)
 
 # Parental Monitoring
 par_mon <- read_rds("data/processed/remote_parents.rds") %>%
@@ -245,12 +243,12 @@ par_mon_plot <- ggplot(par_mon_plot_data, aes(test_age, max_monitor_score)) +
   ylab("Predicted parental monitoring score") +
   xlim(14, 20)
 
-pdf("figs/par_mon_trajectory.pdf", width = 6, height = 6)
-ggMarginal(
+par_mon_plot <- ggMarginal(
   par_mon_plot,
   margins = "x",
   type = "histogram")
-dev.off()
+
+save_plot("figs/par_mon_trajectory.pdf", par_mon_plot, base_aspect_ratio = 1.2)
 
 # Substance Use
 dpw_data <- read_rds("data/models/dpw_data.rds")
@@ -310,12 +308,12 @@ sub_use_plot <- ggplot(sub_use_plot_data, aes(test_age, use, fill = pheno, color
   theme(legend.direction = "horizontal", legend.position = c(0.2, 0.05)) +
   xlim(14, 20)
 
-pdf("figs/sub_use_trajectory.pdf", width = 6, height = 6)
-ggMarginal(
+sub_use_plot <- ggMarginal(
   sub_use_plot,
   margins = "x",
   type = "histogram")
-dev.off()
+
+save_plot("figs/sub_use_trajectory.pdf", sub_use_plot, base_aspect_ratio = 1.2)
 
 # Combine the plots with aligned axes
 all_plot <-
@@ -333,6 +331,7 @@ all_plot <-
 save_plot(
   "figs/all_phenos_trajectories.pdf",
   all_plot,
-  base_aspect_ratio = 1.3,
-  base_height = 8
+  nrow = 2,
+  ncol = 2,
+  base_aspect_ratio = 1.2
   )
