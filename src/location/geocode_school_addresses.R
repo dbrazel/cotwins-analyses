@@ -15,17 +15,16 @@ library(stringr)
 # garbage at the start and end of each "CSV"
 # THIS IS FRAGILE AND MAY BREAK ON NEW DATA
 public <-
-  read_csv("data/external/ELSI_CO_PUBLIC.csv",
+  read_csv("data/external/ELSI_CO_PUBLIC_2015_2016.csv",
            skip = 7,
-           n_max = 1872,
+           n_max = 1876,
            na = c("", "NA", "†", "–", "‡"),
            col_names = c(
              "school_name",
              NA,
-             NA,
              "school_id",
-             "agency_name",
-             "agency_id",
+             NA,
+             NA,
              "address_1",
              "address_2",
              "address_3",
@@ -37,7 +36,7 @@ public <-
 private <-
   read_csv("data/external/ELSI_CO_PRIVATE.csv",
            skip = 7,
-           n_max = 333,
+           n_max = 302,
            na = c("", "NA", "†", "–", "‡"),
            col_names = c(
              "school_name",
@@ -67,7 +66,7 @@ public <- unite(public, "address_full", address, address_zip, sep = " ", remove 
 
 private <- unite(private, "address_full", address_1, address_city, address_zip, sep = ", ", remove = F)
 
-public <- select(public, school_name, school_id, agency_name, agency_id, address_full)
+public <- select(public, school_name, school_id, address_full)
 private <- select(private, school_name, school_id, address_full)
 
 api_key <- Sys.getenv("GOOGLE_API_KEY")[[1]]
@@ -105,14 +104,14 @@ geocode <- function (address) {
 }
 
 for (i in 1:nrow(public)) {
-  result <- geocode(public[[i, 5]])
-  public[i, 6] <- result[[1]]
-  public[i, 7] <- result[[2]]
+  result <- geocode(public[[i, 3]])
+  public[i, 4] <- result[[1]]
+  public[i, 5] <- result[[2]]
   
   print(i)
   
   # Rate limit
-  Sys.sleep(0.1)
+  Sys.sleep(0.02)
 }
 
 for (i in 1:nrow(private)) {
@@ -123,7 +122,7 @@ for (i in 1:nrow(private)) {
   print(i)
   
   # Rate limit
-  Sys.sleep(0.1)
+  Sys.sleep(0.02)
 }
 
 write_rds(public, "data/processed/public_school_address.rds")
