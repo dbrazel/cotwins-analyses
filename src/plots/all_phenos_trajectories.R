@@ -164,7 +164,7 @@ tp_dists[tp_dists$distance > 2e5, "distance"] <- 2e5
 tp_dists <- mutate(tp_dists, distance = log10(distance + 1))
 
 dist_ml <- gamm4(
-  distance ~ zygosity + s(age, by = zygosity),
+  distance ~ zygosity + s(age, by = zygosity, k = 10),
   random = ~(1 | tp_id), data = tp_dists
 )
 
@@ -253,7 +253,7 @@ save_plot("figs/par_mon_trajectory.pdf", par_mon_plot, base_aspect_ratio = 1.2)
 # Substance Use
 dpw_data <- read_rds("data/models/dpw_data.rds")
 
-dpw_ml <- gamm4(drinks_per_week ~ s(test_age, k = 4), random = ~(1 | family/user_id), data = dpw_data)
+dpw_ml <- gamm4(drinks_per_week ~ s(test_age, k = 8), random = ~(1 | family/user_id), data = dpw_data)
 dpw_pred <- predict(dpw_ml$gam, se.fit = T)
 dpw_plot_data <-
   tibble(
@@ -267,7 +267,7 @@ dpw_plot_data$pheno <- "Alcohol"
 
 mpw_data <- read_rds("data/models/mpw_data.rds")
 
-mpw_ml <- gamm4(mar_per_week ~ s(test_age, k = 5), random = ~(1 | family/user_id), data = mpw_data)
+mpw_ml <- gamm4(mar_per_week ~ s(test_age, k = 8), random = ~(1 | family/user_id), data = mpw_data)
 mpw_pred <- predict(mpw_ml$gam, se.fit = T)
 mpw_plot_data <-
   tibble(
@@ -281,7 +281,7 @@ mpw_plot_data$pheno <- "Marijuana"
 
 ecig_data <- read_rds("data/models/ecig_data.rds")
 
-ecig_ml <- gamm4(puffs_per_week ~ s(test_age, k = 7), random = ~(1 | family/user_id), data = ecig_data)
+ecig_ml <- gamm4(ecig_per_week ~ s(test_age, k = 8), random = ~(1 | family/user_id), data = ecig_data)
 ecig_pred <- predict(ecig_ml$gam, se.fit = T)
 ecig_plot_data <-
   tibble(
