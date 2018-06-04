@@ -25,7 +25,6 @@ sub_use <- select(
   ecig_use,
   ecig_freq_days_per_week,
   ecig_freq_times_per_day,
-  ecig_quantity_puffs,
   Sex1,
   Birth_Date,
   Test_Date,
@@ -43,27 +42,24 @@ sub_use$ecig_freq_days_per_week[!sub_use$any_substance_use] <- 0
 sub_use$ecig_freq_days_per_week[!sub_use$ecig_use] <- 0
 sub_use$ecig_freq_times_per_day[!sub_use$any_substance_use] <- 0
 sub_use$ecig_freq_times_per_day[!sub_use$ecig_use] <- 0
-sub_use$ecig_quantity_puffs[!sub_use$any_substance_use] <- 0
-sub_use$ecig_quantity_puffs[!sub_use$ecig_use] <- 0
 
-# Calculate log-transformed puffs per week
+# Calculate log-transformed ecig uses per week
 sub_use <- mutate(
   sub_use,
-  puffs_per_week =
-    ecig_freq_days_per_week * ecig_freq_times_per_day * ecig_quantity_puffs,
-  puffs_per_week = log(puffs_per_week + 1)
+  ecig_per_week = ecig_freq_days_per_week * ecig_freq_times_per_day,
+  ecig_per_week = log(ecig_per_week + 1)
 )
 
-sub_use <- select(sub_use, user_id, family:puffs_per_week) %>% na.omit()
+sub_use <- select(sub_use, user_id, family:ecig_per_week) %>% na.omit()
 
 ml <-
   lmer(
-    puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
+    ecig_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = sub_use
   )
 ml_test <-
   lmerTest::lmer(
-    puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
+    ecig_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = sub_use
   )
 
@@ -90,14 +86,14 @@ parameters <- left_join(rand_effs_twin, rand_effs_family, by = "family") %>%
 # Get the predicted values and the residuals
 sub_use_pred <- left_join(sub_use, parameters, by = "user_id") %>%
   mutate(
-    puffs_per_week_pred =
+    ecig_per_week_pred =
       intercept +
       slope * test_age +
       quadratic * test_age^2 +
       sex_beta * sex,
-    puffs_per_week_resid = puffs_per_week - puffs_per_week_pred
+    ecig_per_week_resid = ecig_per_week - ecig_per_week_pred
   ) %>%
-  select(user_id, family:puffs_per_week, puffs_per_week_pred, puffs_per_week_resid)
+  select(user_id, family:ecig_per_week, ecig_per_week_pred, ecig_per_week_resid)
 
 write_rds(ml, "data/models/ecig_quadratic_model.rds")
 write_rds(ml_test, "data/models/ecig_quadratic_model_lmerTest.rds")
