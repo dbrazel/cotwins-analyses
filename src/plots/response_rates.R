@@ -59,7 +59,7 @@ surveys_plot <- ggplot(surveys, aes(t, n)) +
   xlim(0, 2) +
   ylim(0, 2.5) +
   labs(x = "Years since enrollment", y = "Surveys per twin per week") +
-  geom_hline(yintercept = 2.05, color = "green")
+  geom_hline(yintercept = 2.2, color = "green")
 
 save_plot("figs/survey_rate.pdf", surveys_plot, base_aspect_ratio = 1.2)
 
