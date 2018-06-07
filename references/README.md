@@ -22,6 +22,10 @@ xargs strips the white space, sed replaces the spaces between columns with semic
 
 The 2015 Executive Summary for the Healthy Kids Colorado Survey. Information on substance use rates in high school students in Colorado. Downloaded from http://www.ucdenver.edu/academics/colleges/PublicHealth/community/CEPEG/UnifYouth/Pages/HealthyKidsSurvey.aspx
 
+`2015HKCS_HS_Tables.pdf` and `2015HKCS_HS_Table of Contents.pdf`
+
+Detailed results from the Healthy Kids Colorado Survey on high school students in Colorado. Downloaded from https://www.cohealthdata.dphe.state.co.us/
+
 ---
 
 `DPS*calendar.pdf`
