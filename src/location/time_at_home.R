@@ -47,7 +47,9 @@ for (i in 1:nrow(std_locs)) {
 
 write_rds(std_locs, "data/processed/at_home_unfiltered.rds")
 
-# Remove individuals where we seem to have the wrong home address (time at zero)
+# Remove individuals where we seem to have the wrong home address
+# (that is, looking at all points before 18, are they all at zero,
+# or is there a period of a month or more where they are all at zero.)
 to_remove <- c(
   "11248670135330017765",
   "13229567082602041830",
