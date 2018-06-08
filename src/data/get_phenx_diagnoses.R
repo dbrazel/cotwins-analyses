@@ -141,11 +141,13 @@ phenx$PHXQ0004[phenx$PHXQ0004 == 0] <- NaN
 results$alc_age_regular_use <- phenx$PHXQ0004
 results$alc_freq_days_in_month <- phenx$PHXQ0005
 results$alc_quantity_per_day <- phenx$PHXQ0009
+results$alc_current_use <- phenx$PHXQ0005 > 0
 
 results$cig_initiation <- phenx$PHXQ0090 == 1
 results$cig_age_regular_use <- phenx$PHXQ0094
 results$cig_freq_days_in_month <- phenx$PHXQ0099
 results$cig_quantity_per_day <- phenx$PHXQ0100
+results$cig_current_use <- phenx$PHXQ0091 %in% c(1, 2)
 
 # Marijuana
 results$mar_lifetime_use <- phenx$PHXQ0159_MAR == 'Y'
@@ -155,6 +157,7 @@ results$mar_age_first_use <- phenx$PHXQ0186
 phenx$PHXQ0187[phenx$PHXQ0187 == 0] <- NaN
 results$mar_age_regular_use <- phenx$PHXQ0187
 results$mar_freq_days_in_month <- phenx$PHXQ0188
+results$mar_current_use <- phenx$PHXQ0188 > 0
 
 # Marijuana 12-month abuse diagnosis and symptom count
 year_mar_continue <- (phenx$PHXQ0228_MAR == 'Y') | (phenx$PHXQ0231_MAR == 'Y') | (phenx$PHXQ0234_MAR == 'Y')
@@ -193,6 +196,8 @@ results$total_drugs_lifetime_use <- results %>%
   mutate(tob_lifetime_use = cig_initiation | (phenx$PHXQ0109 == 1)) %>% 
   select(alc_lifetime_use, mar_lifetime_use, tob_lifetime_use, sedatives_lifetime_use:other_lifetime_use) %>% 
   rowSums(na.rm = T)
+results$cocaine_current_use <- phenx$PHXQ0195 > 0
+results$heroin_current_use <- phenx$PHXQ0213 > 0
 
 # Write out the results
 write_rds(results, 'data/processed/PhenX_diagnoses.rds')
