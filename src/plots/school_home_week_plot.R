@@ -7,6 +7,7 @@ library(readr)
 library(dplyr)
 library(lubridate)
 library(cowplot)
+library(forcats)
 
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
   haven::zap_formats() %>%
@@ -55,20 +56,32 @@ school <- left_join(school, id_mapping_long, by = c("Michigan_ID" = "alternate_i
   mutate(test_age = as.numeric(as_date(DateTime) - Birth_Date) / 365)
 
 home <-
-  group_by(home,
-           d = wday(DateTime, label = T, abbr = F),
-           h = hour(DateTime)) %>%
+  mutate(
+    home,
+    d = wday(DateTime, label = T, abbr = F),
+    h = hour(DateTime),
+    d = fct_collapse(
+      d,
+      `Monday - Thursday` = c("Monday", "Tuesday", "Wednesday", "Thursday")
+      )) %>%
+  group_by(d, h) %>%
   summarize(frac = sum(at_home) / n())
 home$pheno <- "Home"
 
 school <-
-  group_by(school,
-           d = wday(DateTime, label = T, abbr = F),
-           h = hour(DateTime)) %>%
+  mutate(
+    school,
+    d = wday(DateTime, label = T, abbr = F),
+    h = hour(DateTime),
+    d = fct_collapse(
+      d,
+      `Monday - Thursday` = c("Monday", "Tuesday", "Wednesday", "Thursday")
+    )) %>%
+  group_by(d, h) %>%
   summarize(frac = sum(at_school) / n())
 school$pheno <- "School"
 
-plot_data <- bind_rows(home, school)
+plot_data <- bind_rows(home, school) %>% ungroup()
 
 plt <- ggplot(plot_data, aes(h, frac, color = pheno)) +
   geom_line() +
@@ -82,6 +95,6 @@ plt <- ggplot(plot_data, aes(h, frac, color = pheno)) +
 save_plot(
   "figs/school_home_week_plot.pdf",
   plt,
-  base_height = 8,
-  base_aspect_ratio = 0.6
+  base_height = 5,
+  base_aspect_ratio = 0.9
 )

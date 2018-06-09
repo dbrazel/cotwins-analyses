@@ -318,10 +318,10 @@ save_plot("figs/sub_use_trajectory.pdf", sub_use_plot, base_aspect_ratio = 1.2)
 # Combine the plots with aligned axes
 all_plot <-
   plot_grid(
+    sub_use_plot,
+    par_mon_plot,
     dist_plot,
     home_school_plot,
-    par_mon_plot,
-    sub_use_plot,
     align = "hv",
     labels = c("A", "B", "C", "D"),
     nrow = 2,
