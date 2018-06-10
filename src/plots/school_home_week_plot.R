@@ -53,7 +53,8 @@ school <- mutate(school, DateTime = DateTime + minutes(sample_timezone)) %>%
 school <- left_join(school, id_mapping_long, by = c("Michigan_ID" = "alternate_id")) %>%
   left_join(twin_info, by = c("SVID" = "ID1")) %>%
   select(DateTime, user_id = Michigan_ID, orig_datetime, at_school, family, Birth_Date) %>%
-  mutate(test_age = as.numeric(as_date(DateTime) - Birth_Date) / 365)
+  mutate(test_age = as.numeric(as_date(DateTime) - Birth_Date) / 365) %>%
+  filter(test_age < 18)
 
 home <-
   mutate(
