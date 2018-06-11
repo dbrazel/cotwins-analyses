@@ -16,7 +16,7 @@ twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # At Home and At School
-at_home <- read_rds("data/processed/at_home_unfiltered.rds")
+at_home <- read_rds("data/processed/at_home.rds")
 
 # Shift the locations to local time and restrict to 12 AM to 5 AM
 at_home <- mutate(at_home, DateTime = DateTime + minutes(sample_timezone)) %>%
@@ -47,7 +47,7 @@ at_home_plot_data <-
 
 at_home_plot_data$pheno <- "Home"
 
-at_school <- read_rds("data/processed/at_school_unfiltered.rds")
+at_school <- read_rds("data/processed/at_school.rds")
 
 # We started getting more locations in November 2016. Let's restrict to there and
 # later to make the manual part of this tractable
