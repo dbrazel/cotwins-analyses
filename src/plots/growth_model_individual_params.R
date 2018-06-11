@@ -11,7 +11,7 @@ all_cis <- read_rds("data/models/all_phenos_cis.rds")
 all_cis <-
   mutate(all_cis,
          term = factor(term, levels = all_cis$term[1:13]),
-         pheno = factor(pheno, levels = c("Home", "School", "Parents", "DPW", "MPW", "PPW")))
+         pheno = factor(pheno, levels = c("Home", "School", "Parents", "Alcohol", "Marijuana", "E-Cigarettes")))
 
 ggplot(all_cis,
        aes(

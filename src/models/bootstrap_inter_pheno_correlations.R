@@ -31,7 +31,7 @@ mpw_formula <- formula(mar_per_week ~ (test_age + I(test_age^2) + sex) + (test_a
 mpw_families <- unique(mpw_data$family)
 
 ecig_data <- read_rds("data/models/ecig_data.rds")
-ecig_formula <- formula(puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+ecig_formula <- formula(ecig_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
 ecig_families <- unique(ecig_data$family)
 
 # The substance use phenotypes all share the same twin pairs. The other phenotypes have distinct sets from each
@@ -51,7 +51,7 @@ dpw_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-dpw_mpw_cis <- tidy(dpw_mpw_boot, conf.int = T) %>% mutate(pheno = "DPW ↔ MPW")
+dpw_mpw_cis <- tidy(dpw_mpw_boot, conf.int = T) %>% mutate(pheno = "Alcohol ↔ Marijuana")
 write_rds(dpw_mpw_boot, "data/models/dpw_mpw_boot.rds")
 write_rds(dpw_mpw_cis, "data/models/dpw_mpw_cis.rds")
 
@@ -68,7 +68,7 @@ dpw_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-dpw_ecig_cis <- tidy(dpw_ecig_boot, conf.int = T) %>% mutate(pheno = "DPW ↔ PPW")
+dpw_ecig_cis <- tidy(dpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Alcohol ↔ E-Cigarettes")
 write_rds(dpw_ecig_boot, "data/models/dpw_ecig_boot.rds")
 write_rds(dpw_ecig_cis, "data/models/dpw_ecig_cis.rds")
 
@@ -85,7 +85,7 @@ mpw_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-mpw_ecig_cis <- tidy(mpw_ecig_boot, conf.int = T) %>% mutate(pheno = "MPW ↔ PPW")
+mpw_ecig_cis <- tidy(mpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Marijuana ↔ E-Cigarettes")
 write_rds(mpw_ecig_boot, "data/models/mpw_ecig_boot.rds")
 write_rds(mpw_ecig_cis, "data/models/mpw_ecig_cis.rds")
 
@@ -105,7 +105,7 @@ at_home_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_dpw_cis <- tidy(at_home_dpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ DPW")
+at_home_dpw_cis <- tidy(at_home_dpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ Alcohol")
 write_rds(at_home_dpw_boot, "data/models/at_home_dpw_boot.rds")
 write_rds(at_home_dpw_cis, "data/models/at_home_dpw_cis.rds")
 
@@ -122,7 +122,7 @@ at_home_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_mpw_cis <- tidy(at_home_mpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ MPW")
+at_home_mpw_cis <- tidy(at_home_mpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ Marijuana")
 write_rds(at_home_mpw_boot, "data/models/at_home_mpw_boot.rds")
 write_rds(at_home_mpw_cis, "data/models/at_home_mpw_cis.rds")
 
@@ -139,7 +139,7 @@ at_home_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_ecig_cis <- tidy(at_home_ecig_boot, conf.int = T) %>% mutate(pheno = "Home ↔ PPW")
+at_home_ecig_cis <- tidy(at_home_ecig_boot, conf.int = T) %>% mutate(pheno = "Home ↔ E-Cigarettes")
 write_rds(at_home_ecig_boot, "data/models/at_home_ecig_boot.rds")
 write_rds(at_home_ecig_cis, "data/models/at_home_ecig_cis.rds")
 
@@ -159,7 +159,7 @@ at_school_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_dpw_cis <- tidy(at_school_dpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ DPW")
+at_school_dpw_cis <- tidy(at_school_dpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ Alcohol")
 write_rds(at_school_dpw_boot, "data/models/at_school_dpw_boot.rds")
 write_rds(at_school_dpw_cis, "data/models/at_school_dpw_cis.rds")
 
@@ -176,7 +176,7 @@ at_school_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_mpw_cis <- tidy(at_school_mpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ MPW")
+at_school_mpw_cis <- tidy(at_school_mpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ Marijuana")
 write_rds(at_school_mpw_boot, "data/models/at_school_mpw_boot.rds")
 write_rds(at_school_mpw_cis, "data/models/at_school_mpw_cis.rds")
 
@@ -193,7 +193,7 @@ at_school_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_ecig_cis <- tidy(at_school_ecig_boot, conf.int = T) %>% mutate(pheno = "School ↔ PPW")
+at_school_ecig_cis <- tidy(at_school_ecig_boot, conf.int = T) %>% mutate(pheno = "School ↔ E-Cigarettes")
 write_rds(at_school_ecig_boot, "data/models/at_school_ecig_boot.rds")
 write_rds(at_school_ecig_cis, "data/models/at_school_ecig_cis.rds")
 
@@ -213,7 +213,7 @@ par_mon_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_dpw_cis <- tidy(par_mon_dpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ DPW")
+par_mon_dpw_cis <- tidy(par_mon_dpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ Alcohol")
 write_rds(par_mon_dpw_boot, "data/models/par_mon_dpw_boot.rds")
 write_rds(par_mon_dpw_cis, "data/models/par_mon_dpw_cis.rds")
 
@@ -230,7 +230,7 @@ par_mon_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_mpw_cis <- tidy(par_mon_mpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ MPW")
+par_mon_mpw_cis <- tidy(par_mon_mpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ Marijuana")
 write_rds(par_mon_mpw_boot, "data/models/par_mon_mpw_boot.rds")
 write_rds(par_mon_mpw_cis, "data/models/par_mon_mpw_cis.rds")
 
@@ -247,7 +247,7 @@ par_mon_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_ecig_cis <- tidy(par_mon_ecig_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ PPW")
+par_mon_ecig_cis <- tidy(par_mon_ecig_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ E-Cigarettes")
 write_rds(par_mon_ecig_boot, "data/models/par_mon_ecig_boot.rds")
 write_rds(par_mon_ecig_cis, "data/models/par_mon_ecig_cis.rds")
 

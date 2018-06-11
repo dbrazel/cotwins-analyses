@@ -89,7 +89,7 @@ dpw_boot <-
     ncpus = num_cpus
   )
 
-dpw_cis <- tidy(dpw_boot, conf.int = T) %>% mutate(pheno = "DPW")
+dpw_cis <- tidy(dpw_boot, conf.int = T) %>% mutate(pheno = "Alcohol")
 
 write_rds(dpw_boot, "data/models/dpw_quadratic_model_boot.rds")
 write_rds(dpw_cis, "data/models/dpw_quadratic_model_cis.rds")
@@ -110,14 +110,14 @@ mpw_boot <-
     ncpus = num_cpus
   )
 
-mpw_cis <- tidy(mpw_boot, conf.int = T) %>% mutate(pheno = "MPW")
+mpw_cis <- tidy(mpw_boot, conf.int = T) %>% mutate(pheno = "Marijuana")
 
 write_rds(mpw_boot, "data/models/mpw_quadratic_model_boot.rds")
 write_rds(mpw_cis, "data/models/mpw_quadratic_model_cis.rds")
 
 # ecig
 ecig_data <- read_rds("data/models/ecig_data.rds")
-ecig_formula <- formula(puffs_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
+ecig_formula <- formula(ecig_per_week ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id))
 ecig_families <- unique(ecig_data$family)
 
 ecig_boot <-
@@ -131,7 +131,7 @@ ecig_boot <-
     ncpus = num_cpus
   )
 
-ecig_cis <- tidy(ecig_boot, conf.int = T) %>% mutate(pheno = "PPW")
+ecig_cis <- tidy(ecig_boot, conf.int = T) %>% mutate(pheno = "E-Cigarettes")
 
 write_rds(ecig_boot, "data/models/ecig_quadratic_model_boot.rds")
 write_rds(ecig_cis, "data/models/ecig_quadratic_model_cis.rds")
