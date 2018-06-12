@@ -51,7 +51,7 @@ dpw_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-dpw_mpw_cis <- tidy(dpw_mpw_boot, conf.int = T) %>% mutate(pheno = "Alcohol ↔ Marijuana")
+dpw_mpw_cis <- tidy(dpw_mpw_boot, conf.int = T) %>% mutate(pheno = "Alcohol <-> Marijuana")
 write_rds(dpw_mpw_boot, "data/models/dpw_mpw_boot.rds")
 write_rds(dpw_mpw_cis, "data/models/dpw_mpw_cis.rds")
 
@@ -68,7 +68,7 @@ dpw_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-dpw_ecig_cis <- tidy(dpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Alcohol ↔ E-Cigarettes")
+dpw_ecig_cis <- tidy(dpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Alcohol <-> E-Cigarettes")
 write_rds(dpw_ecig_boot, "data/models/dpw_ecig_boot.rds")
 write_rds(dpw_ecig_cis, "data/models/dpw_ecig_cis.rds")
 
@@ -85,7 +85,7 @@ mpw_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-mpw_ecig_cis <- tidy(mpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Marijuana ↔ E-Cigarettes")
+mpw_ecig_cis <- tidy(mpw_ecig_boot, conf.int = T) %>% mutate(pheno = "Marijuana <-> E-Cigarettes")
 write_rds(mpw_ecig_boot, "data/models/mpw_ecig_boot.rds")
 write_rds(mpw_ecig_cis, "data/models/mpw_ecig_cis.rds")
 
@@ -105,7 +105,7 @@ at_home_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_dpw_cis <- tidy(at_home_dpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ Alcohol")
+at_home_dpw_cis <- tidy(at_home_dpw_boot, conf.int = T) %>% mutate(pheno = "Home <-> Alcohol")
 write_rds(at_home_dpw_boot, "data/models/at_home_dpw_boot.rds")
 write_rds(at_home_dpw_cis, "data/models/at_home_dpw_cis.rds")
 
@@ -122,7 +122,7 @@ at_home_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_mpw_cis <- tidy(at_home_mpw_boot, conf.int = T) %>% mutate(pheno = "Home ↔ Marijuana")
+at_home_mpw_cis <- tidy(at_home_mpw_boot, conf.int = T) %>% mutate(pheno = "Home <-> Marijuana")
 write_rds(at_home_mpw_boot, "data/models/at_home_mpw_boot.rds")
 write_rds(at_home_mpw_cis, "data/models/at_home_mpw_cis.rds")
 
@@ -139,7 +139,7 @@ at_home_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_ecig_cis <- tidy(at_home_ecig_boot, conf.int = T) %>% mutate(pheno = "Home ↔ E-Cigarettes")
+at_home_ecig_cis <- tidy(at_home_ecig_boot, conf.int = T) %>% mutate(pheno = "Home <-> E-Cigarettes")
 write_rds(at_home_ecig_boot, "data/models/at_home_ecig_boot.rds")
 write_rds(at_home_ecig_cis, "data/models/at_home_ecig_cis.rds")
 
@@ -159,7 +159,7 @@ at_school_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_dpw_cis <- tidy(at_school_dpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ Alcohol")
+at_school_dpw_cis <- tidy(at_school_dpw_boot, conf.int = T) %>% mutate(pheno = "School <-> Alcohol")
 write_rds(at_school_dpw_boot, "data/models/at_school_dpw_boot.rds")
 write_rds(at_school_dpw_cis, "data/models/at_school_dpw_cis.rds")
 
@@ -176,7 +176,7 @@ at_school_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_mpw_cis <- tidy(at_school_mpw_boot, conf.int = T) %>% mutate(pheno = "School ↔ Marijuana")
+at_school_mpw_cis <- tidy(at_school_mpw_boot, conf.int = T) %>% mutate(pheno = "School <-> Marijuana")
 write_rds(at_school_mpw_boot, "data/models/at_school_mpw_boot.rds")
 write_rds(at_school_mpw_cis, "data/models/at_school_mpw_cis.rds")
 
@@ -193,7 +193,7 @@ at_school_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_ecig_cis <- tidy(at_school_ecig_boot, conf.int = T) %>% mutate(pheno = "School ↔ E-Cigarettes")
+at_school_ecig_cis <- tidy(at_school_ecig_boot, conf.int = T) %>% mutate(pheno = "School <-> E-Cigarettes")
 write_rds(at_school_ecig_boot, "data/models/at_school_ecig_boot.rds")
 write_rds(at_school_ecig_cis, "data/models/at_school_ecig_cis.rds")
 
@@ -213,7 +213,7 @@ par_mon_dpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_dpw_cis <- tidy(par_mon_dpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ Alcohol")
+par_mon_dpw_cis <- tidy(par_mon_dpw_boot, conf.int = T) %>% mutate(pheno = "Parents <-> Alcohol")
 write_rds(par_mon_dpw_boot, "data/models/par_mon_dpw_boot.rds")
 write_rds(par_mon_dpw_cis, "data/models/par_mon_dpw_cis.rds")
 
@@ -230,7 +230,7 @@ par_mon_mpw_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_mpw_cis <- tidy(par_mon_mpw_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ Marijuana")
+par_mon_mpw_cis <- tidy(par_mon_mpw_boot, conf.int = T) %>% mutate(pheno = "Parents <-> Marijuana")
 write_rds(par_mon_mpw_boot, "data/models/par_mon_mpw_boot.rds")
 write_rds(par_mon_mpw_cis, "data/models/par_mon_mpw_cis.rds")
 
@@ -247,7 +247,7 @@ par_mon_ecig_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-par_mon_ecig_cis <- tidy(par_mon_ecig_boot, conf.int = T) %>% mutate(pheno = "Parents ↔ E-Cigarettes")
+par_mon_ecig_cis <- tidy(par_mon_ecig_boot, conf.int = T) %>% mutate(pheno = "Parents <-> E-Cigarettes")
 write_rds(par_mon_ecig_boot, "data/models/par_mon_ecig_boot.rds")
 write_rds(par_mon_ecig_cis, "data/models/par_mon_ecig_cis.rds")
 
@@ -266,7 +266,7 @@ at_home_at_school_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_at_school_cis <- tidy(at_home_at_school_boot, conf.int = T) %>% mutate(pheno = "Home ↔ School")
+at_home_at_school_cis <- tidy(at_home_at_school_boot, conf.int = T) %>% mutate(pheno = "Home <-> School")
 write_rds(at_home_at_school_boot, "data/models/at_home_at_school_boot.rds")
 write_rds(at_home_at_school_cis, "data/models/at_home_at_school_cis.rds")
 
@@ -284,7 +284,7 @@ at_home_par_mon_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_home_par_mon_cis <- tidy(at_home_par_mon_boot, conf.int = T) %>% mutate(pheno = "Home ↔ Parents")
+at_home_par_mon_cis <- tidy(at_home_par_mon_boot, conf.int = T) %>% mutate(pheno = "Home <-> Parents")
 write_rds(at_home_par_mon_boot, "data/models/at_home_par_mon_boot.rds")
 write_rds(at_home_par_mon_cis, "data/models/at_home_par_mon_cis.rds")
 
@@ -302,7 +302,7 @@ at_school_par_mon_boot <-
     parallel = "snow",
     ncpus = num_cpus
   )
-at_school_par_mon_cis <- tidy(at_school_par_mon_boot, conf.int = T) %>% mutate(pheno = "School ↔ Parents")
+at_school_par_mon_cis <- tidy(at_school_par_mon_boot, conf.int = T) %>% mutate(pheno = "School <-> Parents")
 write_rds(at_school_par_mon_boot, "data/models/at_school_par_mon_boot.rds")
 write_rds(at_school_par_mon_cis, "data/models/at_school_par_mon_cis.rds")
 
