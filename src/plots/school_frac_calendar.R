@@ -19,6 +19,13 @@ id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "c
 locs <- mutate(locs, DateTime = DateTime + minutes(sample_timezone)) %>%
   filter(hour(DateTime) %in% c(8, 9, 10, 11, 12, 13, 14))
 
+# Get ages and restrict to <18
+locs <- left_join(locs, id_mapping_long, by = c("Michigan_ID" = "alternate_id")) %>%
+  left_join(twin_info, by = c("SVID" = "ID1")) %>%
+  select(DateTime:at_school, Birth_Date) %>%
+  mutate(age = as.numeric(as_date(DateTime) - Birth_Date) / 365) %>%
+  filter(age < 18)
+
 plt <- locs %>%
   group_by(date = as_date(DateTime)) %>%
   summarize(school_frac = sum(at_school) / n()) %>%
