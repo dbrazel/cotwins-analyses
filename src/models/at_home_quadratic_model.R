@@ -5,7 +5,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-library(lme4)
+library(lmerTest)
 
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
   haven::zap_formats() %>%
@@ -37,11 +37,6 @@ at_home <- na.omit(at_home)
 # and age squared and sex as fixed effects
 ml <-
   lmer(
-    home_frac ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
-    data = at_home
-  )
-ml_test <-
-  lmerTest::lmer(
     home_frac ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = at_home
   )
@@ -79,7 +74,6 @@ at_home_pred <- left_join(at_home, parameters, by = "user_id") %>%
   select(user_id, family, test_age, home_frac, sex, home_frac_pred, home_frac_resid)
 
 write_rds(ml, "data/models/at_home_quadratic_model.rds")
-write_rds(ml_test, "data/models/at_home_quadratic_model_lmerTest.rds")
 write_rds(at_home_pred, "data/models/at_home_quadratic_predictions.rds")
 write_rds(parameters, "data/models/at_home_quadratic_parameters.rds")
 write_rds(at_home, "data/models/at_home_data.rds")

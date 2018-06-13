@@ -6,7 +6,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-library(lme4)
+library(lmerTest)
 
 sub_use <- read_rds("data/processed/remote_substance_use.rds")
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%

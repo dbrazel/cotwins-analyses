@@ -5,7 +5,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-library(lme4)
+library(lmerTest)
 
 at_school <- read_rds("data/processed/at_school.rds")
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%

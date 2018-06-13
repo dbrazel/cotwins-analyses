@@ -5,7 +5,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-library(lme4)
+library(lmerTest)
 
 at_school <- read_rds("data/processed/at_school.rds")
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
@@ -76,11 +76,6 @@ ml <-
     school_frac ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = at_school
   )
-ml_test <-
-  lmerTest::lmer(
-    school_frac ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
-    data = at_school
-  )
 
 # Get the random and fixed effects
 rand_effs <- ranef(ml)
@@ -115,7 +110,6 @@ at_school_pred <- left_join(at_school, parameters, by = "user_id") %>%
   select(user_id, family, test_age, school_frac, sex, school_frac_pred, school_frac_resid)
 
 write_rds(ml, "data/models/at_school_quadratic_model.rds")
-write_rds(ml_test, "data/models/at_school_quadratic_model_lmerTest.rds")
 write_rds(at_school_pred, "data/models/at_school_quadratic_predictions.rds")
 write_rds(parameters, "data/models/at_school_quadratic_parameters.rds")
 write_rds(at_school, "data/models/at_school_data.rds")

@@ -4,7 +4,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(lubridate)
-library(lme4)
+library(lmerTest)
 
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
   haven::zap_formats() %>%
@@ -33,11 +33,6 @@ par_mon <- filter(par_mon, test_age <= 1)
 # and age squared and sex as fixed effects
 ml <-
   lmer(
-    max_monitor_score ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
-    data = par_mon
-  )
-ml_test <-
-  lmerTest::lmer(
     max_monitor_score ~ (test_age + I(test_age^2) + sex) + (test_age + I(test_age^2) | family/user_id),
     data = par_mon
   )
@@ -75,7 +70,6 @@ par_mon_pred <- left_join(par_mon, parameters, by = "user_id") %>%
   select(user_id, family, test_age, max_monitor_score, sex, max_monitor_score_pred, max_monitor_score_resid)
 
 write_rds(ml, "data/models/par_mon_quadratic_model.rds")
-write_rds(ml_test, "data/models/par_mon_quadratic_model_lmerTest.rds")
 write_rds(par_mon_pred, "data/models/par_mon_quadratic_predictions.rds")
 write_rds(parameters, "data/models/par_mon_quadratic_parameters.rds")
 write_rds(par_mon, "data/models/par_mon_data.rds")
