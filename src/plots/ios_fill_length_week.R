@@ -2,7 +2,7 @@
 
 library(readr)
 library(dplyr)
-library(ggplot2)
+library(cowplot)
 library(lubridate)
 
 std_locs <- read_rds("data/processed/std_locations_filled.rds")
@@ -20,15 +20,15 @@ std_locs_ios <- arrange(std_locs_ios, Michigan_ID, DateTime)
 # rle only works with atomic types so we have to convert to character
 # and then back to datetime
 fill_sizes <- rle(as.character(std_locs_ios$orig_datetime))
-fill_sizes <- tibble(values = fill_sizes$values, lengths = fill_sizes$lengths)
+fill_sizes <- tibble(values = fill_sizes$values, lengths = fill_sizes$lengths / 2)
 fill_sizes$values <- fill_sizes$values %>%
   ymd_hms() %>%
   wday(label = T) %>%
   as.factor()
 
-ggplot(fill_sizes, aes(values, lengths)) +
-  geom_boxplot() +
+plt <- ggplot(fill_sizes, aes(values, lengths)) +
+  geom_boxplot(outlier.shape = NA) +
   xlab("Day of week") +
-  ylab("Fill length")
+  ylab("Fill length (hours)")
 
-ggsave("figs/ios_fill_length_week.pdf", width = 6, height = 4)
+save_plot("figs/ios_fill_length_week.pdf", plt)
