@@ -38,3 +38,5 @@ packrat/lib*/
 #macOS attribute files
 *DS_Store*
 *.dat
+
+reports/~$paper_tables.xlsx
