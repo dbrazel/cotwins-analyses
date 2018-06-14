@@ -69,6 +69,7 @@ location_plot <- ggplot(locs, aes(t, n, color = app_type)) +
   geom_line() +
   xlim(0, 2) +
   ylim(0, 150) +
+  scale_color_brewer(palette = "Dark2")+
   labs(x = "Years since enrollment", y = "Locations per twin per week", color = "OS")
 
 save_plot("figs/location_rate.pdf", location_plot, base_aspect_ratio = 1.2)

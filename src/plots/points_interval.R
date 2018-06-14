@@ -3,16 +3,16 @@
 library(readr)
 library(dplyr)
 library(geosphere)
-library(ggplot2)
-
-# Up the font size
-theme_set(theme_gray(base_size = 16))
+library(cowplot)
+library(forcats)
 
 locs <- read_rds("data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds")
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # Get rid of data not from twins
 locs <- semi_join(locs, id_mapping_long, by = c("user_id" = "alternate_id"))
+
+locs <- mutate(locs, app_type = fct_recode(app_type, Android = "android", iOS = "ios"))
 
 time_interval <- tibble()
 
@@ -26,15 +26,18 @@ for (twin in unique(locs$user_id)) {
 }
 
 # Offset by one to avoid taking the log of zero
-time_interval %>%
+time_plt <- time_interval %>%
   mutate(interval = as.numeric(interval) + 1) %>%
   ggplot(aes(x = interval, fill = app_type)) +
   geom_histogram() +
-  scale_x_log10() +
-  xlab("Time between points (seconds)") +
-  scale_fill_discrete(name = "App type")
+  scale_x_log10(
+    labels = c("1 min", "1 hour", "1 day", "1 month"),
+    breaks = c(60, 60*60, 86400, 2.63e6)
+  ) +
+  xlab("Time between points") +
+  scale_fill_brewer(palette = "Dark2", name = "OS")
 
-ggsave("figs/time_interval.pdf", width = 6, height = 4)
+save_plot("figs/time_interval.pdf", time_plt, base_aspect_ratio = 1.3)
 
 space_interval <- tibble()
 
@@ -49,12 +52,26 @@ for (twin in unique(locs$user_id)) {
 }
 
 # Offset by one to avoid taking the log of zero
-space_interval %>%
+space_plt <- space_interval %>%
   mutate(interval = interval + 1) %>%
   ggplot(aes(x = interval, fill = app_type)) +
   geom_histogram() +
-  scale_x_log10() +
-  xlab("Distance between points (meters)") +
-  scale_fill_discrete(name = "App type")
+  scale_x_log10(
+    labels = c("1 meter", "1 km", "100 km", "10,000 km"),
+    breaks = c(1e1, 1e3, 1e5, 1e7)) +
+  xlab("Distance between points") +
+  scale_fill_brewer(palette = "Dark2", name = "OS")
 
-ggsave("figs/space_interval.pdf", width = 6, height = 4)
+save_plot("figs/space_interval.pdf", space_plt, base_aspect_ratio = 1.3)
+
+all_plots <-
+  plot_grid(
+    time_plt,
+    space_plt,
+    align = "hv",
+    nrow = 1,
+    ncol = 2,
+    labels = c("A", "B")
+  )
+
+save_plot("figs/interval_plots.pdf", all_plots, nrow = 1, ncol = 2, base_aspect_ratio = 1.3)
