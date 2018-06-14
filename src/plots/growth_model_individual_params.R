@@ -49,7 +49,7 @@ plt_all <- ggplot(all_cis,
 save_plot("figs/growth_model_individual_params.pdf", plt_all, base_aspect_ratio = 2.2, base_height = 6)
 
 # Plot just the std dev estimates
-all_cis_std <- filter(all_cis, str_detect(term, "SD"))
+all_cis_std <- filter(all_cis, str_detect(term, "SD|Residual"))
 plt_std <- ggplot(all_cis_std,
        aes(
          pheno,
@@ -64,3 +64,20 @@ plt_std <- ggplot(all_cis_std,
   theme(axis.title.x = element_blank(), legend.title = element_blank())
 
 save_plot("figs/growth_model_individual_params_std_devs.pdf", plt_std, base_height = 8)
+
+# Plot just the correlations
+all_cis_cor <- filter(all_cis, str_detect(term, "<->"))
+plt_cor <- ggplot(all_cis_cor,
+                  aes(
+                    pheno,
+                    statistic,
+                    fill = term,
+                    ymax = conf.high,
+                    ymin = conf.low
+                  )) +
+  geom_col(position = "dodge") +
+  geom_errorbar(position = "dodge") +
+  labs(y = "Estimate") +
+  theme(axis.title.x = element_blank(), legend.title = element_blank())
+
+save_plot("figs/growth_model_individual_params_cors.pdf", plt_cor, base_aspect_ratio = 1.8, base_height = 6)
