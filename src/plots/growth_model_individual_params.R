@@ -15,12 +15,12 @@ all_cis <-
          pheno = factor(pheno, levels = c("Alcohol", "Marijuana", "E-Cigarettes", "Parents", "Home", "School")))
 
 levels(all_cis$term) <- c(
-  "Twin SD Intercept",
-  "Twin SD Slope",
-  "Twin SD Quadratic",
-  "Twin Intercept <-> Slope",
-  "Twin Intercept <-> Quadratic",
-  "Twin Slope <-> Quadratic",
+  "Individual SD Intercept",
+  "Individual SD Slope",
+  "Individual SD Quadratic",
+  "Individual Intercept <-> Slope",
+  "Individual Intercept <-> Quadratic",
+  "Individual Slope <-> Quadratic",
   "Family SD Intercept",
   "Family SD Slope",
   "Family SD Quadratic",
