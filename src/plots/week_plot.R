@@ -1,4 +1,4 @@
-# A plot of fraction of points at school by day of week and hour of day
+# A plot of fraction of points at home and at school by day of week and hour of day
 
 library(readr)
 library(cowplot)
@@ -53,11 +53,42 @@ school <-
   group_by(d, h) %>%
   summarize(frac = sum(at_school) / n())
 
-plt <- ggplot(school, aes(d, h)) +
+home <- read_rds("data/processed/at_home.rds")
+home <- na.omit(home)
+
+home <- mutate(home, DateTime = DateTime + minutes(sample_timezone))
+home <- left_join(home, twin_info, by = c("SVID" = "ID1")) %>%
+  select(DateTime:SVID, family, Birth_Date) %>%
+  mutate(test_age = as.numeric(as_date(DateTime) - Birth_Date) / 365) %>%
+  filter(test_age < 18)
+
+home <-
+  mutate(
+    home,
+    d = wday(DateTime, label = T),
+    h = hour(DateTime),
+    h = parse_factor(as.character(h), as.character(seq(23, 0)))) %>%
+  group_by(d, h) %>%
+  summarize(frac = sum(at_home) / n())
+
+school_plt <- ggplot(school, aes(d, h)) +
   geom_tile(aes(fill = frac)) +
   xlab("") +
   ylab("Hour of day") +
   scale_fill_viridis(name = "Fraction of\ntime at school")
 
+home_plt <- ggplot(home, aes(d, h)) +
+  geom_tile(aes(fill = frac)) +
+  xlab("") +
+  ylab("Hour of day") +
+  scale_fill_viridis(name = "Fraction of\ntime at home")
 
-save_plot("figs/at_school_week.pdf", plt, base_aspect_ratio = 1.2)
+plts <- plot_grid(school_plt, home_plt, labels = c("A", "B"), ncol = 2)
+
+save_plot(
+  "figs/week.pdf", 
+  plts,
+  ncol = 2,
+  nrow = 1,
+  base_aspect_ratio = 1.5
+)
