@@ -83,7 +83,7 @@ home_plt <- ggplot(home, aes(d, h)) +
   ylab("Hour of day") +
   scale_fill_viridis(name = "Fraction of\ntime at home")
 
-plts <- plot_grid(school_plt, home_plt, labels = c("A", "B"), ncol = 2)
+plts <- plot_grid(home_plt, school_plt, labels = c("A", "B"), ncol = 2)
 
 save_plot(
   "figs/week.pdf", 
