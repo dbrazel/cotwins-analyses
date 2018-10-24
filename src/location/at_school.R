@@ -1,5 +1,5 @@
 # Annotate each standardized location point with whether it is within
-# 100 meters of a Colorado high school
+# 200 meters of a Colorado high school
 
 library(readr)
 library(dplyr)
