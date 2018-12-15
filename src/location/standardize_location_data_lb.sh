@@ -10,4 +10,4 @@ module load R
 module load loadbalance
 module load impi
 
-mpirun lb standardize_location_data_lb.txt
+mpirun lb /work/KellerLab/david/cotwins-analyses/src/location/standardize_location_data_lb.txt

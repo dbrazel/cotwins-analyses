@@ -9,8 +9,8 @@ library(readr)
 library(dplyr)
 library(lubridate)
 
-locations <- read_rds('data/raw/Michigan_DB_user_location_04_12_18.rds')
-user_info <- read_rds('data/raw/Michigan_DB_users_04_12_18.rds')
+locations <- read_rds('data/raw/Michigan_DB_user_location_11_11_18.rds')
+user_info <- read_rds('data/raw/Michigan_DB_users_11_11_18.rds')
 user_info <- select(user_info, alternate_id, app_type)
 
 locations <- locations[!duplicated(locations[c('user_id', 'latitude', 'longitude', 'sample_time')]), ]
@@ -26,9 +26,9 @@ locations <- locations %>%
     !is.na(accuracy)) %>%
   mutate(creation_date = ymd_hms(creation_date), sample_time = ymd_hms(sample_time))
 
-locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2015-01-01'), sample_time < ymd('2018-04-12'))
+locations <- locations %>% filter(accuracy < 500, sample_time > ymd('2015-01-02'), sample_time < ymd('2018-11-11'))
 
 locations <- left_join(locations, user_info, by = c('user_id' = 'alternate_id'))
 locations <- filter(locations, app_type == 'android' | timestamp_type == 'iOS_UTC')
 
-write_rds(locations, 'data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds')
+write_rds(locations, 'data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds')

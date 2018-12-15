@@ -9,12 +9,12 @@ library(dplyr)
 library(lubridate)
 
 checkin <- read_csv(
-  'data/raw/Michigan_LS_checking_in_4_12_18.csv',
+  'data/raw/Michigan_LS_checking_in_12_15_18.csv',
   na = c('NA', 'N/A', 'Would rather not answer', '', 'I don\'t know'),
   col_types = paste0(rep('c', 65), collapse = '')
 )
 surveys <-
-  read_rds('data/raw/Michigan_DB_surveyentries_04_12_18.rds')
+  read_rds('data/raw/Michigan_DB_surveyentries_11_11_18.rds')
 twin_ids <- read_csv(
   'data/processed/id_mapping_long.csv',
   col_types = cols(

@@ -12,7 +12,7 @@ args <- commandArgs(trailingOnly = T)
 twin_pair <- as.numeric(args[1])
 
 print('Loading location')
-locations <- read_rds('/work/KellerLab/david/cotwins-analyses/data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds')
+locations <- read_rds('/work/KellerLab/david/cotwins-analyses/data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds')
 print('Loading twin info')
 twin_info <- read_rds('/work/KellerLab/david/cotwins-analyses/data/raw/Robin_paper-entry_2-22-17.rds')
 print('Loading id mapping')
