@@ -8,8 +8,8 @@ library(jsonlite)
 library(purrr)
 
 std_locs <- read_rds("data/processed/std_locations_filled.rds")
-google_places <- read_rds("data/raw/Michigan_DB_google_location_04_12_18.rds")
-google_key <- read_rds("data/raw/Michigan_DB_user_location_google_location_04_12_18.rds")
+google_places <- read_rds("data/raw/Michigan_DB_google_location_11_11_18.rds")
+google_key <- read_rds("data/raw/Michigan_DB_user_location_google_location_11_11_18.rds")
 
 std_locs <- na.omit(std_locs)
 
