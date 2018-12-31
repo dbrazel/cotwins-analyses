@@ -26,9 +26,9 @@ knot_points <- read_csv("data/raw/at_home_knot_points.csv", na = "", cols(
 knot_points <- select(knot_points, user_id, KP)
 knot_points <- na.omit(knot_points)
 
-surveys <- read_rds("data/raw/Michigan_DB_surveyentries_04_12_18.rds")
+surveys <- read_rds("data/raw/Michigan_DB_surveyentries_11_11_18.rds")
 life_events <-
-  read_csv("data/raw/Michigan_LS_life_events_5_21_18.csv",
+  read_csv("data/raw/Michigan_LS_life_events_12_15_18.csv",
            col_types = paste(rep("c", 44), collapse = ""),
            na = "N/A") %>%
   select(5, 24, 33, 43)
