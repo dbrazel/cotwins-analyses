@@ -36,7 +36,7 @@ at_home <- at_home %>%
   arrange(user_id)
 
 # Assign each twin an incrementing number for easier reference in the spreadsheet
-at_home_twins <- tibble(user_id = unique(at_home$user_id), user_id_inc = 1:250)
+at_home_twins <- tibble(user_id = unique(at_home$user_id), user_id_inc = 1:length(user_id))
 at_home <- left_join(at_home, at_home_twins)
 
 at_home_plot <- ggplot(at_home, aes(test_age, home_frac, color = month)) +
