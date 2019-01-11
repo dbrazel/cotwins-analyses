@@ -21,13 +21,16 @@ vacays <- list(
   interval(ymd("2017-02-20"), ymd("2017-02-20")),
   interval(ymd("2017-03-27"), ymd("2017-03-31")),
   interval(ymd("2017-05-29"), ymd("2017-05-31")),
+  interval(ymd("2017-06-05"), ymd("2017-07-31")),
   interval(ymd("2017-08-01"), ymd("2017-08-18")),
   interval(ymd("2017-09-04"), ymd("2017-09-04")),
   interval(ymd("2017-11-20"), ymd("2017-11-24")),
   interval(ymd("2017-12-22"), ymd("2018-01-05")),
   interval(ymd("2018-01-15"), ymd("2018-01-15")),
   interval(ymd("2018-02-19"), ymd("2018-02-19")),
-  interval(ymd("2018-03-26"), ymd("2018-03-30"))
+  interval(ymd("2018-03-26"), ymd("2018-03-30")),
+  interval(ymd("2018-05-24"), ymd("2018-08-17")),
+  interval(ymd("2018-09-03"), ymd("2018-09-03"))
 )
 
 # Shift the locations to local time and restrict to school hours and days
