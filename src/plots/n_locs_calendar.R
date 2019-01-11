@@ -9,7 +9,7 @@ library(ggTimeSeries)
 library(viridis)
 
 locs <- read_rds(
-  "data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds"
+  "data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds"
   )
 
 # Up the font size

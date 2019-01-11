@@ -5,12 +5,12 @@ library(cowplot)
 library(dplyr)
 library(lubridate)
 
-surveys <- read_rds("data/raw/Michigan_DB_surveyentries_04_12_18.rds")
+surveys <- read_rds("data/raw/Michigan_DB_surveyentries_11_11_18.rds")
 twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>%
   haven::zap_formats() %>%
   haven::zap_labels()
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
-locs <- read_rds("data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds")
+locs <- read_rds("data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds")
 
 # Get surveys completed by twins with the time since enrollment at completion
 # in years

@@ -6,7 +6,7 @@ library(geosphere)
 library(cowplot)
 library(forcats)
 
-locs <- read_rds("data/processed/Michigan_DB_user_location_04_12_18_cleaned.rds")
+locs <- read_rds("data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds")
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
 # Get rid of data not from twins
@@ -37,7 +37,7 @@ time_plt <- time_interval %>%
   xlab("Time between points") +
   scale_fill_brewer(palette = "Dark2", name = "OS")
 
-save_plot("figs/time_interval.pdf", time_plt, base_aspect_ratio = 1.3)
+save_plot("figs/time_interval.pdf", time_plt, base_aspect_ratio = 1.4)
 
 space_interval <- tibble()
 
@@ -62,7 +62,7 @@ space_plt <- space_interval %>%
   xlab("Distance between points") +
   scale_fill_brewer(palette = "Dark2", name = "OS")
 
-save_plot("figs/space_interval.pdf", space_plt, base_aspect_ratio = 1.3)
+save_plot("figs/space_interval.pdf", space_plt, base_aspect_ratio = 1.4)
 
 all_plots <-
   plot_grid(
@@ -74,4 +74,4 @@ all_plots <-
     labels = c("A", "B")
   )
 
-save_plot("figs/interval_plots.pdf", all_plots, nrow = 1, ncol = 2, base_aspect_ratio = 1.3)
+save_plot("figs/interval_plots.pdf", all_plots, nrow = 1, ncol = 2, base_aspect_ratio = 1.4)
