@@ -128,7 +128,7 @@ home_school_plot <- ggplot(home_school_plot_data, aes(test_age, frac, fill = phe
     x = "Age (years)",
     y = "Predicted fraction of time"
   ) +
-  theme(legend.direction = "horizontal", legend.position = c(0.55, 0.05)) +
+  theme(legend.direction = "horizontal", legend.position = c(0.45, 0.05)) +
   xlim(14, 20)
 
 home_school_plot <- ggMarginal(
@@ -193,7 +193,7 @@ dist_plot <- ggplot(dist_plot_data, aes(age, distance, fill = zygosity, color = 
     color = "Zygosity",
     fill = "Zygosity"
   ) +
-  theme(legend.direction = "horizontal", legend.position = c(0.35, 0.05)) +
+  theme(legend.direction = "horizontal", legend.position = c(0.3, 0.05)) +
   scale_y_continuous(
     breaks = c(3, 4, 5, 6),
     labels = c(
@@ -308,7 +308,7 @@ sub_use_plot <- ggplot(sub_use_plot_data, aes(test_age, use, fill = pheno, color
     x = "Age (years)",
     y = "Predicted ln of substance use"
   ) +
-  theme(legend.direction = "horizontal", legend.position = c(0.13, 0.05)) +
+  theme(legend.direction = "horizontal", legend.position = c(0.05, 0.05)) +
   xlim(14, 20)
 
 sub_use_plot <- ggMarginal(
