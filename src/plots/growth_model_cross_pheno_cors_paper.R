@@ -76,9 +76,13 @@ all_cis$pheno_b <-
 # Round the correlations for display
 all_cis$stat_form <- round(all_cis$statistic, digits = 2)
 
+# Make correlations significant after Bonferroni correction bold
+all_cis$f <- "plain"
+all_cis[c(1, 3, 19, 21, 23, 25), "f"] <- "bold"
+
 plt <- ggplot(all_cis, aes(pheno_a, pheno_b, fill = statistic)) +
   geom_tile() +
-  geom_text(aes(label = stat_form)) +
+  geom_text(aes(label = stat_form, fontface = f)) +
   facet_wrap(~term, ncol = 1, scales = "free") +
   scale_fill_gradient2(
     low = "blue",
