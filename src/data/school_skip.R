@@ -10,17 +10,20 @@ kidq <- read_rds("data/raw/Robin_kid-Q-1_12-19-16.rds") %>%
   haven::zap_labels()
 
 kidq <- select(kidq, SVID = id, cut_school = KQ1Q0038) %>%
-  mutate(cut_school  = recode(
-    cut_school,
-    `1` = 0,
-    `2` = 1,
-    `3` = 2,
-    `4` = 3,
-    `5` = 4.5,
-    `6` = 8,
-    `7` = 11,
-    `999` = NaN
-  ))
+  mutate(
+    cut_school = as.character(cut_school),
+    cut_school  = recode(
+      cut_school,
+      `1` = 0,
+      `2` = 1,
+      `3` = 2,
+      `4` = 3,
+      `5` = 4.5,
+      `6` = 8,
+      `7` = 11,
+      `999` = NaN
+    )
+  )
 
 school_params <- left_join(school_params, id_mapping_long, by = c("user_id" = "alternate_id")) %>%
   left_join(kidq, by = "SVID")
