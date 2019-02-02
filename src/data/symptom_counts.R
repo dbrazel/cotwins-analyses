@@ -40,11 +40,11 @@ results <- tibble(
   )
 
 for (i in seq(1, 3)) {
-  results[1 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 4 + (i -1) * 4], use = "complete.obs")
-  results[2 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 5 + (i -1) * 4], use = "complete.obs")
-  results[3 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 6 + (i -1) * 4], use = "complete.obs")
-  results[4 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 7 + (i -1) * 4], use = "complete.obs")
-  results[5 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 5 + (i -1) * 4], use = "complete.obs")
-  results[6 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 6 + (i -1) * 4], use = "complete.obs")
-  results[7 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 7 + (i -1) * 4], use = "complete.obs")
+  results[1 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 4 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[2 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 5 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[3 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 6 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[4 + (i - 1) * 7, 3] <- cor(phenx[, i], phenx[, 7 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[5 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 5 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[6 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 6 + (i -1) * 4], use = "complete.obs", method = "spearman")
+  results[7 + (i - 1) * 7, 3] <- cor(phenx[, 4 + (i -1) * 4], phenx[, 7 + (i -1) * 4], use = "complete.obs", method = "spearman")
 }
