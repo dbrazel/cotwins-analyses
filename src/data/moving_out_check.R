@@ -12,17 +12,7 @@ twin_info <- read_rds("data/processed/Robin_paper-entry_2-22-17_cleaned.rds") %>
   haven::zap_labels()
 id_mapping_long <- read_csv("data/processed/id_mapping_long.csv", col_types = "ccc")
 
-knot_points <- read_csv("data/raw/at_home_knot_points.csv", na = "", cols(
-  `Plot Number` = col_integer(),
-  user_id = col_character(),
-  `DB Knot Point` = col_double(),
-  Flag = col_character(),
-  `SV Knot Point` = col_character(),
-  `SV Flag` = col_character(),
-  Note1 = col_character(),
-  KP = col_double(),
-  Note2 = col_character()
-), col_names = T)
+knot_points <- read_csv("data/raw/at_home_knot_points.csv", col_types = "ccnnn")
 knot_points <- select(knot_points, user_id, KP)
 knot_points <- na.omit(knot_points)
 
