@@ -213,6 +213,82 @@ dist_plot <- ggMarginal(
 
 save_plot("figs/twin_distance_trajectory.pdf", dist_plot, base_aspect_ratio = 1.2)
 
+# Twin Distance using a data dump from March 2019 to try to ameliorate the data
+# scarcity at the upper end of the age range
+tp_dists_added <- read_rds("data/processed/twin_distances_added.rds")
+
+tp_dists_added <-
+  left_join(tp_dists_added, id_mapping_long, by = c("tp_id" = "alternate_id"))
+tp_dists_added <- select(tp_dists_added,-bestzygos)
+tp_dists_added <- left_join(tp_dists_added, twin_info, by = c("SVID" = "ID1"))
+tp_dists_added <-
+  select(tp_dists_added, tp_id, zygosity, DateTime, distance, Birth_Date)
+tp_dists_added <-
+  mutate(tp_dists_added, age = as.numeric(as_date(DateTime) - Birth_Date) / 365)
+tp_dists_added$zygosity = factor(tp_dists_added$zygosity, levels = c("MZ", "DZ", "OS"))
+tp_dists_added <-
+  group_by(tp_dists_added,
+           tp_id,
+           d = day(DateTime),
+           m = month(DateTime),
+           y = year(DateTime)) %>%
+  summarise(
+    zygosity = first(zygosity),
+    distance = mean(distance),
+    age = mean(age)
+  )
+
+# Winsorize based on the distribution of distance and log transform
+tp_dists_added[tp_dists_added$distance > 2e5, "distance"] <- 2e5
+tp_dists_added <- mutate(tp_dists_added, distance = log10(distance + 1))
+
+dist_ml <- gamm4(
+  distance ~ zygosity + s(age, by = zygosity, k = 10),
+  random = ~(1 | tp_id), data = tp_dists_added
+)
+
+dist_pred <- predict(dist_ml$gam, se.fit = T)
+
+dist_plot_data <-
+  tibble(
+    age = tp_dists_added$age,
+    zygosity = tp_dists_added$zygosity,
+    distance = dist_pred$fit,
+    dist_lower = dist_pred$fit - 1.96 * dist_pred$se.fit,
+    dist_upper = dist_pred$fit + 1.96 * dist_pred$se.fit
+  )
+
+dist_plot <- ggplot(dist_plot_data, aes(age, distance, fill = zygosity, color = zygosity)) +
+  geom_ribbon(aes(ymax = dist_upper, ymin = dist_lower), alpha = 0.2) +
+  geom_line() +
+  scale_color_manual(values = c(MZ = "#e7298a", DZ = "#66a61e", OS = "#e6ab02")) +
+  scale_fill_manual(values = c(MZ = "#e7298a", DZ = "#66a61e", OS = "#e6ab02")) +
+  labs(
+    x = "Age (years)",
+    y = "Predicted log10 of distance (meters)",
+    color = "Zygosity",
+    fill = "Zygosity"
+  ) +
+  theme(legend.direction = "horizontal", legend.position = c(0.3, 0.05)) +
+  scale_y_continuous(
+    breaks = c(3, 4, 5, 6),
+    labels = c(
+      "1 km",
+      "10 km",
+      "100 km",
+      "1,000 km")
+  ) +
+  xlim(14, 20)
+
+dist_plot <- ggMarginal(
+  dist_plot,
+  margins = "x",
+  groupColour = T,
+  groupFill = T,
+  type = "histogram")
+
+save_plot("figs/twin_distance_trajectory_added.pdf", dist_plot, base_aspect_ratio = 1.2)
+
 # Parental Monitoring
 par_mon <- read_rds("data/processed/remote_parents.rds") %>%
   select(user_id, date_completed, n_par_figs, max_monitor_score)
