@@ -22,7 +22,11 @@ all_cis$term <- factor(
     "Quadratic <-> Quadratic"
   ))
 
-plt <- ggplot(all_cis, aes(pheno, statistic, fill = term, ymax = conf.high, ymin = conf.low)) +
+# Distinguish correlations that are significant after Bonferroni correction
+all_cis$sig <- "nonsig"
+all_cis[c(1, 10, 15, 82, 88, 91, 100, 101, 109, 117), "sig"] <- "sig"
+
+plt <- ggplot(all_cis, aes(pheno, statistic, fill = term, ymax = conf.high, ymin = conf.low, linetype = sig)) +
   geom_col(position = "dodge") +
   geom_errorbar(position = "dodge") +
   labs(y = "Estimate") +
@@ -30,7 +34,7 @@ plt <- ggplot(all_cis, aes(pheno, statistic, fill = term, ymax = conf.high, ymin
     axis.title.x = element_blank(),
     legend.title = element_blank(),
     axis.text.x = element_text(angle = 40, hjust = 1)) +
-  scale_fill_brewer(palette = "Set1")
+  scale_fill_brewer(palette = "Set1") +
+  guides(linetype = F)
 
-# cairo_pdf is required because the default device can't handle multibyte characters (the arrows)
-save_plot("figs/growth_model_cross_pheno_cors.pdf", plt, base_aspect_ratio = 2.2, base_height = 6)
+save_plot("figs/growth_model_cross_pheno_cors.pdf", plt, base_aspect_ratio = 2.5, base_height = 6)
