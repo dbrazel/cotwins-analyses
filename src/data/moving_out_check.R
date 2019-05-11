@@ -33,11 +33,11 @@ life_events <- left_join(life_events, surveys, by = c("Token" = "ls_token")) %>%
   select(user_id = user_id.x, move, date_completed)
 
 # Select responses where the twin had moved out
-life_events <- filter(life_events, move == "Yes")
+life_events_yes <- filter(life_events, move == "Yes")
 
 # Get ages
-life_events <-
-  left_join(life_events, id_mapping_long, by = c("user_id" = "alternate_id")) %>%
+life_events_yes <-
+  left_join(life_events_yes, id_mapping_long, by = c("user_id" = "alternate_id")) %>%
   left_join(twin_info, by = c("SVID" = "ID1")) %>%
   select(user_id:date_completed, Birth_Date) %>%
   mutate(
@@ -48,9 +48,42 @@ life_events <-
   na.omit()
 
 both <-
-  inner_join(life_events, knot_points) %>%
+  inner_join(life_events_yes, knot_points) %>%
   mutate(age_diff = abs(age_completed - KP)) %>%
   group_by(user_id) %>%
   summarize(min_diff = min(age_diff))
 
 median(both$min_diff)
+
+knot_not_survey <- filter(knot_points, user_id %in% setdiff(knot_points$user_id, life_events_yes$user_id))
+survey_not_knot <- filter(life_events_yes, user_id %in% setdiff(life_events_yes$user_id, knot_points$user_id))
+
+life_events <-
+  left_join(life_events, id_mapping_long, by = c("user_id" = "alternate_id")) %>%
+  left_join(twin_info, by = c("SVID" = "ID1")) %>%
+  select(user_id:date_completed, Birth_Date) %>%
+  mutate(
+    date_completed = as_date(date_completed) - month(1),
+    age_completed = as.numeric(date_completed - Birth_Date) / 365
+  )
+
+knot_not_survey <- left_join(knot_not_survey, life_events) %>%
+  mutate(age_diff = KP - age_completed) %>%
+  filter(age_diff < 0) %>%
+  group_by(user_id) %>%
+  summarize(age_diff = max(age_diff)) %>%
+  filter(age_diff > -1/12)
+
+locs <- read_rds("data/processed/Michigan_DB_user_location_11_11_18_cleaned.rds") %>%
+  select(user_id, sample_time) %>%
+  left_join(id_mapping_long, by = c("user_id" = "alternate_id")) %>%
+  left_join(twin_info, by = c("SVID" = "ID1")) %>%
+  select(user_id, sample_time, Birth_Date) %>%
+  mutate(loc_age = as.numeric(as_date(sample_time) - Birth_Date) / 365)
+
+survey_not_knot <- left_join(survey_not_knot, locs) %>%
+  mutate(age_diff = age_completed - loc_age) %>%
+  filter(age_diff > 0, age_diff < 1/12) %>%
+  group_by(user_id, age_completed) %>%
+  summarize(N = n()) %>%
+  arrange(desc(N))
